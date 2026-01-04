@@ -1,0 +1,14 @@
+{
+  "name": "blog-portfolio",
+  "version": "1.0.0",
+  "description": "Blog and portfolio site with Tailwind CSS",
+ "scripts": {
+  "build": "npx tailwindcss -i ./assets/src/style.css -o ./assets/css/style.css --minify",
+  "watch": "npx tailwindcss -i ./assets/src/style.css -o ./assets/css/style.css --watch"
+},
+  "devDependencies": {
+    "tailwindcss": "^3.3.0",
+    "postcss": "^8.4.31",
+    "autoprefixer": "^10.4.16"
+  }
+}
