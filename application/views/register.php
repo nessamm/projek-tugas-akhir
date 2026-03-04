@@ -12,7 +12,7 @@
 
 				<!-- FOTO -->
 				<div class="flex-1 bg-cover bg-center"
-					style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e');">
+					style="background-image: url('<?= base_url('assets/img/bg.jpeg') ?>');">
 				</div>
 
 				<!-- TEXT -->
@@ -99,42 +99,52 @@
 								<option value="X">X</option>
 								<option value="XI">XI</option>
 								<option value="XII">XII</option>
+								<option value="XII">XII</option>
 							</select>
 						</div>
 					</div>
 
 					<!-- Password -->
-					<div class="relative">
-						<label class="block text-gray-700 font-medium mb-2">
+					<div class="relative flex flex-col mb-4">
+						<label for="password" class="block text-gray-700 font-medium mb-2">
 							Kata Sandi
 						</label>
-						<input type="password" name="password"
-							placeholder="Masukkan kata sandi anda"
-							class="w-full p-3 pr-10 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200">
-						<button type="button" id="togglePassword" aria-label="Tahan untuk melihat password" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path id="eyeOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5 c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-								<path id="eyeClosed" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
-							</svg>
-						</button>
+						<div class="relative flex items-center">
+							<input type="password" id="password" name="password"
+								placeholder="Masukkan kata sandi anda"
+								class="w-full p-3 pr-10 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200">
+							<button type="button" id="togglePassword" class="absolute right-3 text-gray-400 hover:text-gray-600">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path id="eyeOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+										d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5
+                       c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+									<path id="eyeClosed" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+										d="M3 3l18 18" />
+								</svg>
+							</button>
+						</div>
+						<p id="passwordStrength" class="mt-2 text-sm font-medium"></p>
 					</div>
 
-
-
-					<!-- Confirm -->
-					<div>
-						<label class="block text-gray-700 font-medium mb-2">
+					<!-- Confirm Password -->
+					<div class="relative flex flex-col">
+						<label for="confirm_password" class="block text-gray-700 font-medium mb-2">
 							Konfirmasi Kata Sandi
 						</label>
-						<input type="password" name="confirm_password"
-							placeholder="Konfirmasi kata sandi anda"
-							class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200">
-						<button type="button" id="togglePassword" aria-label="Tahan untuk melihat password" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path id="eyeOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5 c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-								<path id="eyeClosed" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
-							</svg>
-						</button>
+						<div class="relative flex items-center">
+							<input type="password" id="confirm_password" name="confirm_password"
+								placeholder="Konfirmasi kata sandi anda"
+								class="w-full p-3 pr-10 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200">
+							<button type="button" id="toggleConfirmPassword" class="absolute right-3 text-gray-400 hover:text-gray-600">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path id="eyeOpenConfirm" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+										d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5
+                       c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+									<path id="eyeClosedConfirm" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+										d="M3 3l18 18" />
+								</svg>
+							</button>
+						</div>
 					</div>
 
 					<!-- Button -->
@@ -164,24 +174,36 @@
 	const password = document.getElementById('password');
 	const eyeOpen = document.getElementById('eyeOpen');
 	const eyeClosed = document.getElementById('eyeClosed');
+	const passwordStrength = document.getElementById('passwordStrength');
 
 	togglePassword.addEventListener('click', () => {
-		const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-		password.setAttribute('type', type);
+		const type = password.type === 'password' ? 'text' : 'password';
+		password.type = type;
 		eyeOpen.classList.toggle('hidden');
 		eyeClosed.classList.toggle('hidden');
 	});
 
-	const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-	const confirmPassword = document.getElementById('confirm_password');
-	const eyeOpenConfirm = document.getElementById('eyeOpenConfirm');
-	const eyeClosedConfirm = document.getElementById('eyeClosedConfirm');
+	// Check password strength
+	password.addEventListener('input', () => {
+		const val = password.value;
+		let strength = '';
+		let color = 'text-gray-500';
 
-	toggleConfirmPassword.addEventListener('click', () => {
-		const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-		confirmPassword.setAttribute('type', type);
-		eyeOpenConfirm.classList.toggle('hidden');
-		eyeClosedConfirm.classList.toggle('hidden');
+		if (val.length === 0) {
+			strength = '';
+		} else if (val.length < 6) {
+			strength = 'Lemah';
+			color = 'text-red-500';
+		} else if (val.match(/[A-Z]/) && val.match(/[0-9]/) && val.length >= 8) {
+			strength = 'Kuat';
+			color = 'text-green-500';
+		} else {
+			strength = 'Sedang';
+			color = 'text-yellow-500';
+		}
+
+		passwordStrength.textContent = `Sandi: ${strength}`;
+		passwordStrength.className = `mt-2 text-sm font-medium ${color}`;
 	});
 
 
@@ -196,18 +218,23 @@
 			})
 			.then(response => response.text())
 			.then(res => {
-
 				if (res === "success") {
-					alert("Registrasi berhasil!");
-					window.location.href = "<?= base_url('C_Login/login') ?>";
+					Swal.fire({
+						icon: 'success',
+						title: 'Berhasil!',
+						text: 'Registrasi berhasil!',
+						confirmButtonText: 'OK'
+					}).then(() => {
+						window.location.href = "<?= base_url('C_Login/login') ?>";
+					});
 				} else {
-					alert(res);
+					Swal.fire({
+						icon: 'error',
+						title: 'Gagal!',
+						text: res,
+						confirmButtonText: 'Coba Lagi'
+					});
 				}
-
 			})
-			.catch(error => {
-				alert("Terjadi kesalahan!");
-				console.log(error);
-			});
 	});
 </script>
