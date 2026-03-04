@@ -1,7 +1,9 @@
 <head>
     <meta charset="UTF-8">
-    <title>spreadsheet</title>
+    <title>SmartRAB</title>
+    <link rel="stylesheet" href="<?= base_url('assets/css/tailwind.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- jQuery -->
@@ -40,8 +42,11 @@
             border-color: #fbcfe8;
             /* focus:border-pink-200 */
         }
+
+        img {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+        }
     </style>
 </head>
-
-
-

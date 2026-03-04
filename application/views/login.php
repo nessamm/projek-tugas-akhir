@@ -28,7 +28,7 @@
 
             <div class="mb-6">
                 <h2 class="text-gray-800 text-2xl lg:text-3xl font-bold mb-2">
-                    Login
+                    Masuk
                 </h2>
                 <p class="text-gray-600 text-sm">
                     Lorem Ipsum
@@ -48,11 +48,11 @@
 
                 <div>
                     <label for="password" class="block text-gray-700 font-medium mb-2">
-                        Password
+                        Kata Sandi
                     </label>
 
                     <div class="relative">
-                        <input type="password" id="password" name="password" placeholder="Masukkan password"
+                        <input type="password" id="password" name="password" placeholder="Masukkan kata sandi Anda"
                             class="w-full p-3 pr-12 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-200">
                         <button type="button" id="togglePassword" aria-label="Tahan untuk melihat password" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -66,11 +66,11 @@
                 <button type="submit"
                     style="background-color: #377DFF; color: white; border-radius: 8px;"
                     class="w-full hover:bg-[#2b68cc] font-semibold py-3 rounded-md transition duration-300">
-                    Log In
+                    Masuk
                 </button>
 
                 <p class="text-center text-gray-600 text-sm mt-4">
-                    Belum punya akun? <a href="<?= base_url('C_Login/register') ?>" class="text-blue-500 hover:underline">Daftar</a>
+                    Tidak memiliki akun? <a href="<?= base_url('C_Login/register') ?>" class="text-blue-500 hover:underline">Buat akun</a>
                 </p>
 
             </form>

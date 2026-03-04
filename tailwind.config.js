@@ -11,6 +11,9 @@ module.exports = {
         'dark-card': '#1a1a2e',
         'dark-border': '#2a2a2a',
       },
+      fontFamily: {
+        sans: ['Nunito', 'sans-serif'],
+      }
     },
   },
   plugins: [],
