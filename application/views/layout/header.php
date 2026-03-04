@@ -6,13 +6,10 @@
     <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/LogoIpsum.png') ?>">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Select2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <!-- letakkan di <head> atau sebelum </body> -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="<?= base_url('assets/css/select2.min.css') ?>" rel="stylesheet" />
+    <script src="<?= base_url('assets/js/jquery-3.6.0.min.js') ?>"></script>
+    <script src="<?= base_url('assets/js/select2.min.js') ?>"></script>
+    <script src="<?= base_url('assets/js/sweetalert2@11.js') ?>"></script>
 
     <style>
         /* Container */
