@@ -7,26 +7,93 @@
     </div>
 
     <div class="flex flex-col items-center mb-6 p-6">
-        <div class="w-20 h-20 bg-gray-300 rounded-full mb-3"></div>
-        <p class="font-semibold">Prime Leonard</p>
+
+        <div class="w-20 h-20 mb-3">
+            <img src="<?= base_url('assets/icons/profile.svg'); ?>"
+                alt="Profile"
+                class="w-full h-full object-cover">
+        </div>
+
+        <p class="font-semibold"><?= $this->session->userdata('fullname') ? $this->session->userdata('fullname') : 'Guest'; ?></p>
         <span class="text-sm text-gray-400">user</span>
+
     </div>
 
     <nav class="space-y-3">
-        <div class="flex gap-2 pr-6" style="height:50px;">
-            <div class="block px-1 py-2 rounded-lg bg-blue-500 text-white">
-            </div>
-            <a href="#" class="flex items-center justify-center w-full px-4 pr-6 rounded-lg bg-blue-500 text-white">
-                Monitoring  
+        <!-- Monitoring -->
+        <div class="menu-item flex gap-2 pr-6 cursor-pointer" style="height:50px">
+            <div class="indicator w-1 rounded-lg transition-all duration-300"></div>
+            <a href="<?= site_url('monitoring'); ?>" class="menu-link flex items-center justify-center w-full px-4 rounded-lg transition-all duration-300 hover:bg-gray-100">
+                Monitoring
             </a>
         </div>
-        <a href="#" class="flex items-center justify-center w-full px-4 py-2 rounded-lg hover:bg-gray-100" style="height:50px;">
-            Input Anggaran
-        </a>
-    </nav>
 
-    <div class="mt-10 space-y-3 text-sm p-6">
-        <a href="#" class="block text-gray-600">Profil</a>
-        <a href="#" class="block text-red-500">Keluar</a>
+        <!-- Input Anggaran -->
+        <div class="menu-item flex gap-2 pr-6 h-[50px] cursor-pointer" style="height:50px">
+            <div class="indicator w-1 rounded-lg transition-all duration-300"></div>
+            <a href="#" class="menu-link flex items-center justify-center w-full px-4 rounded-lg transition-all duration-300 hover:bg-gray-100">
+                Input Anggaran
+            </a>
+        </div>
+
+    </nav>
+    
+
+    <div class="mt-40 space-y-3 text-sm p-6">
+        <a href="#" class="flex items-center gap-3 mb-8 transition-all">
+            <span class="w-5 h-5">
+                <?= file_get_contents(FCPATH . 'assets/icons/user.svg'); ?>
+            </span>
+            Profil
+        </a>
+
+        <a href="#" class="flex items-center gap-3 transition-all">
+            <span class="w-5 h-5">
+                <?= file_get_contents(FCPATH . 'assets/icons/logout.svg'); ?>
+            </span>
+            Keluar
+        </a>
     </div>
 </aside>
+
+<script>
+    const menuItems = document.querySelectorAll('.menu-item');
+    const currentUrl = window.location.href;
+
+    menuItems.forEach(item => {
+        const link = item.querySelector('.menu-link');
+
+        // Cek apakah url sama dengan halaman sekarang
+        if (currentUrl.includes(link.getAttribute('href'))) {
+
+            item.querySelector('.indicator')
+                .classList.add('bg-blue-500');
+
+            link.classList.add('bg-blue-500', 'text-white');
+            link.classList.remove('hover:bg-gray-100');
+        }
+
+        item.addEventListener('click', function() {
+
+            menuItems.forEach(menu => {
+                menu.querySelector('.indicator')
+                    .classList.remove('bg-blue-500');
+
+                menu.querySelector('.menu-link')
+                    .classList.remove('bg-blue-500', 'text-white');
+
+                menu.querySelector('.menu-link')
+                    .classList.add('hover:bg-gray-100');
+            });
+
+            this.querySelector('.indicator')
+                .classList.add('bg-blue-500');
+
+            this.querySelector('.menu-link')
+                .classList.add('bg-blue-500', 'text-white');
+
+            this.querySelector('.menu-link')
+                .classList.remove('hover:bg-gray-100');
+        });
+    });
+</script>
