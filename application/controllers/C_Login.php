@@ -10,7 +10,7 @@ class C_Login extends CI_Controller
         $this->load->database();
         $this->load->model('M_login');
         $this->load->library('form_validation');
-        $this->load->library('session'); 
+        $this->load->library('session');
     }
 
     public function register()
@@ -20,6 +20,7 @@ class C_Login extends CI_Controller
             $fullname = $this->input->post('fullname');
             $username = $this->input->post('username');
             $email    = $this->input->post('email');
+            $kelas    = $this->input->post('kelas');
             $gender   = $this->input->post('gender');
             $password = $this->input->post('password');
             $confirm  = $this->input->post('confirm_password');
@@ -48,6 +49,7 @@ class C_Login extends CI_Controller
                 'fullname'   => $fullname,
                 'username'   => $username,
                 'email'      => $email,
+                'kelas'      => $kelas,
                 'gender'     => $gender,
                 'password'   => password_hash($password, PASSWORD_DEFAULT),
                 'role'       => 2,
@@ -63,7 +65,7 @@ class C_Login extends CI_Controller
 
         // INI WAJIB ADA
         $this->load->view('layout/header');
-        $this->load->view('register');
+        $this->load->view('auth/register');
     }
 
     public function login()
@@ -103,6 +105,13 @@ class C_Login extends CI_Controller
         }
 
         $this->load->view('layout/header');
-        $this->load->view('login');
+        $this->load->view('auth/login');
+    }
+
+    public function profile()
+    {
+        $this->load->view('layout/header');
+        // $this->load->view('layout/sidebar');
+        $this->load->view('auth/profile');
     }
 }

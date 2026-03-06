@@ -3,7 +3,7 @@
     <title>SmartRAB</title>
     <link rel="stylesheet" href="<?= base_url('assets/css/tailwind.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
-    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/LogoIpsum.png') ?>">
+    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/LogoIp.png') ?>">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <link href="<?= base_url('assets/css/select2.min.css') ?>" rel="stylesheet" />

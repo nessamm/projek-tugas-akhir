@@ -119,7 +119,7 @@
                         text: 'Selamat datang 😊',
                         confirmButtonText: 'Lanjut'
                     }).then(() => {
-                        window.location.href = "<?= base_url() ?>"; // arahkan ke dashboard
+                        window.location.href = "<?= base_url('C_Login/profile') ?>"; 
                     });
                 } else {
                     Swal.fire({
