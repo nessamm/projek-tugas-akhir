@@ -123,4 +123,30 @@ class C_Login extends CI_Controller
         $this->load->view('layout/header');
         $this->load->view('auth/profile', $data);
     }
+
+    public function updateProfile()
+    {
+
+        $id = $this->session->userdata('user_id');
+
+        if (!$id) {
+            echo "User tidak ditemukan";
+            return;
+        }
+
+        $fullname = $this->input->post('fullname');
+        $username = $this->input->post('username');
+        $kelas    = $this->input->post('kelas');
+
+        $data = [
+            'fullname' => $fullname,
+            'username' => $username,
+            'kelas'    => $kelas,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        $this->M_login->updateUser($id, $data);
+
+        echo "success";
+    }
 }

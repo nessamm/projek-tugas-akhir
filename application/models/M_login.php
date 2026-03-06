@@ -32,4 +32,10 @@ class M_login extends CI_Model
     {
         return $this->db->get_where('tregister_ta', ['id' => $id])->row();
     }
+
+    public function updateUser($id, $data)
+    {
+        $this->db->where('id', $id);
+        return $this->db->update('tregister_ta', $data);
+    }
 }
