@@ -44,7 +44,7 @@
                                     </label>
                                     <input type="text"
                                         class="editable w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-200"
-                                        value="Prime Leonardo"
+                                        value="<?= $user->fullname ?>"
                                         readonly>
                                 </div>
 
@@ -54,7 +54,7 @@
                                     </label>
                                     <input type="text"
                                         class="editable w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-200"
-                                        value="leoprime"
+                                        value="<?= $user->username ?>"
                                         readonly>
                                 </div>
 
@@ -68,7 +68,7 @@
                                     </label>
                                     <input type="email"
                                         class="w-full border rounded-lg px-3 py-2 bg-gray-100"
-                                        value="primeleonard123@gmail.com"
+                                        value="<?= $user->email ?>"
                                         disabled>
                                 </div>
 
@@ -76,27 +76,25 @@
                                     <label class="block text-sm text-gray-600 mb-1">
                                         Jenis Kelamin
                                     </label>
-                                    <select
+                                    <input type="text"
                                         class="w-full border rounded-lg px-3 py-2 bg-gray-100"
-                                        disabled>
-                                        <option value="">Pilih Jenis Kelamin</option>
-                                        <option value="L" selected>Laki-laki</option>
-                                        <option value="P">Perempuan</option>
-                                    </select>
+                                        value="<?= $user->gender == 'L' ? 'Laki-laki' : 'Perempuan' ?>"
+                                        readonly>
                                 </div>
 
                                 <div>
                                     <label class="block text-sm text-gray-600 mb-1">
                                         Kelas
                                     </label>
+
                                     <select
-                                        class="editable w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-200"
-                                        disabled>
+                                        name="kelas"
+                                        class="editable readonly-mode w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-200">
 
                                         <option value="">Pilih Kelas</option>
-                                        <option value="X">X</option>
-                                        <option value="XI" selected>XI</option>
-                                        <option value="XII">XII</option>
+                                        <option value="X" <?= ($user->kelas == 'X') ? 'selected' : '' ?>>X</option>
+                                        <option value="XI" <?= ($user->kelas == 'XI') ? 'selected' : '' ?>>XI</option>
+                                        <option value="XII" <?= ($user->kelas == 'XII') ? 'selected' : '' ?>>XII</option>
 
                                     </select>
                                 </div>

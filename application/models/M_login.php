@@ -27,4 +27,9 @@ class M_login extends CI_Model
     {
         return $this->db->get_where('tregister_ta', ['email' => $email])->row();
     }
+
+    public function getUserById($id)
+    {
+        return $this->db->get_where('tregister_ta', ['id' => $id])->row();
+    }
 }

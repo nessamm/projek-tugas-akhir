@@ -13,6 +13,12 @@ class C_Login extends CI_Controller
         $this->load->library('session');
     }
 
+    public function index()
+    {
+        $this->load->view('layout/header');
+        $this->load->view('auth/register');
+    }
+
     public function register()
     {
         if ($this->input->post()) {
@@ -110,8 +116,11 @@ class C_Login extends CI_Controller
 
     public function profile()
     {
+        $id = $this->session->userdata('user_id');
+
+        $data['user'] = $this->M_login->getUserById($id);
+
         $this->load->view('layout/header');
-        // $this->load->view('layout/sidebar');
-        $this->load->view('auth/profile');
+        $this->load->view('auth/profile', $data);
     }
 }
