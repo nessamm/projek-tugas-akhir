@@ -13,8 +13,8 @@
         <!-- Header -->
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold">Monitoring - Daftar Anggaran</h2>
-            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow">
-                Pilih Filter
+            <button class="bg-blue-500 text-white px-3 py-2 rounded-lg shadow flex items-center gap-2">
+                <?= file_get_contents(FCPATH . 'assets/icons/filter.svg'); ?> Pilih Filter
             </button>
         </div>
 
@@ -28,7 +28,7 @@
                         <th class="px-6 py-3 text-left">JUDUL</th>
                         <th class="px-6 py-3 text-left">ORGANISASI</th>
                         <th class="px-6 py-3 text-left">TERAKHIR DIUPDATE</th>
-                        <th class="px-6 py-3 text-center">ACTION</th>
+                        <th class="px-6 py-3 text-center w-40">ACTION</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y">
@@ -38,10 +38,10 @@
                         <td class="px-6 py-4">Laporan Anggaran Dies Natalies</td>
                         <td class="px-6 py-4">Osis</td>
                         <td class="px-6 py-4">03 Feb 2026 11:11:00</td>
-                        <td class="px-6 py-4 text-center space-x-2">
-                            <button class="bg-green-100 text-green-600 px-3 py-1 rounded-lg">⬇</button>
-                            <button class="bg-yellow-100 text-yellow-600 px-3 py-1 rounded-lg">✏</button>
-                            <button class="bg-red-100 text-red-600 px-3 py-1 rounded-lg">🗑</button>
+                        <td class="px-6 py-4 text-center space-x-2 whitespace-nowrap">
+                            <button class="bg-green-100 text-green-600 border border-green-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/download.svg'); ?></button>
+                            <button class="bg-yellow-100 text-yellow-600 border border-yellow-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/pencil.svg'); ?></button>
+                            <button class="bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
                         </td>
                     </tr>
                 </tbody>

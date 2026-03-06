@@ -30,7 +30,7 @@
                     <div class="grid grid-cols-12 gap-6">
 
                         <!-- FORM PROFIL -->
-                        <div class="col-span-9 bg-white rounded-xl shadow p-6">
+                        <div class="col-span-9 bg-white rounded-xl shadow p-6 space-y-4">
 
                             <h2 class="text-lg font-semibold text-gray-700 mb-4">
                                 Edit Profil
@@ -140,7 +140,7 @@
                                 </div>
 
                                 <div class="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center">
-                                    ⏱
+                                    <?= file_get_contents(FCPATH . 'assets/icons/clock24.svg'); ?>
                                 </div>
                             </div>
 
@@ -152,7 +152,7 @@
                                 </div>
 
                                 <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center">
-                                    ⬇
+                                    <?= file_get_contents(FCPATH . 'assets/icons/download24.svg'); ?>
                                 </div>
                             </div>
 

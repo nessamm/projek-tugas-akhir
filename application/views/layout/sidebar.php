@@ -1,5 +1,6 @@
 <!-- SIDEBAR -->
-<aside class="w-64 bg-white shadow-lg">
+<aside class="w-64 bg-white shadow-lg flex flex-col min-h-screen">
+
     <div class="flex justify-center mb-2 p-6">
         <img src="<?= base_url('assets/img/logo.png') ?>"
             alt="SmartRAB Logo"
@@ -14,32 +15,38 @@
                 class="w-full h-full object-cover">
         </div>
 
-        <p class="font-semibold"><?= $this->session->userdata('fullname') ? $this->session->userdata('fullname') : 'Guest'; ?></p>
+        <p class="font-semibold">
+            <?= $this->session->userdata('fullname') ? $this->session->userdata('fullname') : 'Guest'; ?>
+        </p>
         <span class="text-sm text-gray-400">user</span>
 
     </div>
 
-    <nav class="space-y-3">
+    <nav class="space-y-3 px-2">
         <!-- Monitoring -->
-        <div class="menu-item flex gap-2 pr-6 cursor-pointer" style="height:50px">
+        <div class="menu-item flex gap-2 pr-6 cursor-pointer h-[50px]" style="height: 50px;">
             <div class="indicator w-1 rounded-lg transition-all duration-300"></div>
-            <a href="<?= site_url('monitoring'); ?>" class="menu-link flex items-center justify-center w-full px-4 rounded-lg transition-all duration-300 hover:bg-gray-100">
+            <a href="<?= site_url('monitoring'); ?>" 
+               class="menu-link flex items-center justify-center w-full px-4 rounded-lg transition-all duration-300 hover:bg-gray-100">
                 Monitoring
             </a>
         </div>
 
         <!-- Input Anggaran -->
-        <div class="menu-item flex gap-2 pr-6 h-[50px] cursor-pointer" style="height:50px">
+        <div class="menu-item flex gap-2 pr-6 cursor-pointer h-[50px]" style="height: 50px;">
             <div class="indicator w-1 rounded-lg transition-all duration-300"></div>
-            <a href="#" class="menu-link flex items-center justify-center w-full px-4 rounded-lg transition-all duration-300 hover:bg-gray-100">
+            <a href="#" 
+               class="menu-link flex items-center justify-center w-full px-4 rounded-lg transition-all duration-300 hover:bg-gray-100">
                 Input Anggaran
             </a>
         </div>
-
     </nav>
-    
 
-    <div class="mt-40 space-y-3 text-sm p-6">
+    
+    <!-- PROFIL & LOGOUT -->
+    <div class="mt-auto space-y-5 text-sm p-6">
+        <hr>
+ 
         <a href="#" class="flex items-center gap-3 mb-8 transition-all">
             <span class="w-5 h-5">
                 <?= file_get_contents(FCPATH . 'assets/icons/user.svg'); ?>
@@ -53,7 +60,9 @@
             </span>
             Keluar
         </a>
+
     </div>
+
 </aside>
 
 <script>
