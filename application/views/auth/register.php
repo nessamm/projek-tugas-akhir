@@ -7,15 +7,12 @@
             shadow-2xl rounded-3xl overflow-hidden 
             bg-white items-stretch">
 
-			<!-- KIRI -->
 			<div class="w-full lg:w-1/2 flex flex-col">
 
-				<!-- FOTO -->
 				<div class="flex-1 bg-cover bg-center"
 					style="background-image: url('<?= base_url('assets/img/bg.jpeg') ?>');">
 				</div>
 
-				<!-- TEXT -->
 				<div class="p-10 bg-gradient-to-tr from-blue-50 to-white">
 					<h1 class="text-3xl font-bold text-gray-800 mb-4">
 						Simplify Your RAB
@@ -28,7 +25,6 @@
 
 			</div>
 
-			<!-- KANAN -->
 			<div class="w-full lg:w-1/2 p-8 lg:p-10">
 
 				<div class="mb-6">
@@ -45,7 +41,6 @@
 					method="POST"
 					class="space-y-4">
 
-					<!-- Nama -->
 					<div>
 						<label class="block text-gray-700 font-medium mb-2">
 							Nama Lengkap
@@ -55,7 +50,6 @@
 							class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200">
 					</div>
 
-					<!-- Username -->
 					<div>
 						<label class="block text-gray-700 font-medium mb-2">
 							Nama Pengguna
@@ -65,7 +59,6 @@
 							class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200">
 					</div>
 
-					<!-- Email -->
 					<div>
 						<label class="block text-gray-700 font-medium mb-2">
 							Email
@@ -75,7 +68,6 @@
 							class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200">
 					</div>
 
-					<!-- Gender & Kelas -->
 					<div class="flex gap-4">
 						<div class="flex-1">
 							<label class="block text-gray-700 font-medium mb-2">
@@ -104,7 +96,6 @@
 						</div>
 					</div>
 
-					<!-- Password -->
 					<div class="relative flex flex-col mb-4">
 						<label for="password" class="block text-gray-700 font-medium mb-2">
 							Kata Sandi
@@ -126,7 +117,6 @@
 						<p id="passwordStrength" class="mt-2 text-sm font-medium"></p>
 					</div>
 
-					<!-- Confirm Password -->
 					<div class="relative flex flex-col">
 						<label for="confirm_password" class="block text-gray-700 font-medium mb-2">
 							Konfirmasi Kata Sandi
@@ -147,7 +137,6 @@
 						</div>
 					</div>
 
-					<!-- Button -->
 					<button type="submit"
 						class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition duration-300">
 						Buat Akun
@@ -183,7 +172,21 @@
 		eyeClosed.classList.toggle('hidden');
 	});
 
-	// Check password strength
+	const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+	const confirmPassword = document.getElementById('confirm_password');
+	const eyeOpenConfirm = document.getElementById('eyeOpenConfirm');
+	const eyeClosedConfirm = document.getElementById('eyeClosedConfirm');
+
+	toggleConfirmPassword.addEventListener('click', () => {
+
+		const type = confirmPassword.type === 'password' ? 'text' : 'password';
+		confirmPassword.type = type;
+
+		eyeOpenConfirm.classList.toggle('hidden');
+		eyeClosedConfirm.classList.toggle('hidden');
+
+	});
+
 	password.addEventListener('input', () => {
 		const val = password.value;
 		let strength = '';
@@ -208,7 +211,63 @@
 
 
 	document.getElementById("formRegister").addEventListener("submit", function(e) {
+
 		e.preventDefault();
+
+		const fullname = document.querySelector('input[name="fullname"]').value.trim();
+		const username = document.querySelector('input[name="username"]').value.trim();
+		const email = document.querySelector('input[name="email"]').value.trim();
+		const password = document.getElementById("password").value;
+		const confirmPassword = document.getElementById("confirm_password").value;
+
+		if (fullname === "" || username === "" || email === "" || password === "" || confirmPassword === "") {
+
+			Swal.fire({
+				icon: "warning",
+				title: "Form belum lengkap",
+				text: "Semua field harus diisi"
+			});
+
+			return;
+		}
+
+		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+		if (!emailPattern.test(email)) {
+
+			Swal.fire({
+				icon: "error",
+				title: "Email tidak valid",
+				text: "Masukkan email dengan format yang benar"
+			});
+
+			return;
+		}
+
+		const strongPassword = password.length >= 8 &&
+			/[A-Z]/.test(password) &&
+			/[0-9]/.test(password);
+
+		if (!strongPassword) {
+
+			Swal.fire({
+				icon: "warning",
+				title: "Password Lemah",
+				text: "Password minimal 8 karakter, ada huruf besar dan angka."
+			});
+
+			return;
+		}
+
+		if (password !== confirmPassword) {
+
+			Swal.fire({
+				icon: "error",
+				title: "Password Tidak Sama"
+			});
+
+			return;
+		}
 
 		let formData = new FormData(this);
 
@@ -216,25 +275,32 @@
 				method: "POST",
 				body: formData
 			})
-			.then(response => response.text())
+			.then(res => res.text())
 			.then(res => {
+
 				if (res === "success") {
+
 					Swal.fire({
 						icon: 'success',
 						title: 'Berhasil!',
-						text: 'Registrasi berhasil!',
-						confirmButtonText: 'OK'
+						text: 'Registrasi berhasil!'
 					}).then(() => {
+
 						window.location.href = "<?= base_url('C_Login/login') ?>";
+
 					});
+
 				} else {
+
 					Swal.fire({
 						icon: 'error',
-						title: 'Gagal!',
-						text: res,
-						confirmButtonText: 'Coba Lagi'
+						title: 'Gagal',
+						text: res
 					});
+
 				}
-			})
+
+			});
+
 	});
 </script>
