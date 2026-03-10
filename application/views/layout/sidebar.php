@@ -18,7 +18,7 @@
         <p class="font-semibold">
             <?= $this->session->userdata('fullname') ? $this->session->userdata('fullname') : 'Guest'; ?>
         </p>
-        <span class="text-sm text-gray-400">user</span>
+        <span class="text-sm text-gray-400"><?= $this->session->userdata('role') == 1 ? 'admin' : 'user'; ?></span>
 
     </div>
 
@@ -35,7 +35,7 @@
         <!-- Input Anggaran -->
         <div class="menu-item flex gap-2 pr-6 cursor-pointer h-[50px]" style="height: 50px;">
             <div class="indicator w-1 rounded-lg transition-all duration-300"></div>
-            <a href="#" 
+            <a href="<?= site_url('input'); ?>" 
                class="menu-link flex items-center justify-center w-full px-4 rounded-lg transition-all duration-300 hover:bg-gray-100">
                 Input Anggaran
             </a>

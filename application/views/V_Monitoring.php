@@ -5,10 +5,22 @@
 </head>
 <body class="bg-gray-100 flex min-h-screen">
 
-<div class="flex min-h-screen">
+<div class="flex-1">
+    <!-- HEADER BAR -->
+    <div class="bg-white shadow px-4 py-3 flex items-center gap-3">
+
+        <button class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100">
+            &#8249;
+        </button>
+
+        <button class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100">
+            &#8250;
+        </button>
+
+    </div>
 
     <!-- CONTENT -->
-    <main class="flex-1 p-10">
+    <div class="p-8">
 
         <!-- Header -->
         <div class="flex justify-between items-center mb-6">
@@ -54,8 +66,7 @@
             <button class="px-3 py-1 bg-blue-500 text-white rounded">2</button>
             <button class="px-3 py-1 bg-gray-200 rounded">3</button>
         </div>
-
-    </main>
+    </div>
 </div>
 
 </body>
