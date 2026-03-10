@@ -38,4 +38,30 @@ class M_login extends CI_Model
         $this->db->where('id', $id);
         return $this->db->update('tregister_ta', $data);
     }
+
+    public function generateTicket()
+    {
+        $year  = date('y'); // 26
+        $month = date('m'); // 03
+
+        $prefix = "RAB" . $year . $month;
+
+        $this->db->select('RIGHT(noticket,2) as urutan', false);
+        $this->db->like('noticket', $prefix, 'after');
+        $this->db->order_by('noticket', 'DESC');
+        $this->db->limit(1);
+
+        $query = $this->db->get('anggaran_header');
+
+        if ($query->num_rows() > 0) {
+            $data = $query->row();
+            $urutan = intval($data->urutan) + 1;
+        } else {
+            $urutan = 1;
+        }
+
+        $urutan = str_pad($urutan, 2, "0", STR_PAD_LEFT);
+
+        return $prefix . $urutan;
+    }
 }

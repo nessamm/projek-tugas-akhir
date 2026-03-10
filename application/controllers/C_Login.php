@@ -102,6 +102,7 @@ class C_Login extends CI_Controller
             $this->session->set_userdata([
                 'user_id'  => $user->id,
                 'fullname' => $user->fullname,
+                'username' => $user->username,
                 'role'     => $user->role,
                 'logged_in' => true
             ]);
