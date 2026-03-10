@@ -103,7 +103,44 @@
 
 
     document.getElementById("formLogin").addEventListener("submit", function(e) {
+
         e.preventDefault();
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        // VALIDASI EMAIL KOSONG
+        if (email === "") {
+            Swal.fire({
+                icon: "warning",
+                title: "Email belum diisi",
+                text: "Silakan masukkan email terlebih dahulu"
+            });
+            return;
+        }
+
+        // VALIDASI FORMAT EMAIL
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(email)) {
+            Swal.fire({
+                icon: "error",
+                title: "Email tidak valid",
+                text: "Masukkan email dengan format yang benar"
+            });
+            return;
+        }
+
+        // VALIDASI PASSWORD KOSONG
+        if (password === "") {
+            Swal.fire({
+                icon: "warning",
+                title: "Password belum diisi",
+                text: "Silakan masukkan password"
+            });
+            return;
+        }
+
         let formData = new FormData(this);
 
         fetch("<?= base_url('index.php/C_Login/login') ?>", {
@@ -112,32 +149,58 @@
             })
             .then(response => response.text())
             .then(res => {
+
                 if (res === "success") {
+                    console.log(res);
+
                     Swal.fire({
                         icon: 'success',
                         title: 'Login Berhasil!',
                         text: 'Selamat datang 😊',
                         confirmButtonText: 'Lanjut'
                     }).then(() => {
-                        window.location.href = "<?= base_url('C_Login/profile') ?>"; 
+
+                        window.location.href = "<?= base_url('C_Login/profile') ?>";
+
                     });
+
+                } else if (res === "pengguna") {
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login Berhasil!',
+                        text: 'Selamat datang pengguna 😊',
+                        confirmButtonText: 'Lanjut'
+                    }).then(() => {
+
+                        window.location.href = "<?= base_url('C_Login/admin') ?>";
+
+                    });
+
                 } else {
+
                     Swal.fire({
                         icon: 'error',
                         title: 'Gagal!',
                         text: res,
                         confirmButtonText: 'Coba Lagi'
                     });
+
                 }
+
             })
             .catch(err => {
+
                 Swal.fire({
                     icon: 'error',
                     title: 'Terjadi Kesalahan!',
                     text: 'Silakan coba lagi nanti.',
                     confirmButtonText: 'Tutup'
                 });
+
                 console.error(err);
+
             });
+
     });
 </script>

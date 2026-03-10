@@ -100,14 +100,20 @@ class C_Login extends CI_Controller
 
             // Simpan session
             $this->session->set_userdata([
-                'user_id'  => $user->id,
-                'fullname' => $user->fullname,
-                'username' => $user->username,
-                'role'     => $user->role,
+                'user_id'   => $user->id,
+                'fullname'  => $user->fullname,
+                'username'  => $user->username,
+                'role'      => $user->role,
                 'logged_in' => true
             ]);
 
-            echo "success";
+            // Cek role
+            if ($user->role == 1) {
+                echo "pengguna";
+            } else {
+                echo "success";
+            }
+
             return;
         }
 
@@ -123,6 +129,16 @@ class C_Login extends CI_Controller
 
         $this->load->view('layout/header');
         $this->load->view('auth/profile', $data);
+    }
+
+    public function admin()
+    {
+        $id = $this->session->userdata('user_id');
+
+        $data['user'] = $this->M_login->getUserById($id);
+
+        $this->load->view('layout/header');
+        $this->load->view('admin/v_pengguna', $data);
     }
 
     public function updateProfile()
