@@ -1,168 +1,95 @@
-<form id="formProfile" class="space-y-4">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pengguna - SmartRAB</title>
+</head>
+<body class="bg-gray-100 flex min-h-screen">
 
-    <body class="bg-gray-100 font-sans">
+<div class="flex-1">
+    <?php $this->load->view('layout/head'); ?>
 
-        <div class="flex min-h-screen">
+    <!-- CONTENT -->
+    <div class="p-8">
 
-            <!-- SIDEBAR -->
-            <?php $this->load->view('layout/sidebar'); ?>
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold">Pengguna - Daftar Pengguna</h2>
+            <button class="bg-blue-500 text-white px-3 py-2 rounded-lg shadow flex items-center gap-2">
+                <?= file_get_contents(FCPATH . 'assets/icons/filter.svg'); ?> Pilih Filter
+            </button>
+        </div>
 
-            <!-- CONTENT -->
-            <div class="flex-1">
+        <!-- Table -->
+        <div class="bg-white rounded-xl shadow overflow-hidden">
+            <table class="min-w-full table-fixed text-sm text-gray-600">
+            <thead class="bg-gray-50 text-gray-700">
+                <tr>
+                    <th class="px-6 py-3 w-10 text-center">NO</th>
+                    <th class="px-6 py-3 w-96 text-left">NAMA LENGKAP</th>
+                    <th class="px-6 py-3 w-32 text-center">KELAS</th>
+                    <th class="px-6 py-3 w-32 text-center">GENDER</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y">
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 text-center">1</td>
+                    <td class="px-6 py-4 truncate">Afwa Rifatika</td>
+                    <td class="px-6 py-4 text-center">XIII</td>
+                    <td class="px-6 py-4 text-center">Perempuan</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
 
-                <!-- HEADER BAR -->
-                <div class="bg-white shadow px-4 py-3 flex items-center gap-3">
+        <!-- Pagination -->
+        <div class="flex items-center justify-between mt-6">
 
-                    <button class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100">
-                        &#8249;
-                    </button>
+            <!-- Showing -->
+            <div class="text-sm text-gray-500">
+                Showing 1 of 1
+            </div>
 
-                    <button class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100">
-                        &#8250;
-                    </button>
+            <!-- Pagination -->
+            <div class="flex items-center bg-white border rounded-lg px-2 py-1 space-x-1">
 
-                </div>
+                <!-- Prev -->
+                <button class="px-3 py-1.5 bg-gray-200 text-gray-500 rounded-md hover:bg-gray-300 transition">
+                    &#8249;
+                </button>
+                <span class="text-sm text-gray-400 px-1">Prev</span>
 
-                <div class="p-8">
+                <!-- Numbers -->
+                <button class="px-3 py-1 text-gray-600 rounded-md hover:bg-gray-200 transition">
+                    1
+                </button>
 
-                    <h1 class="text-3xl font-bold text-gray-800 mb-6">Profil</h1>
+                <button class="px-3 py-1 bg-blue-500 text-white rounded-md font-medium">
+                    2
+                </button>
 
-                    <div class="grid grid-cols-12 gap-6">
+                <button class="px-3 py-1 text-gray-600 rounded-md hover:bg-gray-200 transition">
+                    3
+                </button>
 
-                        <!-- FORM PROFIL -->
-                        <div class="col-span-9 bg-white rounded-xl shadow p-6 space-y-4">
+                <button class="px-3 py-1 text-gray-600 rounded-md hover:bg-gray-200 transition">
+                    4
+                </button>
 
-                            <h2 class="text-lg font-semibold text-gray-700 mb-4">
-                                Edit Profil
-                            </h2>
+                <button class="px-3 py-1 text-gray-600 rounded-md hover:bg-gray-200 transition">
+                    5
+                </button>
 
-                            <form class="space-y-4">
-
-                                <div class="grid grid-cols-2 gap-4">
-
-                                    <div>
-                                        <label class="block text-sm text-gray-600 mb-1">
-                                            Nama Lengkap
-                                        </label>
-                                        <input type="text"
-                                            name="fullname"
-                                            class="editable w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-200"
-                                            value="<?= $user->fullname ?>"
-                                            readonly>
-                                    </div>
-
-                                    <div>
-                                        <label class="block text-sm text-gray-600 mb-1">
-                                            Nama Pengguna
-                                        </label>
-                                        <input type="text"
-                                            name="username"
-                                            class="editable w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-200"
-                                            value="<?= $user->username ?>"
-                                            readonly>
-                                    </div>
-
-                                </div>
-
-                                <div class="grid grid-cols-3 gap-4">
-
-                                    <div>
-                                        <label class="block text-sm text-gray-600 mb-1">
-                                            Email
-                                        </label>
-                                        <input type="email"
-                                            class="w-full border rounded-lg px-3 py-2 bg-gray-100"
-                                            value="<?= $user->email ?>"
-                                            disabled>
-                                    </div>
-
-                                    <div>
-                                        <label class="block text-sm text-gray-600 mb-1">
-                                            Jenis Kelamin
-                                        </label>
-                                        <input type="text"
-                                            class="w-full border rounded-lg px-3 py-2 bg-gray-100"
-                                            value="<?= $user->gender == 'L' ? 'Laki-laki' : 'Perempuan' ?>"
-                                            readonly>
-                                    </div>
-
-                                    <div>
-                                        <label class="block text-sm text-gray-600 mb-1">
-                                            Kelas
-                                        </label>
-
-                                        <select
-                                            name="kelas"
-                                            class="editable readonly-mode w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-200">
-
-                                            <option value="">Pilih Kelas</option>
-                                            <option value="X" <?= ($user->kelas == 'X') ? 'selected' : '' ?>>X</option>
-                                            <option value="XI" <?= ($user->kelas == 'XI') ? 'selected' : '' ?>>XI</option>
-                                            <option value="XII" <?= ($user->kelas == 'XII') ? 'selected' : '' ?>>XII</option>
-                                            <option value="XII" <?= ($user->kelas == 'XII') ? 'selected' : '' ?>>XIII</option>
-
-                                        </select>
-                                    </div>
-
-                                </div>
-
-                                <!-- BUTTON -->
-                                <div class="flex justify-end gap-3 pt-4">
-
-                                    <button id="btnCancel"
-                                        type="button"
-                                        class="px-5 py-2 rounded-lg border border-blue-500 text-blue-500 hover:bg-blue-50"
-                                        disabled>
-                                        Batal
-                                    </button>
-
-                                    <button id="btnSave"
-                                        type="submit"
-                                        class="px-5 py-2 rounded-lg bg-blue-300 text-white cursor-not-allowed"
-                                        disabled>
-                                        Simpan
-                                    </button>
-
-                                </div>
-
-                            </form>
-
-                        </div>
-
-                        <!-- CARD STAT -->
-                        <div class="col-span-3 flex flex-col gap-4">
-
-                            <!-- CARD 1 -->
-                            <div class="bg-white rounded-xl shadow p-5 flex items-center justify-between flex-1">
-                                <div>
-                                    <p class="text-gray-500 text-sm">Total Input</p>
-                                    <h2 class="text-3xl font-bold text-gray-800">2040</h2>
-                                </div>
-
-                                <div class="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center">
-                                    <?= file_get_contents(FCPATH . 'assets/icons/clock24.svg'); ?>
-                                </div>
-                            </div>
-
-                            <!-- CARD 2 -->
-                            <div class="bg-white rounded-xl shadow p-5 flex items-center justify-between flex-1">
-                                <div>
-                                    <p class="text-gray-500 text-sm">Total Dokumen</p>
-                                    <h2 class="text-3xl font-bold text-gray-800">2040</h2>
-                                </div>
-
-                                <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center">
-                                    <?= file_get_contents(FCPATH . 'assets/icons/download24.svg'); ?>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                <!-- Next -->
+                <span class="text-sm text-gray-400 px-1">Next</span>
+                <button class="px-3 py-1.5 bg-gray-200 text-gray-500 rounded-md hover:bg-gray-300 transition">
+                    &#8250;
+                </button>
 
             </div>
 
-    </body>
-</form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

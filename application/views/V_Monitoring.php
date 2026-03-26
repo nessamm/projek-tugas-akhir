@@ -6,18 +6,7 @@
 <body class="bg-gray-100 flex min-h-screen">
 
 <div class="flex-1">
-    <!-- HEADER BAR -->
-    <div class="bg-white shadow px-4 py-3 flex items-center gap-3">
-
-        <button class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100">
-            &#8249;
-        </button>
-
-        <button class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100">
-            &#8250;
-        </button>
-
-    </div>
+    <?php $this->load->view('layout/head'); ?>
 
     <!-- CONTENT -->
     <div class="p-8">
@@ -61,10 +50,51 @@
         </div>
 
         <!-- Pagination -->
-        <div class="flex justify-end mt-6 space-x-2">
-            <button class="px-3 py-1 bg-gray-200 rounded">1</button>
-            <button class="px-3 py-1 bg-blue-500 text-white rounded">2</button>
-            <button class="px-3 py-1 bg-gray-200 rounded">3</button>
+        <div class="flex items-center justify-between mt-6">
+
+            <!-- Showing -->
+            <div class="text-sm text-gray-500">
+                Showing 1 of 1
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex items-center bg-white border rounded-lg px-2 py-1 space-x-1">
+
+                <!-- Prev -->
+                <button class="px-3 py-1.5 bg-gray-200 text-gray-500 rounded-md hover:bg-gray-300 transition">
+                    &#8249;
+                </button>
+                <span class="text-sm text-gray-400 px-1">Prev</span>
+
+                <!-- Numbers -->
+                <button class="px-3 py-1 text-gray-600 rounded-md hover:bg-gray-200 transition">
+                    1
+                </button>
+
+                <button class="px-3 py-1 bg-blue-500 text-white rounded-md font-medium">
+                    2
+                </button>
+
+                <button class="px-3 py-1 text-gray-600 rounded-md hover:bg-gray-200 transition">
+                    3
+                </button>
+
+                <button class="px-3 py-1 text-gray-600 rounded-md hover:bg-gray-200 transition">
+                    4
+                </button>
+
+                <button class="px-3 py-1 text-gray-600 rounded-md hover:bg-gray-200 transition">
+                    5
+                </button>
+
+                <!-- Next -->
+                <span class="text-sm text-gray-400 px-1">Next</span>
+                <button class="px-3 py-1.5 bg-gray-200 text-gray-500 rounded-md hover:bg-gray-300 transition">
+                    &#8250;
+                </button>
+
+            </div>
+
         </div>
     </div>
 </div>

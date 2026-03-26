@@ -26,18 +26,18 @@
         <!-- Monitoring -->
         <div class="menu-item flex gap-2 pr-6 cursor-pointer h-[50px]" style="height: 50px;">
             <div class="indicator w-1 rounded-lg transition-all duration-300"></div>
-            <a href="<?= site_url('monitoring'); ?>" 
+            <a href="<?= site_url('pengguna'); ?>" 
                class="menu-link flex items-center justify-center w-full px-4 rounded-lg transition-all duration-300 hover:bg-gray-100">
-                Monitoring
+                Pengguna
             </a>
         </div>
 
         <!-- Input Anggaran -->
         <div class="menu-item flex gap-2 pr-6 cursor-pointer h-[50px]" style="height: 50px;">
             <div class="indicator w-1 rounded-lg transition-all duration-300"></div>
-            <a href="<?= site_url('input'); ?>" 
+            <a href="<?= site_url('master'); ?>" 
                class="menu-link flex items-center justify-center w-full px-4 rounded-lg transition-all duration-300 hover:bg-gray-100">
-                Input Anggaran
+                Master
             </a>
         </div>
     </nav>

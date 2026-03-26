@@ -55,3 +55,5 @@ $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'C_Login/login';
 $route['monitoring'] = 'C_Monitoring/index';
 $route['input'] = 'C_Input/index';
+$route['pengguna'] = 'C_Pengguna/index';
+$route['master'] = 'C_Master/index';

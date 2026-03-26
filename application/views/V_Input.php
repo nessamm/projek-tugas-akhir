@@ -10,17 +10,7 @@
 
     <div class="flex-1">
         <!-- HEADER BAR -->
-        <div class="bg-white shadow px-4 py-3 flex items-center gap-3">
-
-            <button class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100">
-                &#8249;
-            </button>
-
-            <button class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100">
-                &#8250;
-            </button>
-
-        </div>
+        <?php $this->load->view('layout/head'); ?>
 
         <div class="p-8">
             <!-- Title -->

@@ -138,7 +138,7 @@ class C_Login extends CI_Controller
         $data['user'] = $this->M_login->getUserById($id);
 
         $this->load->view('layout/header');
-        $this->load->view('admin/v_pengguna', $data);
+        $this->load->view('admin/V_AdminPengguna', $data);
     }
 
     public function updateProfile()
