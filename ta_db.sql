@@ -19,6 +19,21 @@
 CREATE DATABASE IF NOT EXISTS `ta_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `ta_db`;
 
+-- Dumping structure for table ta_db.anggarand
+CREATE TABLE IF NOT EXISTS `anggarand` (
+  `seqno` int NOT NULL AUTO_INCREMENT,
+  `notiket` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `kategori` int DEFAULT NULL,
+  `nama_barang` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `banyak` int DEFAULT NULL,
+  `satuan` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `harga_satuan` decimal(15,2) DEFAULT NULL,
+  `jumlah` decimal(15,2) DEFAULT NULL,
+  PRIMARY KEY (`seqno`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Data exporting was unselected.
+
 -- Dumping structure for table ta_db.anggaran_header
 CREATE TABLE IF NOT EXISTS `anggaran_header` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -30,7 +45,50 @@ CREATE TABLE IF NOT EXISTS `anggaran_header` (
   `timeinput` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `tiket` (`noticket`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table ta_db.mskategori
+CREATE TABLE IF NOT EXISTS `mskategori` (
+  `code` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `timeinput` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`code`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table ta_db.mskelas
+CREATE TABLE IF NOT EXISTS `mskelas` (
+  `code` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `timeinput` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`code`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table ta_db.msorganisasi
+CREATE TABLE IF NOT EXISTS `msorganisasi` (
+  `code` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `timeinput` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`code`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table ta_db.mssatuan
+CREATE TABLE IF NOT EXISTS `mssatuan` (
+  `code` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `timeinput` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`code`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
 

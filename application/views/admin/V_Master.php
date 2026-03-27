@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Mater - SmartRAB</title>
     <style>
@@ -51,6 +52,7 @@
         }
     </style>
 </head>
+
 <body class="bg-gray-100 flex min-h-screen">
 
     <div class="flex-1">
@@ -68,77 +70,77 @@
             </div>
 
             <!-- Card List -->
-        <div class="space-y-4">
+            <div class="space-y-4">
 
-            <!-- Item -->
-            <div class="flex items-center justify-between bg-gray-50 border rounded-lg px-5 py-4 hover:bg-gray-100 transition">
-                
-                <!-- Left -->
-                <div class="flex items-center gap-3 text-gray-700 font-medium">
-                    <?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?>
-                    <b>Master Kelas</b>
+                <!-- Item -->
+                <div class="flex items-center justify-between bg-gray-50 border rounded-lg px-5 py-4 hover:bg-gray-100 transition">
+
+                    <!-- Left -->
+                    <div class="flex items-center gap-3 text-gray-700 font-medium">
+                        <?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?>
+                        <b>Master Kelas</b>
+                    </div>
+
+                    <!-- Right Button -->
+                    <button id="btnTambahKelas"
+                        class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                        <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
+                        Tambah Data
+                    </button>
                 </div>
 
-                <!-- Right Button -->
-                <button id="btnTambahKelas"
-                    class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
-                    <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
-                    Tambah Data
-                </button>
-            </div>
+                <!-- Item -->
+                <div class="flex items-center justify-between bg-gray-50 border rounded-lg px-5 py-4 hover:bg-gray-100 transition">
+                    <div class="flex items-center gap-3 text-gray-700 font-medium">
+                        <?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?>
+                        <b>Master Organisasi</b>
+                    </div>
 
-            <!-- Item -->
-            <div class="flex items-center justify-between bg-gray-50 border rounded-lg px-5 py-4 hover:bg-gray-100 transition">
-                <div class="flex items-center gap-3 text-gray-700 font-medium">
-                    <?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?>
-                    <b>Master Organisasi</b>
+                    <button id="btnTambahOrganisasi"
+                        class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                        <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
+                        Tambah Data
+                    </button>
                 </div>
 
-                <button id="btnTambahOrganisasi"
-                    class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
-                    <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
-                    Tambah Data
-                </button>
-            </div>
+                <!-- Item -->
+                <div class="flex items-center justify-between bg-gray-50 border rounded-lg px-5 py-4 hover:bg-gray-100 transition">
+                    <div class="flex items-center gap-3 text-gray-700 font-medium">
+                        <?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?>
+                        <b>Master Kategori</b>
+                    </div>
 
-            <!-- Item -->
-            <div class="flex items-center justify-between bg-gray-50 border rounded-lg px-5 py-4 hover:bg-gray-100 transition">
-                <div class="flex items-center gap-3 text-gray-700 font-medium">
-                    <?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?>
-                    <b>Master Kategori</b>
+                    <button id="btnTambahKategori"
+                        class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                        <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
+                        Tambah Data
+                    </button>
                 </div>
 
-                <button id="btnTambahKategori"
-                    class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
-                    <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
-                    Tambah Data
-                </button>
-            </div>
+                <!-- Item -->
+                <div class="flex items-center justify-between bg-gray-50 border rounded-lg px-5 py-4 hover:bg-gray-100 transition">
+                    <div class="flex items-center gap-3 text-gray-700 font-medium">
+                        <?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?>
+                        <b>Master Satuan</b>
+                    </div>
 
-            <!-- Item -->
-            <div class="flex items-center justify-between bg-gray-50 border rounded-lg px-5 py-4 hover:bg-gray-100 transition">
-                <div class="flex items-center gap-3 text-gray-700 font-medium">
-                    <?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?>
-                    <b>Master Satuan</b>
+                    <button id="btnTambahSatuan"
+                        class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                        <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
+                        Tambah Data
+                    </button>
                 </div>
 
-                <button id="btnTambahSatuan"
-                    class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
-                    <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
-                    Tambah Data
-                </button>
             </div>
-
         </div>
-    </div>
 </body>
 
 <script>
-document.getElementById('btnTambahKelas').addEventListener('click', function () {
-    Swal.fire({
-        showConfirmButton: false,
-        width: '520px',
-        html: `
+    document.getElementById('btnTambahKelas').addEventListener('click', function() {
+        Swal.fire({
+            showConfirmButton: false,
+            width: '520px',
+            html: `
         <div style="text-align:left;">
 
             <!-- HEADER -->
@@ -154,48 +156,89 @@ document.getElementById('btnTambahKelas').addEventListener('click', function () 
 
                 <!-- KELAS -->
                 <label style="font-size:14px; color:#374151; margin-bottom:6px; display:block;">Kelas</label>
-                <input id="kelas" class="custom-input" placeholder="Masukkan kelas">
+                <input id="kelasInput" class="custom-input" placeholder="Masukkan kelas">
 
                 <!-- DESKRIPSI -->
                 <label style="font-size:14px; color:#374151; margin:18px 0 6px; display:block;">Deskripsi</label>
-                <textarea id="deskripsi" class="custom-textarea" placeholder="Masukkan deskripsi"></textarea>
+                <textarea id="deskripsiInput" class="custom-textarea" placeholder="Masukkan deskripsi"></textarea>
 
                 <!-- BUTTON -->
                 <div style="display:flex; justify-content:flex-end; margin-top:22px;">
-                    <button id="simpanData" class="btn-simpan">Simpan</button>
+                    <button id="btnSimpanKelas" class="btn-simpan">Simpan</button>
                 </div>
 
             </div>
         </div>
         `,
-        didOpen: () => {
-            document.getElementById('closeSwal').onclick = () => Swal.close();
+            didOpen: () => {
 
-            document.getElementById('simpanData').onclick = () => {
-                const kelas = document.getElementById('kelas').value;
+                // tombol close
+                document.getElementById('closeSwal').onclick = () => Swal.close();
 
-                if (!kelas) {
-                    Swal.showValidationMessage('Kelas wajib diisi!');
-                    return;
-                }
+                // tombol simpan
+                document.getElementById("btnSimpanKelas").addEventListener("click", function() {
 
-                Swal.fire('Berhasil!', 'Data disimpan', 'success');
-            };
-        }
+                    let nama = document.getElementById("kelasInput").value;
+                    let deskripsi = document.getElementById("deskripsiInput").value;
+
+                    if (!nama) {
+                        Swal.showValidationMessage("Kelas wajib diisi!");
+                        return;
+                    }
+
+                    let formData = new FormData();
+                    formData.append("nama", nama);
+                    formData.append("deskripsi", deskripsi);
+
+                    fetch("<?= base_url('C_master/simpanKelas') ?>", {
+                            method: "POST",
+                            body: formData
+                        })
+                        .then(res => res.text())
+                        .then(res => {
+
+                            if (res == "success") {
+
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Berhasil",
+                                    text: "Data kelas berhasil disimpan"
+                                }).then(() => {
+                                    location.reload();
+                                });
+
+                            } else {
+
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Gagal",
+                                    text: res
+                                });
+
+                            }
+
+                        })
+                        .catch(() => {
+                            Swal.fire("Error", "Server bermasalah", "error");
+                        });
+
+                });
+
+            }
+        });
     });
-});
 
-document.getElementById('btnTambahOrganisasi').addEventListener('click', function () {
-    Swal.fire({
-        showConfirmButton: false,
-        width: '520px',
-        html: `
+    document.getElementById('btnTambahOrganisasi').addEventListener('click', function() {
+        Swal.fire({
+            showConfirmButton: false,
+            width: '520px',
+            html: `
         <div style="text-align:left;">
 
             <!-- HEADER -->
             <div style="display:flex; justify-content:space-between; align-items:center; padding:22px 24px 16px 24px;">
                 <h2 style="font-size:20px; font-weight:600; color:#111827;">Tambah Organisasi</h2>
-                <button id="closeSwal" style="font-size:22px; color:#6b7280;">×</button>
+                <button id="closeSwalorg" style="font-size:22px; color:#6b7280;">×</button>
             </div>
 
             <div style="border-top:1px solid #e5e7eb;"></div>
@@ -205,48 +248,89 @@ document.getElementById('btnTambahOrganisasi').addEventListener('click', functio
 
                 <!-- ORGANISASI -->
                 <label style="font-size:14px; color:#374151; margin-bottom:6px; display:block;">Organisasi</label>
-                <input id="kelas" class="custom-input" placeholder="Masukkan organisasi">
+                <input id="orginput" class="custom-input" placeholder="Masukkan organisasi">
 
                 <!-- DESKRIPSI -->
                 <label style="font-size:14px; color:#374151; margin:18px 0 6px; display:block;">Deskripsi</label>
-                <textarea id="deskripsi" class="custom-textarea" placeholder="Masukkan deskripsi"></textarea>
+                <textarea id="deskorg" class="custom-textarea" placeholder="Masukkan deskripsi"></textarea>
 
                 <!-- BUTTON -->
                 <div style="display:flex; justify-content:flex-end; margin-top:22px;">
-                    <button id="simpanData" class="btn-simpan">Simpan</button>
+                    <button id="simpanDataOrg" class="btn-simpan">Simpan</button>
                 </div>
 
             </div>
         </div>
         `,
-        didOpen: () => {
-            document.getElementById('closeSwal').onclick = () => Swal.close();
+            didOpen: () => {
 
-            document.getElementById('simpanData').onclick = () => {
-                const kelas = document.getElementById('kelas').value;
+                // tombol close
+                document.getElementById('closeSwalorg').onclick = () => Swal.close();
 
-                if (!kelas) {
-                    Swal.showValidationMessage('Kelas wajib diisi!');
-                    return;
-                }
+                // tombol simpan
+                document.getElementById("simpanDataOrg").addEventListener("click", function() {
 
-                Swal.fire('Berhasil!', 'Data disimpan', 'success');
-            };
-        }
+                    let organisasi = document.getElementById("orginput").value;
+                    let deskripsi = document.getElementById("deskorg").value;
+
+                    if (!organisasi) {
+                        Swal.showValidationMessage("Organisasi wajib diisi!");
+                        return;
+                    }
+
+                    let formData = new FormData();
+                    formData.append("nama", organisasi);
+                    formData.append("deskripsi", deskripsi);
+
+                    fetch("<?= base_url('C_master/simpanOrganisasi') ?>", {
+                            method: "POST",
+                            body: formData
+                        })
+                        .then(res => res.text())
+                        .then(res => {
+
+                            if (res == "success") {
+
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Berhasil",
+                                    text: "Data organisasi berhasil disimpan"
+                                }).then(() => {
+                                    location.reload();
+                                });
+
+                            } else {
+
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Gagal",
+                                    text: res
+                                });
+
+                            }
+
+                        })
+                        .catch(() => {
+                            Swal.fire("Error", "Server bermasalah", "error");
+                        });
+
+                });
+
+            }
+        });
     });
-});
 
-document.getElementById('btnTambahKategori').addEventListener('click', function () {
-    Swal.fire({
-        showConfirmButton: false,
-        width: '520px',
-        html: `
+    document.getElementById('btnTambahKategori').addEventListener('click', function() {
+        Swal.fire({
+            showConfirmButton: false,
+            width: '520px',
+            html: `
         <div style="text-align:left;">
 
             <!-- HEADER -->
             <div style="display:flex; justify-content:space-between; align-items:center; padding:22px 24px 16px 24px;">
                 <h2 style="font-size:20px; font-weight:600; color:#111827;">Tambah Kategori</h2>
-                <button id="closeSwal" style="font-size:22px; color:#6b7280;">×</button>
+                <button id="closeSwalKtgr" style="font-size:22px; color:#6b7280;">×</button>
             </div>
 
             <div style="border-top:1px solid #e5e7eb;"></div>
@@ -256,48 +340,95 @@ document.getElementById('btnTambahKategori').addEventListener('click', function 
 
                 <!-- KATEGORI -->
                 <label style="font-size:14px; color:#374151; margin-bottom:6px; display:block;">Kategori</label>
-                <input id="kelas" class="custom-input" placeholder="Masukkan kategori">
+                <input id="KtgrInput" class="custom-input" placeholder="Masukkan kategori">
 
                 <!-- DESKRIPSI -->
                 <label style="font-size:14px; color:#374151; margin:18px 0 6px; display:block;">Deskripsi</label>
-                <textarea id="deskripsi" class="custom-textarea" placeholder="Masukkan deskripsi"></textarea>
+                <textarea id="DesKtgr" class="custom-textarea" placeholder="Masukkan deskripsi"></textarea>
 
                 <!-- BUTTON -->
                 <div style="display:flex; justify-content:flex-end; margin-top:22px;">
-                    <button id="simpanData" class="btn-simpan">Simpan</button>
+                    <button id="simpanDataKtgr" class="btn-simpan">Simpan</button>
                 </div>
 
             </div>
         </div>
         `,
-        didOpen: () => {
-            document.getElementById('closeSwal').onclick = () => Swal.close();
+            didOpen: () => {
 
-            document.getElementById('simpanData').onclick = () => {
-                const kelas = document.getElementById('kelas').value;
+                // tombol close
+                document.getElementById('closeSwalKtgr').onclick = () => Swal.close();
 
-                if (!kelas) {
-                    Swal.showValidationMessage('Kelas wajib diisi!');
-                    return;
-                }
+                // tombol simpan
+                document.getElementById("simpanDataKtgr").addEventListener("click", function() {
 
-                Swal.fire('Berhasil!', 'Data disimpan', 'success');
-            };
-        }
+                    let kategori = document.getElementById("KtgrInput").value;
+                    let deskripsi = document.getElementById("DesKtgr").value;
+
+
+                    if (!kategori) {
+                        Swal.showValidationMessage("Kategori wajib diisi!");
+                        return;
+                    }
+
+                    if (!deskripsi) {
+                        Swal.showValidationMessage("Deskripsi wajib diisi!");
+                        return;
+                    }
+
+                    let formData = new FormData();
+                    formData.append("nama", kategori);
+                    formData.append("deskripsi", deskripsi);
+
+                    fetch("<?= base_url('C_master/simpanKategori') ?>", {
+                            method: "POST",
+                            body: formData
+                        })
+                        .then(res => res.text())
+                        .then(res => {
+
+                            if (res == "success") {
+
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Berhasil",
+                                    text: "Data kategori berhasil disimpan"
+                                }).then(() => {
+                                    location.reload();
+                                });
+
+                            } else {
+
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Gagal",
+                                    text: res
+                                });
+
+                            }
+
+                        })
+                        .catch(() => {
+                            Swal.fire("Error", "Server bermasalah", "error");
+                        });
+
+                });
+
+            }
+        });
     });
-});
 
-document.getElementById('btnTambahSatuan').addEventListener('click', function () {
-    Swal.fire({
-        showConfirmButton: false,
-        width: '520px',
-        html: `
+    document.getElementById('btnTambahSatuan').addEventListener('click', function() {
+        Swal.fire({
+            showConfirmButton: false,
+            width: '520px',
+            html: `
         <div style="text-align:left;">
 
             <!-- HEADER -->
             <div style="display:flex; justify-content:space-between; align-items:center; padding:22px 24px 16px 24px;">
                 <h2 style="font-size:20px; font-weight:600; color:#111827;">Tambah Satuan</h2>
-                <button id="closeSwal" style="font-size:22px; color:#6b7280;">×</button>
+                <button id="closeSwalSatuan" style="font-size:22px; color:#6b7280;">×</button>
             </div>
 
             <div style="border-top:1px solid #e5e7eb;"></div>
@@ -307,31 +438,71 @@ document.getElementById('btnTambahSatuan').addEventListener('click', function ()
 
                 <!-- SATUAN -->
                 <label style="font-size:14px; color:#374151; margin-bottom:6px; display:block;">Satuan</label>
-                <input id="kelas" class="custom-input" placeholder="Masukkan satuan">
+                <input id="satuan" class="custom-input" placeholder="Masukkan satuan">
 
                 <!-- BUTTON -->
                 <div style="display:flex; justify-content:flex-end; margin-top:22px;">
-                    <button id="simpanData" class="btn-simpan">Simpan</button>
+                    <button id="simpanDataSatuan" class="btn-simpan">Simpan</button>
                 </div>
 
             </div>
         </div>
         `,
-        didOpen: () => {
-            document.getElementById('closeSwal').onclick = () => Swal.close();
+            didOpen: () => {
 
-            document.getElementById('simpanData').onclick = () => {
-                const kelas = document.getElementById('kelas').value;
+                // tombol close
+                document.getElementById('closeSwalSatuan').onclick = () => Swal.close();
 
-                if (!kelas) {
-                    Swal.showValidationMessage('Kelas wajib diisi!');
-                    return;
-                }
+                // tombol simpan
+                document.getElementById("simpanDataSatuan").addEventListener("click", function() {
 
-                Swal.fire('Berhasil!', 'Data disimpan', 'success');
-            };
-        }
+                    let satuan = document.getElementById("satuan").value;
+
+                    if (!satuan) {
+                        Swal.showValidationMessage("Satuan wajib diisi!");
+                        return;
+                    }
+
+                    let formData = new FormData();
+                    formData.append("nama", satuan);
+
+                    fetch("<?= base_url('C_master/simpanSatuan') ?>", {
+                            method: "POST",
+                            body: formData,
+                        })
+                        .then(res => res.text())
+                        .then(res => {
+
+                            if (res == "success") {
+
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Berhasil",
+                                    text: "Data satuan berhasil disimpan"
+                                }).then(() => {
+                                    location.reload();
+                                });
+
+                            } else {
+
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Gagal",
+                                    text: res
+                                });
+
+                            }
+
+                        })
+                        .catch(() => {
+                            Swal.fire("Error", "Server bermasalah", "error");
+                        });
+
+                });
+
+            }
+        });
     });
-});
 </script>
+
 </html>
