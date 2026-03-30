@@ -42,39 +42,39 @@
 					class="space-y-4">
 
 					<div>
-						<label class="block text-gray-700 font-medium mb-2">
+						<label class="block text-gray-700 font-medium mb-2 text-sm">
 							Nama Lengkap
 						</label>
 						<input type="text" name="fullname"
 							placeholder="Masukkan nama lengkap anda"
-							class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200">
+							class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
 					</div>
 
 					<div>
-						<label class="block text-gray-700 font-medium mb-2">
+						<label class="block text-gray-700 font-medium mb-2 text-sm">
 							Nama Pengguna
 						</label>
 						<input type="text" name="username"
 							placeholder="Masukkan nama pengguna anda"
-							class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200">
+							class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
 					</div>
 
 					<div>
-						<label class="block text-gray-700 font-medium mb-2">
+						<label class="block text-gray-700 font-medium mb-2 text-sm">
 							Email
 						</label>
 						<input type="email" name="email"
 							placeholder="Masukkan email anda"
-							class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200">
+							class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
 					</div>
 
 					<div class="flex gap-4">
 						<div class="flex-1">
-							<label class="block text-gray-700 font-medium mb-2">
+							<label class="block text-gray-700 font-medium mb-2 text-sm">
 								Jenis Kelamin
 							</label>
 							<select name="gender"
-								class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200">
+								class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
 								<option disabled selected>Pilih Jenis Kelamin</option>
 								<option value="L">Laki-laki</option>
 								<option value="P">Perempuan</option>
@@ -82,11 +82,11 @@
 						</div>
 
 						<div class="flex-1">
-							<label class="block text-gray-700 font-medium mb-2">
+							<label class="block text-gray-700 font-medium mb-2 text-sm">
 								Kelas
 							</label>
 							<select name="kelas"
-								class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200">
+								class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
 								<option disabled selected>Pilih Kelas</option>
 								<option value="X">X</option>
 								<option value="XI">XI</option>
@@ -97,13 +97,13 @@
 					</div>
 
 					<div class="relative flex flex-col mb-4">
-						<label for="password" class="block text-gray-700 font-medium mb-2">
+						<label for="password" class="block text-gray-700 font-medium mb-2 text-sm">
 							Kata Sandi
 						</label>
 						<div class="relative flex items-center">
 							<input type="password" id="password" name="password"
 								placeholder="Masukkan kata sandi anda"
-								class="w-full p-3 pr-10 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200">
+								class="w-full p-2 pr-10 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
 							<button type="button" id="togglePassword" class="absolute right-3 text-gray-400 hover:text-gray-600">
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 									<path id="eyeOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -118,13 +118,13 @@
 					</div>
 
 					<div class="relative flex flex-col">
-						<label for="confirm_password" class="block text-gray-700 font-medium mb-2">
+						<label for="confirm_password" class="block text-gray-700 font-medium mb-2 text-sm">
 							Konfirmasi Kata Sandi
 						</label>
 						<div class="relative flex items-center">
 							<input type="password" id="confirm_password" name="confirm_password"
 								placeholder="Konfirmasi kata sandi anda"
-								class="w-full p-3 pr-10 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200">
+								class="w-full p-2 pr-10 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
 							<button type="button" id="toggleConfirmPassword" class="absolute right-3 text-gray-400 hover:text-gray-600">
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 									<path id="eyeOpenConfirm" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -138,7 +138,7 @@
 					</div>
 
 					<button type="submit"
-						class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition duration-300">
+						class="w-full bg-blue-600 hover:bg-[#2b68cc] text-white font-semibold py-2 rounded-md transition duration-300">
 						Buat Akun
 					</button>
 

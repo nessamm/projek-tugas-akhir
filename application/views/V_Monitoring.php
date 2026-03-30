@@ -5,7 +5,7 @@
 </head>
 <body class="bg-gray-100 flex min-h-screen">
 
-<div class="flex-1">
+<div class="flex-1 ml-64">
     <?php $this->load->view('layout/head'); ?>
 
     <!-- CONTENT -->
@@ -14,7 +14,7 @@
         <!-- Header -->
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold">Monitoring - Daftar Anggaran</h2>
-            <button class="bg-blue-500 text-white px-3 py-2 rounded-lg shadow flex items-center gap-2">
+            <button class="bg-blue-500 text-white px-3 py-2 rounded-md shadow flex items-center gap-2">
                 <?= file_get_contents(FCPATH . 'assets/icons/filter.svg'); ?> Pilih Filter
             </button>
         </div>
@@ -25,11 +25,11 @@
                 <thead class="bg-gray-50 text-gray-700">
                     <tr>
                         <th class="px-6 py-3 text-left">NO</th>
-                        <th class="px-6 py-3 text-left">TIKET</th>
-                        <th class="px-6 py-3 text-left">JUDUL</th>
-                        <th class="px-6 py-3 text-left">ORGANISASI</th>
-                        <th class="px-6 py-3 text-left">TERAKHIR DIUPDATE</th>
-                        <th class="px-6 py-3 text-center w-40">ACTION</th>
+                        <th class="px-6 py-3 text-left">Tiket</th>
+                        <th class="px-6 py-3 text-left">Judul</th>
+                        <th class="px-6 py-3 text-left">Organisasi</th>
+                        <th class="px-6 py-3 text-left">Terakhir Diperbarui</th>
+                        <th class="px-6 py-3 text-center w-40">Action</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y">

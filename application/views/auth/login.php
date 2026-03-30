@@ -46,19 +46,19 @@
                     class="space-y-4">
 
                     <div>
-                        <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                        <label for="email" class="block text-gray-700 font-medium mb-2 text-sm">Email</label>
                         <input type="email" id="email" name="email" placeholder="Masukkan email anda"
-                            class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-200">
+                            class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-200 text-sm">
                     </div>
 
                     <div>
-                        <label for="password" class="block text-gray-700 font-medium mb-2">
+                        <label for="password" class="block text-gray-700 font-medium mb-2 text-sm">
                             Kata Sandi
                         </label>
 
                         <div class="relative">
                             <input type="password" id="password" name="password" placeholder="Masukkan kata sandi Anda"
-                                class="w-full p-3 pr-12 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-200">
+                                class="w-full p-2 pr-12 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-200 text-sm">
                             <button type="button" id="togglePassword" aria-label="Tahan untuk melihat password" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path id="eyeOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5 c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -70,7 +70,7 @@
 
                     <button type="submit"
                         style="background-color: #377DFF; color: white; border-radius: 8px;"
-                        class="w-full hover:bg-[#2b68cc] font-semibold py-3 rounded-md transition duration-300">
+                        class="w-full hover:bg-[#2b68cc] font-semibold py-2 rounded-md transition duration-300">
                         Masuk
                     </button>
 

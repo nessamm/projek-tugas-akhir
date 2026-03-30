@@ -8,7 +8,7 @@
 
 <body class="bg-gray-100 flex min-h-screen">
 
-    <div class="flex-1">
+    <div class="flex-1 ml-64">
         <!-- HEADER BAR -->
         <?php $this->load->view('layout/head'); ?>
 
@@ -26,7 +26,7 @@
                         <label class="text-sm text-gray-600">Tiket</label>
                         <input disabled type="text"
                             value="<?= $noticket ?>"
-                            class="w-full mt-1 border rounded-lg px-3 py-2">
+                            class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300">
                     </div>
                     <input type="hidden" name="noticket" id="noticket" value="<?= $noticket ?>">
 
@@ -34,12 +34,12 @@
                         <label class="text-sm text-gray-600">Judul</label>
                         <input type="text" name="judul" id="judul"
                             placeholder="Masukkan Judul Laporan"
-                            class="w-full mt-1 border rounded-lg px-3 py-2">
+                            class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
                     </div>
 
                     <div>
                         <label class="text-sm text-gray-600">Organisasi</label>
-                        <select class="w-full mt-1 border rounded-lg px-3 py-2" name="organisasi">
+                        <select class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="organisasi">
                             <option>Pilih organisasi</option>
                         </select>
                     </div>
@@ -75,7 +75,7 @@
                                 <td class="p-2">1</td>
 
                                 <td class="p-2">
-                                    <select class="border rounded-lg px-2 py-1 w-full">
+                                    <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
                                         <option>Pilih kategori</option>
                                     </select>
                                 </td>
@@ -83,17 +83,17 @@
                                 <td class="p-2">
                                     <input type="text"
                                         placeholder="Masukkan nama barang"
-                                        class="border rounded-lg px-2 py-1 w-full">
+                                        class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
                                 </td>
 
                                 <td class="p-2">
                                     <input type="number"
                                         placeholder="Masukkan banyak"
-                                        class="border rounded-lg px-2 py-1 w-full">
+                                        class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
                                 </td>
 
                                 <td class="p-2">
-                                    <select class="border rounded-lg px-2 py-1 w-full">
+                                    <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
                                         <option>Pilih satuan</option>
                                     </select>
                                 </td>
@@ -101,13 +101,13 @@
                                 <td class="p-2">
                                     <input type="number"
                                         placeholder="Masukkan harga satuan"
-                                        class="border rounded-lg px-2 py-1 w-full">
+                                        class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
                                 </td>
 
                                 <td class="p-2">
                                     <input type="text"
                                         disabled
-                                        class="border rounded-lg px-2 py-1 w-full bg-gray-100">
+                                        class="w-full p-2 rounded-md border border-gray-300 bg-gray-100">
                                 </td>
 
                                 <td class="p-2">
@@ -139,11 +139,11 @@
                 <!-- Action Buttons -->
                 <div class="flex justify-end gap-3 mt-6">
 
-                    <button class="px-4 py-2 bg-gray-200 rounded-lg">
+                    <button class="px-4 py-2 bg-gray-200 rounded-md">
                         Batal
                     </button>
 
-                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg" id="btnSimpan">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-md" id="btnSimpan">
                         Simpan
                     </button>
 
