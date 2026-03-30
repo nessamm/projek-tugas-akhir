@@ -40,7 +40,13 @@
                     <div>
                         <label class="text-sm text-gray-600">Organisasi</label>
                         <select class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="organisasi">
-                            <option>Pilih organisasi</option>
+                            <option value="">Pilih organisasi</option>
+
+                            <?php foreach ($organisasi as $org): ?>
+                                <option value="<?= $org->code ?>">
+                                    <?= $org->name ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
@@ -76,7 +82,13 @@
 
                                 <td class="p-2">
                                     <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
-                                        <option>Pilih kategori</option>
+                                        <option value="">Pilih Kategori</option>
+
+                                        <?php foreach ($kategori as $ktg): ?>
+                                            <option value="<?= $ktg->code ?>">
+                                                <?= $ktg->name ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </td>
 
@@ -94,7 +106,13 @@
 
                                 <td class="p-2">
                                     <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
-                                        <option>Pilih satuan</option>
+                                        <option value="">Pilih Satuan</option>
+
+                                        <?php foreach ($satuan as $stn): ?>
+                                            <option value="<?= $stn->code ?>">
+                                                <?= $stn->name ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </td>
 
@@ -202,5 +220,4 @@
             })
 
     });
-
 </script>

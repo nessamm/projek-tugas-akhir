@@ -18,6 +18,9 @@ class C_Input extends CI_Controller {
     {
 
         $data['noticket'] = $this->M_login->generateTicket();
+        $data['organisasi'] = $this->M_input->getOrganisasi();
+        $data['kategori'] = $this->M_input->getKategori();
+        $data['satuan'] = $this->M_input->getSatuan();
 
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar');
@@ -30,7 +33,7 @@ class C_Input extends CI_Controller {
         $data = [
             'noticket'   => $this->input->post('noticket'),
             'judul'      => $this->input->post('judul'),
-            // 'organisasi' => $this->input->post('organisasi'),
+            'organisasi' => $this->input->post('organisasi'),
             'total'      => 0,
             'userinput'  => $this->session->userdata('user_id')
         ];

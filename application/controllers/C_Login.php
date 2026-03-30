@@ -15,8 +15,11 @@ class C_Login extends CI_Controller
 
     public function index()
     {
+
+        $data['kelas'] = $this->M_login->getKelas();
+
         $this->load->view('layout/header');
-        $this->load->view('auth/register');
+        $this->load->view('auth/register', $data);
     }
 
     public function register()

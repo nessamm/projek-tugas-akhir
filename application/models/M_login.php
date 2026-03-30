@@ -64,4 +64,9 @@ class M_login extends CI_Model
 
         return $prefix . $urutan;
     }
+
+    public function getKelas()
+    {
+        return $this->db->get('mskelas')->result();
+    }
 }

@@ -88,10 +88,11 @@
 							<select name="kelas"
 								class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
 								<option disabled selected>Pilih Kelas</option>
-								<option value="X">X</option>
-								<option value="XI">XI</option>
-								<option value="XII">XII</option>
-								<option value="XII">XIII</option>
+								<?php foreach ($kelas as $kls): ?>
+									<option value="<?= $kls->code ?>">
+										<?= $kls->name ?>
+									</option>
+								<?php endforeach; ?>
 							</select>
 						</div>
 					</div>
