@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class C_Input extends CI_Controller {
+class C_Input extends CI_Controller
+{
 
     public function __construct()
     {
@@ -45,5 +46,7 @@ class C_Input extends CI_Controller {
         } else {
             echo "gagal";
         }
+
+        //coba push
     }
 }
