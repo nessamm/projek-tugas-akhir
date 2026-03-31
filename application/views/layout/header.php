@@ -1,8 +1,8 @@
 <head>
     <meta charset="UTF-8">
     <title>SmartRAB</title>
-    <link rel="stylesheet" href="<?= base_url('assets/css/tailwind.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/tailwind.min.css') ?>">
     <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/LogoIp.png') ?>">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -48,5 +48,45 @@
             height: 300px;
             object-fit: contain;
         }
+
+        .swal2-popup {
+            padding: 0 !important;
+            border-radius: 16px !important;
+            font-family: 'Nunito', sans-serif;
+            width: 420px !important;
+
+
+        }
+
+
+        .swal2-html-container {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .swal2-title {
+            font-size: 24px !important;
+            font-weight: 800 !important;
+            color: #374151 !important;
+            margin-bottom: 6px !important;
+        }
+
+        .swal2-actions {
+            gap: 10px !important;
+            margin-bottom: 20px;
+        }
+
+        .swal2-image {
+            margin: 20px auto 0px auto !important;
+            transform: scale(0.85);
+
+        }
+
+        .swal2-confirm,
+        .swal2-cancel {
+            border-radius: 6px !important;
+        }
+
+        
     </style>
 </head>

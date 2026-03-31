@@ -20,4 +20,15 @@ class M_master extends CI_Model
     {
         return $this->db->insert('mssatuan', $data);
     }
+
+    public function getData($table)
+    {
+        return $this->db->get($table)->result();
+    }
+
+   public function deleteData($table, $field, $id)
+{
+    return $this->db->delete($table, [$field => $id]);
+}
+
 }

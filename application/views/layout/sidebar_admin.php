@@ -1,5 +1,5 @@
 <!-- SIDEBAR -->
-<aside class="w-64 bg-white shadow-lg flex flex-col min-h-screen">
+<aside class="fixed left-0 top-0 w-64 h-screen bg-white shadow-lg flex flex-col">
 
     <div class="flex justify-center mb-2 p-6">
         <img src="<?= base_url('assets/img/logo.png') ?>"

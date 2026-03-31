@@ -4,58 +4,42 @@
 <head>
     <title>Mater - SmartRAB</title>
     <style>
-        /* hilangkan padding default swal */
-        .swal2-popup {
-            padding: 0 !important;
-            border-radius: 16px !important;
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* hilangkan margin aneh */
-        .swal2-html-container {
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-
         /* input style */
-        .custom-input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #d1d5db;
-            border-radius: 10px;
+
+        .form-input {
             font-size: 14px;
+            margin-top: 4px;
+            padding: .5rem;
+            width: 100%;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
             outline: none;
         }
 
-        .custom-input::placeholder {
-            color: #9ca3af;
+        .form-input:focus {
+            box-shadow: 0 0 0 1px #bfdbfe;
         }
 
-        .custom-textarea {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #d1d5db;
-            border-radius: 10px;
+        /* khusus textarea */
+        .form-textarea {
             height: 110px;
-            font-size: 14px;
             resize: none;
-            outline: none;
         }
 
         .btn-simpan {
             background: linear-gradient(to right, #5b8def, #4f7df3);
             color: white;
             padding: 10px 22px;
-            border-radius: 10px;
+            border-radius: 6px;
             border: none;
             font-size: 14px;
         }
     </style>
 </head>
 
-<body class="bg-gray-100 flex min-h-screen">
+<body style="background-color: #F2F6FF;" class="flex min-h-screen">
 
-    <div class="flex-1">
+    <div class="flex-1 ml-64">
         <?php $this->load->view('layout/head'); ?>
 
         <!-- CONTENT -->
@@ -72,63 +56,190 @@
             <!-- Card List -->
             <div class="space-y-4">
 
-                <!-- Item -->
-                <div class="flex items-center justify-between bg-gray-50 border rounded-lg px-5 py-4 hover:bg-gray-100 transition">
-
-                    <!-- Left -->
-                    <div class="flex items-center gap-3 text-gray-700 font-medium">
-                        <?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?>
-                        <b>Master Kelas</b>
+                <!-- Master Kelas -->
+                <div class="border rounded-lg overflow-hidden shadow-sm">
+                    <!-- Header -->
+                    <div id="kelasHeader" onclick="toggleSection('kelasContent','arrowKelas', this)"
+                        class="flex items-center justify-between px-5 py-4 bg-gray-50 cursor-pointer transition">
+                        <div class="flex items-center gap-3 text-gray-700 font-medium">
+                            <span id="arrowKelas"
+                                class="transition-transform"><?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?></span>
+                            <b>Master Kelas</b>
+                        </div>
+                        <button id="btnTambahKelas" onclick="event.stopPropagation();"
+                            class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                            <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
+                            Tambah Data
+                        </button>
                     </div>
 
-                    <!-- Right Button -->
-                    <button id="btnTambahKelas"
-                        class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
-                        <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
-                        Tambah Data
-                    </button>
+                    <!-- Content (Tabel) -->
+                    <div id="kelasContent" class="hidden bg-white">
+                        <table class="min-w-full text-sm text-gray-600">
+                            <thead class="bg-gray-50 text-gray-700">
+                                <tr>
+                                    <th class="px-6 py-3 text-left">NO</th>
+                                    <th class="px-6 py-3 text-left">Kelas</th>
+                                    <th class="px-6 py-3 text-left">Deskripsi</th>
+                                    <th class="px-6 py-3 text-center w-40">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <?php $no = 1;
+                                foreach ($kelas as $k) { ?>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-3"><?= $no++ ?></td>
+                                        <td class="px-6 py-3"><?= $k->name ?></td>
+                                        <td class="px-6 py-3"><?= $k->description ?></td>
+                                        <td class="px-6 py-3 text-center space-x-2 whitespace-nowrap">
+                                            <button
+                                                onclick="event.stopPropagation(); hapusData('mskelas','<?= $k->code ?>')"
+                                                class="bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <!-- Item -->
-                <div class="flex items-center justify-between bg-gray-50 border rounded-lg px-5 py-4 hover:bg-gray-100 transition">
-                    <div class="flex items-center gap-3 text-gray-700 font-medium">
-                        <?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?>
-                        <b>Master Organisasi</b>
+                <!-- Master Organisasi -->
+                <div class="border rounded-lg overflow-hidden shadow-sm">
+                    <div id="orgHeader" onclick="toggleSection('orgContent','arrowOrg', this)"
+                        class="flex items-center justify-between px-5 py-4 bg-gray-50 cursor-pointer transition">
+                        <div class="flex items-center gap-3 text-gray-700 font-medium">
+                            <span id="arrowOrg"
+                                class="transition-transform"><?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?></span>
+                            <b>Master Organisasi</b>
+                        </div>
+                        <button id="btnTambahOrganisasi"
+                            class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                            <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
+                            Tambah Data
+                        </button>
                     </div>
 
-                    <button id="btnTambahOrganisasi"
-                        class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
-                        <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
-                        Tambah Data
-                    </button>
+                    <div id="orgContent" class="hidden bg-white">
+                        <table class="min-w-full text-sm text-gray-600">
+                            <thead class="bg-gray-50 text-gray-700">
+                                <tr>
+                                    <th class="px-6 py-3 text-left">NO</th>
+                                    <th class="px-6 py-3 text-left">Organisasi</th>
+                                    <th class="px-6 py-3 text-left">Deskripsi</th>
+                                    <th class="px-6 py-3 text-center w-40">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <?php $no = 1;
+                                foreach ($organisasi as $o) { ?>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-3"><?= $no++ ?></td>
+                                        <td class="px-6 py-3"><?= $o->name ?></td>
+                                        <td class="px-6 py-3"><?= $o->description ?></td>
+                                        <td class="px-6 py-3 text-center">
+                                            <button
+                                                onclick="event.stopPropagation(); hapusData('msorganisasi','<?= $o->code ?>')"
+                                                class="bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg">
+                                                <?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <!-- Item -->
-                <div class="flex items-center justify-between bg-gray-50 border rounded-lg px-5 py-4 hover:bg-gray-100 transition">
-                    <div class="flex items-center gap-3 text-gray-700 font-medium">
-                        <?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?>
-                        <b>Master Kategori</b>
+                <!-- Master Kategori -->
+                <div class="border rounded-lg overflow-hidden shadow-sm">
+                    <div id="kategoriHeader" onclick="toggleSection('kategoriContent','arrowKategori', this)"
+                        class="flex items-center justify-between px-5 py-4 bg-gray-50 cursor-pointer transition">
+                        <div class="flex items-center gap-3 text-gray-700 font-medium">
+                            <span id="arrowKategori"
+                                class="transition-transform"><?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?></span>
+                            <b>Master Kategori</b>
+                        </div>
+                        <button id="btnTambahKategori"
+                            class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                            <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
+                            Tambah Data
+                        </button>
                     </div>
 
-                    <button id="btnTambahKategori"
-                        class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
-                        <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
-                        Tambah Data
-                    </button>
+                    <div id="kategoriContent" class="hidden bg-white">
+                        <table class="min-w-full text-sm text-gray-600">
+                            <thead class="bg-gray-50 text-gray-700">
+                                <tr>
+                                    <th class="px-6 py-3 text-left">NO</th>
+                                    <th class="px-6 py-3 text-left">Kategori</th>
+                                    <th class="px-6 py-3 text-left">Deskripsi</th>
+                                    <th class="px-6 py-3 text-center w-40">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <?php $no = 1;
+                                foreach ($kategori as $k) { ?>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-3"><?= $no++ ?></td>
+                                        <td class="px-6 py-3"><?= $k->name ?></td>
+                                        <td class="px-6 py-3"><?= $k->description ?></td>
+                                        <td class="px-6 py-3 text-center">
+                                            <button
+                                                onclick="event.stopPropagation(); hapusData('mskategori','<?= $k->code ?>')"
+                                                class="bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg">
+                                                <?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <!-- Item -->
-                <div class="flex items-center justify-between bg-gray-50 border rounded-lg px-5 py-4 hover:bg-gray-100 transition">
-                    <div class="flex items-center gap-3 text-gray-700 font-medium">
-                        <?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?>
-                        <b>Master Satuan</b>
+                <!-- Master Satuan -->
+                <div class="border rounded-lg overflow-hidden shadow-sm">
+                    <div id="satuanHeader" onclick="toggleSection('satuanContent','arrowSatuan', this)"
+                        class="flex items-center justify-between px-5 py-4 bg-gray-50 cursor-pointer transition">
+                        <div class="flex items-center gap-3 text-gray-700 font-medium">
+                            <span id="arrowSatuan"
+                                class="transition-transform"><?= file_get_contents(FCPATH . 'assets/icons/chevron-right.svg'); ?></span>
+                            <b>Master Satuan</b>
+                        </div>
+                        <button id="btnTambahSatuan"
+                            class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                            <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
+                            Tambah Data
+                        </button>
                     </div>
 
-                    <button id="btnTambahSatuan"
-                        class="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600 transition">
-                        <?= file_get_contents(FCPATH . 'assets/icons/plus.svg'); ?>
-                        Tambah Data
-                    </button>
+                    <div id="satuanContent" class="hidden bg-white">
+                        <table class="min-w-full text-sm text-gray-600">
+                            <thead class="bg-gray-50 text-gray-700">
+                                <tr>
+                                    <th class="px-6 py-3 text-left">NO</th>
+                                    <th class="px-6 py-3 text-left">Satuan</th>
+                                    <th class="px-6 py-3 text-center w-40">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <?php $no = 1;
+                                foreach ($satuan as $s) { ?>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-3"><?= $no++ ?></td>
+                                        <td class="px-6 py-3"><?= $s->name ?></td>
+                                        <td class="px-6 py-3 text-center">
+                                            <button
+                                                onclick="event.stopPropagation(); hapusData('mssatuan','<?= $s->code ?>')"
+                                                class="bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg">
+                                                <?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
             </div>
@@ -136,7 +247,7 @@
 </body>
 
 <script>
-    document.getElementById('btnTambahKelas').addEventListener('click', function() {
+    document.getElementById('btnTambahKelas').addEventListener('click', function () {
         Swal.fire({
             showConfirmButton: false,
             width: '520px',
@@ -156,11 +267,11 @@
 
                 <!-- KELAS -->
                 <label style="font-size:14px; color:#374151; margin-bottom:6px; display:block;">Kelas</label>
-                <input id="kelasInput" class="custom-input" placeholder="Masukkan kelas">
+                <input id="kelasInput" class="form-input" placeholder="Masukkan kelas">
 
                 <!-- DESKRIPSI -->
                 <label style="font-size:14px; color:#374151; margin:18px 0 6px; display:block;">Deskripsi</label>
-                <textarea id="deskripsiInput" class="custom-textarea" placeholder="Masukkan deskripsi"></textarea>
+                <textarea id="deskripsiInput" class="form-input form-textarea" placeholder="Masukkan deskripsi"></textarea>
 
                 <!-- BUTTON -->
                 <div style="display:flex; justify-content:flex-end; margin-top:22px;">
@@ -171,12 +282,15 @@
         </div>
         `,
             didOpen: () => {
-
                 // tombol close
-                document.getElementById('closeSwal').onclick = () => Swal.close();
+                document.getElementById('closeSwal').onclick = (e) => {
+                    e.stopPropagation();
+                    Swal.close();
+                };
 
                 // tombol simpan
-                document.getElementById("btnSimpanKelas").addEventListener("click", function() {
+                document.getElementById("btnSimpanKelas").addEventListener("click", function (e) {
+                    e.stopPropagation();
 
                     let nama = document.getElementById("kelasInput").value;
                     let deskripsi = document.getElementById("deskripsiInput").value;
@@ -191,44 +305,30 @@
                     formData.append("deskripsi", deskripsi);
 
                     fetch("<?= base_url('C_master/simpanKelas') ?>", {
-                            method: "POST",
-                            body: formData
-                        })
+                        method: "POST",
+                        body: formData
+                    })
                         .then(res => res.text())
                         .then(res => {
-
                             if (res == "success") {
-
                                 Swal.fire({
                                     icon: "success",
                                     title: "Berhasil",
                                     text: "Data kelas berhasil disimpan"
-                                }).then(() => {
-                                    location.reload();
-                                });
-
+                                }).then(() => location.reload());
                             } else {
-
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Gagal",
-                                    text: res
-                                });
-
+                                Swal.fire({ icon: "error", title: "Gagal", text: res });
                             }
-
                         })
-                        .catch(() => {
-                            Swal.fire("Error", "Server bermasalah", "error");
-                        });
-
+                        .catch(() => Swal.fire("Error", "Server bermasalah", "error"));
                 });
-
             }
+
+
         });
     });
 
-    document.getElementById('btnTambahOrganisasi').addEventListener('click', function() {
+    document.getElementById('btnTambahOrganisasi').addEventListener('click', function () {
         Swal.fire({
             showConfirmButton: false,
             width: '520px',
@@ -248,11 +348,11 @@
 
                 <!-- ORGANISASI -->
                 <label style="font-size:14px; color:#374151; margin-bottom:6px; display:block;">Organisasi</label>
-                <input id="orginput" class="custom-input" placeholder="Masukkan organisasi">
+                <input id="orginput" class="form-input" placeholder="Masukkan organisasi">
 
                 <!-- DESKRIPSI -->
                 <label style="font-size:14px; color:#374151; margin:18px 0 6px; display:block;">Deskripsi</label>
-                <textarea id="deskorg" class="custom-textarea" placeholder="Masukkan deskripsi"></textarea>
+                <textarea id="deskorg" class="form-input form-textarea" placeholder="Masukkan deskripsi"></textarea>
 
                 <!-- BUTTON -->
                 <div style="display:flex; justify-content:flex-end; margin-top:22px;">
@@ -268,7 +368,7 @@
                 document.getElementById('closeSwalorg').onclick = () => Swal.close();
 
                 // tombol simpan
-                document.getElementById("simpanDataOrg").addEventListener("click", function() {
+                document.getElementById("simpanDataOrg").addEventListener("click", function () {
 
                     let organisasi = document.getElementById("orginput").value;
                     let deskripsi = document.getElementById("deskorg").value;
@@ -283,9 +383,9 @@
                     formData.append("deskripsi", deskripsi);
 
                     fetch("<?= base_url('C_master/simpanOrganisasi') ?>", {
-                            method: "POST",
-                            body: formData
-                        })
+                        method: "POST",
+                        body: formData
+                    })
                         .then(res => res.text())
                         .then(res => {
 
@@ -320,7 +420,7 @@
         });
     });
 
-    document.getElementById('btnTambahKategori').addEventListener('click', function() {
+    document.getElementById('btnTambahKategori').addEventListener('click', function () {
         Swal.fire({
             showConfirmButton: false,
             width: '520px',
@@ -340,11 +440,11 @@
 
                 <!-- KATEGORI -->
                 <label style="font-size:14px; color:#374151; margin-bottom:6px; display:block;">Kategori</label>
-                <input id="KtgrInput" class="custom-input" placeholder="Masukkan kategori">
+                <input id="KtgrInput" class="form-input" placeholder="Masukkan kategori">
 
                 <!-- DESKRIPSI -->
                 <label style="font-size:14px; color:#374151; margin:18px 0 6px; display:block;">Deskripsi</label>
-                <textarea id="DesKtgr" class="custom-textarea" placeholder="Masukkan deskripsi"></textarea>
+                <textarea id="DesKtgr" class="form-input form-textarea" placeholder="Masukkan deskripsi"></textarea>
 
                 <!-- BUTTON -->
                 <div style="display:flex; justify-content:flex-end; margin-top:22px;">
@@ -360,7 +460,7 @@
                 document.getElementById('closeSwalKtgr').onclick = () => Swal.close();
 
                 // tombol simpan
-                document.getElementById("simpanDataKtgr").addEventListener("click", function() {
+                document.getElementById("simpanDataKtgr").addEventListener("click", function () {
 
                     let kategori = document.getElementById("KtgrInput").value;
                     let deskripsi = document.getElementById("DesKtgr").value;
@@ -381,9 +481,9 @@
                     formData.append("deskripsi", deskripsi);
 
                     fetch("<?= base_url('C_master/simpanKategori') ?>", {
-                            method: "POST",
-                            body: formData
-                        })
+                        method: "POST",
+                        body: formData
+                    })
                         .then(res => res.text())
                         .then(res => {
 
@@ -418,7 +518,7 @@
         });
     });
 
-    document.getElementById('btnTambahSatuan').addEventListener('click', function() {
+    document.getElementById('btnTambahSatuan').addEventListener('click', function () {
         Swal.fire({
             showConfirmButton: false,
             width: '520px',
@@ -438,7 +538,7 @@
 
                 <!-- SATUAN -->
                 <label style="font-size:14px; color:#374151; margin-bottom:6px; display:block;">Satuan</label>
-                <input id="satuan" class="custom-input" placeholder="Masukkan satuan">
+                <input id="satuan" class="form-input" placeholder="Masukkan satuan">
 
                 <!-- BUTTON -->
                 <div style="display:flex; justify-content:flex-end; margin-top:22px;">
@@ -454,7 +554,7 @@
                 document.getElementById('closeSwalSatuan').onclick = () => Swal.close();
 
                 // tombol simpan
-                document.getElementById("simpanDataSatuan").addEventListener("click", function() {
+                document.getElementById("simpanDataSatuan").addEventListener("click", function () {
 
                     let satuan = document.getElementById("satuan").value;
 
@@ -467,9 +567,9 @@
                     formData.append("nama", satuan);
 
                     fetch("<?= base_url('C_master/simpanSatuan') ?>", {
-                            method: "POST",
-                            body: formData,
-                        })
+                        method: "POST",
+                        body: formData,
+                    })
                         .then(res => res.text())
                         .then(res => {
 
@@ -503,6 +603,70 @@
             }
         });
     });
+
+    function toggleSection(contentId, arrowId, header) {
+        const content = document.getElementById(contentId);
+        const arrow = document.getElementById(arrowId);
+
+        content.classList.toggle('hidden');
+
+        // Header color
+        if (!content.classList.contains('hidden')) {
+            header.classList.add('bg-gray-100');
+            arrow.style.transform = 'rotate(90deg)'; // arrow down
+        } else {
+            header.classList.remove('bg-gray-100');
+            arrow.style.transform = 'rotate(0deg)'; // arrow right
+        }
+    }
+
+
+    function hapusData(table, id) {
+
+        Swal.fire({
+            title: "Yakin hapus data?",
+            text: "Data tidak bisa dikembalikan!",
+            imageUrl: "<?= base_url('assets/icons/trash2.svg') ?>",
+            imageWidth: 60,
+            imageHeight: 60,
+
+            showCancelButton: true,
+            confirmButtonColor: "#ef4444",
+            cancelButtonColor: "#cccccc",
+            confirmButtonText: "Ya, hapus!"
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                let formData = new FormData();
+                formData.append("table", table);
+                formData.append("id", id);
+
+                fetch("<?= base_url('C_Master/deleteData') ?>", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(res => res.text())
+                    .then(res => {
+
+                        if (res === "success") {
+                            Swal.fire("Berhasil", "Data berhasil dihapus", "success")
+                                .then(() => location.reload());
+                        } else {
+                            Swal.fire("Gagal", res, "error");
+                        }
+
+                    })
+                    .catch(() => {
+                        Swal.fire("Error", "Server bermasalah", "error");
+                    });
+
+            }
+        });
+    }
+
+
+
 </script>
 
 </html>

@@ -39,56 +39,26 @@ document.getElementById('btnLogout').addEventListener('click', function(e) {
     e.preventDefault();
 
     Swal.fire({
-        html: `
-            <div class="flex flex-col items-center text-center">
-                
-                <!-- ICON -->
-                <div>
-                    <img src="<?= base_url('assets/icons/icon-logout.svg') ?>" 
-                         class="w-12 h-12 mx-auto">
-                </div>
+        title: "Keluar",
+        text: "Anda yakin ingin keluar dari akun ini?",
+        
+        imageUrl: "<?= base_url('assets/icons/icon-logout.svg') ?>",
+        imageWidth: 60,
+        imageHeight: 60,
 
-                <!-- TITLE -->
-                <h2 class="text-xl font-semibold text-gray-800 ">
-                    Keluar
-                </h2>
-
-                <!-- TEXT -->
-                <p class="text-gray-500 text-sm">
-                    Anda yakin ingin keluar dari akun ini?
-                </p>
-
-            </div>
-        `,
         showCancelButton: true,
-        cancelButtonText: 'Tidak',
-        confirmButtonText: 'Ya',
-        buttonsStyling: false,
+        confirmButtonText: "Ya, Keluar",
+        cancelButtonText: "Tidak",
 
-        customClass: {
-            popup: 'rounded-2xl px-6 py-8',
-            
-            confirmButton: `
-                bg-blue-500 text-white 
-                px-8 py-2 rounded-lg 
-                ml-2
-            `,
-
-            cancelButton: `
-                bg-gray-200 text-gray-500 
-                px-8 py-2 rounded-lg 
-                mr-2
-            `,
-
-            actions: 'flex justify-center gap-3 mt-6'
-        }
-
+        confirmButtonColor: "#3b82f6", // biru
+        cancelButtonColor: "#cccccc"
+        
     }).then((result) => {
         if (result.isConfirmed) {
 
             Swal.fire({
-                title: 'Berhasil logout!',
-                icon: 'success',
+                title: "Berhasil logout!",
+                icon: "success",
                 timer: 1500,
                 showConfirmButton: false
             }).then(() => {
@@ -97,9 +67,5 @@ document.getElementById('btnLogout').addEventListener('click', function(e) {
 
         }
     });
-});
-
-document.getElementById('btnBack').addEventListener('click', function() {
-    history.back();
 });
 </script>

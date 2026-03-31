@@ -3,9 +3,9 @@
 <head>
     <title>Pengguna - SmartRAB</title>
 </head>
-<body class="bg-gray-100 flex min-h-screen">
+<body style="background-color: #F2F6FF;" class="flex min-h-screen">
 
-<div class="flex-1">
+<div class="flex-1 ml-64">
     <?php $this->load->view('layout/head'); ?>
 
     <!-- CONTENT -->
@@ -25,9 +25,9 @@
             <thead class="bg-gray-50 text-gray-700">
                 <tr>
                     <th class="px-6 py-3 w-10 text-center">NO</th>
-                    <th class="px-6 py-3 w-96 text-left">NAMA LENGKAP</th>
-                    <th class="px-6 py-3 w-32 text-center">KELAS</th>
-                    <th class="px-6 py-3 w-32 text-center">GENDER</th>
+                    <th class="px-6 py-3 w-96 text-left">Nama Lengkap</th>
+                    <th class="px-6 py-3 w-32 text-center">Kelas</th>
+                    <th class="px-6 py-3 w-32 text-center">Gender</th>
                 </tr>
             </thead>
             <tbody class="divide-y">
