@@ -58,3 +58,4 @@ $route['input'] = 'C_Input/index';
 $route['pengguna'] = 'C_Pengguna/index';
 $route['master'] = 'C_Master/index';
 $route['profile'] = 'Profile/index';
+$route['logout'] = 'C_Login/logout';

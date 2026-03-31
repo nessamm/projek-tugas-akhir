@@ -169,4 +169,11 @@ class C_Login extends CI_Controller
 
         echo "success";
     }
+
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        $this->load->view('layout/header');
+        $this->load->view('auth/login');
+    }
 }
