@@ -11,7 +11,7 @@
     <div class="flex items-center gap-6 ml-auto text-sm">
 
         <!-- USER -->
-        <a href="#" class="flex items-center gap-3 p-2 rounded-lg
+        <a href="<?= base_url('profile'); ?>" class="flex items-center gap-3 p-2 rounded-lg
             hover:bg-gray-100 hover:shadow-sm hover:scale-105
             transition-all duration-200">
             
