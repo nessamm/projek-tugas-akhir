@@ -157,7 +157,7 @@
                 <!-- Action Buttons -->
                 <div class="flex justify-end gap-3 mt-6">
 
-                    <button class="px-4 py-2 bg-gray-200 rounded-md">
+                    <button class="px-4 py-2 bg-gray-200 rounded-md" id="btnBatal">
                         Batal
                     </button>
 
@@ -215,7 +215,7 @@
                 Swal.fire({
                     icon: "warning",
                     title: "Peringatan",
-                    text: `Semua field wajib diisi (baris ke ${i + 1})`
+                    text: `Semua field wajib diisi`
                 });
                 return;
             }
@@ -381,6 +381,101 @@
             "Rp " + hasil.toLocaleString("id-ID") :
             "";
 
-        hitungTotal(); 
+        hitungTotal();
+    });
+
+    document.getElementById("btnBatal").addEventListener("click", function() {
+
+        Swal.fire({
+
+            html: `
+            <div class="flex flex-col items-center text-center">
+                
+                <!-- ICON -->
+                <div>
+                    <img src="<?= base_url('assets/icons/upload.svg') ?>" 
+                         class="w-20 h-20 mx-auto">
+                </div>
+
+                <!-- TITLE -->
+                <h2 class="text-xl font-semibold text-gray-800 " style="margin-top: 16px;">
+                    Data Belum Tersimpan
+                </h2>
+
+                <!-- TEXT -->
+                <p class="text-gray-500 text-sm">
+                    Perubahan Anda belum tersimpan, yakin tutup?
+                </p>
+
+            </div>
+        `,
+            showCancelButton: true,
+            confirmButtonText: "Ya, Tutup",
+            cancelButtonText: "Tidak"
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                // 🔴 Reset header
+                document.getElementById("judul").value = "";
+                document.getElementById("organisasi").value = "";
+
+                // 🔴 Reset tabel (hapus semua baris)
+                let tbody = document.querySelector("tbody");
+                tbody.innerHTML = "";
+
+                // 🔴 Tambahkan 1 baris kosong kembali
+                let newRow = `
+                <tr>
+                    <td class="p-2">1</td>
+
+                    <td class="p-2">
+                        <select class="w-full p-2 rounded-md border border-gray-300" name="kategori[]">
+                            <option value="">Pilih Kategori</option>
+                            <?php foreach ($kategori as $ktg): ?>
+                                <option value="<?= $ktg->code ?>"><?= $ktg->name ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+
+                    <td class="p-2">
+                        <input type="text" name="nama_barang[]" class="w-full p-2 rounded-md border border-gray-300" placeholder="Masukkan nama barang">
+                    </td>
+
+                    <td class="p-2">
+                        <input type="number" name="banyak[]" class="w-full p-2 rounded-md border border-gray-300" placeholder="Masukkan banyak barang">
+                    </td>
+
+                    <td class="p-2">
+                        <select class="w-full p-2 rounded-md border border-gray-300" name="satuan[]">
+                            <option value="">Pilih Satuan</option>
+                            <?php foreach ($satuan as $stn): ?>
+                                <option value="<?= $stn->code ?>"><?= $stn->name ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+
+                    <td class="p-2">
+                        <input type="number" name="harga_satuan[]" class="w-full p-2 rounded-md border border-gray-300" placeholder="Masukkan harga satuan">
+                    </td>
+
+                    <td class="p-2">
+                        <input type="text" name="jumlah[]" disabled class="w-full p-2 rounded-md border bg-gray-100">
+                    </td>
+
+                    <td class="p-2">
+                        <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
+                    </td>
+                </tr>
+            `;
+
+                tbody.insertAdjacentHTML("beforeend", newRow);
+
+                document.getElementById("totalSemua").innerText = "Rp 0";
+
+            }
+
+        });
+
     });
 </script>
