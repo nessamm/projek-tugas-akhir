@@ -7,6 +7,11 @@ class M_input extends CI_Model
         return $this->db->insert('anggaran_header', $data);
     }
 
+    public function simpanDetail($data)
+    {
+        return $this->db->insert_batch('anggarand', $data);
+    }
+
     public function getOrganisasi()
     {
         return $this->db->get('msorganisasi')->result();

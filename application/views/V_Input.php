@@ -39,7 +39,7 @@
 
                     <div>
                         <label class="text-sm text-gray-600">Organisasi</label>
-                        <select class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="organisasi">
+                        <select class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="organisasi" id="organisasi">
                             <option value="">Pilih organisasi</option>
 
                             <?php foreach ($organisasi as $org): ?>
@@ -81,7 +81,7 @@
                                 <td class="p-2">1</td>
 
                                 <td class="p-2">
-                                    <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
+                                    <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="kategori[]" id="kategori">
                                         <option value="">Pilih Kategori</option>
 
                                         <?php foreach ($kategori as $ktg): ?>
@@ -93,19 +93,19 @@
                                 </td>
 
                                 <td class="p-2">
-                                    <input type="text"
+                                    <input type="text" name="nama_barang[]"
                                         placeholder="Masukkan nama barang"
                                         class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
                                 </td>
 
                                 <td class="p-2">
-                                    <input type="number"
+                                    <input type="number" name="banyak[]"
                                         placeholder="Masukkan banyak"
                                         class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
                                 </td>
 
                                 <td class="p-2">
-                                    <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
+                                    <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="satuan[]">
                                         <option value="">Pilih Satuan</option>
 
                                         <?php foreach ($satuan as $stn): ?>
@@ -117,19 +117,19 @@
                                 </td>
 
                                 <td class="p-2">
-                                    <input type="number"
+                                    <input type="number" name="harga_satuan[]"
                                         placeholder="Masukkan harga satuan"
                                         class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
                                 </td>
 
                                 <td class="p-2">
-                                    <input type="text"
+                                    <input type="text" name="jumlah[]"
                                         disabled
                                         class="w-full p-2 rounded-md border border-gray-300 bg-gray-100">
                                 </td>
 
                                 <td class="p-2">
-                                    <button class="bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
+                                    <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
                                 </td>
                             </tr>
 
@@ -139,7 +139,7 @@
                 </div>
 
                 <!-- Add Row -->
-                <button class="mt-4 text-blue-600 text-sm font-medium">
+                <button class="mt-4 text-blue-600 text-sm font-medium" id="btnTambahBaris">
                     + Tambah Baris Baru
                 </button>
 
@@ -148,8 +148,8 @@
 
                     <span class="font-semibold">Total</span>
 
-                    <span class="text-blue-600 font-semibold">
-                        Rp 0,00
+                    <span id="totalSemua" class="text-blue-600 font-semibold">
+                        Rp 0
                     </span>
 
                 </div>
@@ -178,17 +178,64 @@
 </html>
 
 <script>
-    document.getElementById("btnSimpan").addEventListener("click", function() {
+    document.getElementById("btnSimpan").addEventListener("click", function(e) {
 
-        let noticket = document.getElementById("noticket").value;
+        e.preventDefault();
+
         let judul = document.getElementById("judul").value;
-        // let organisasi = document.getElementById("organisasi").value;
+        let organisasi = document.getElementById("organisasi").value;
+        let noticket = document.getElementById("noticket").value;
+        let total = document.getElementById("totalSemua").innerText.replace(/[^0-9]/g, ""); // hilangkan Rp & titik
+
+        let kategori = document.querySelectorAll("[name='kategori[]']");
+        let nama_barang = document.querySelectorAll("[name='nama_barang[]']");
+        let banyak = document.querySelectorAll("[name='banyak[]']");
+        let satuan = document.querySelectorAll("[name='satuan[]']");
+        let harga_satuan = document.querySelectorAll("[name='harga_satuan[]']");
+        let jumlah = document.querySelectorAll("[name='jumlah[]']");
+
+        if (kategori.length === 0) {
+            Swal.fire({
+                icon: "warning",
+                title: "Peringatan",
+                text: "Minimal harus ada 1 baris data"
+            });
+            return;
+        }
+
+        for (let i = 0; i < kategori.length; i++) {
+
+            if (
+                !kategori[i].value ||
+                !nama_barang[i].value ||
+                !banyak[i].value ||
+                !satuan[i].value ||
+                !harga_satuan[i].value
+            ) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Peringatan",
+                    text: `Semua field wajib diisi (baris ke ${i + 1})`
+                });
+                return;
+            }
+        }
 
         let formData = new FormData();
 
         formData.append("noticket", noticket);
         formData.append("judul", judul);
-        // formData.append("organisasi", organisasi);
+        formData.append("organisasi", organisasi);
+        formData.append("total", total);
+
+        for (let i = 0; i < kategori.length; i++) {
+            formData.append("kategori[]", kategori[i].value);
+            formData.append("nama_barang[]", nama_barang[i].value);
+            formData.append("banyak[]", banyak[i].value);
+            formData.append("satuan[]", satuan[i].value);
+            formData.append("harga_satuan[]", harga_satuan[i].value);
+            formData.append("jumlah[]", jumlah[i].value);
+        }
 
         fetch("<?= base_url('C_Input/simpanHeader') ?>", {
                 method: "POST",
@@ -198,26 +245,142 @@
             .then(res => {
 
                 if (res == "success") {
-
                     Swal.fire({
                         icon: "success",
                         title: "Berhasil",
-                        text: "Header berhasil disimpan"
+                        text: "Data berhasil disimpan"
                     }).then(() => {
                         location.reload();
                     })
-
                 } else {
-
                     Swal.fire({
                         icon: "error",
                         title: "Gagal",
                         text: res
                     })
-
                 }
 
-            })
+            });
 
+    });
+
+    document.getElementById("btnTambahBaris").addEventListener("click", function() {
+
+        let tbody = document.querySelector("tbody");
+        let rowCount = tbody.querySelectorAll("tr").length + 1;
+
+        let newRow = `
+        <tr>
+            <td class="p-2">${rowCount}</td>
+
+            <td class="p-2">
+                <select class="w-full p-2 rounded-md border border-gray-300" name="kategori[]">
+                    <option value="">Pilih Kategori</option>
+                    <?php foreach ($kategori as $ktg): ?>
+                        <option value="<?= $ktg->code ?>"><?= $ktg->name ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+
+            <td class="p-2">
+                <input type="text" name="nama_barang[]" class="w-full p-2 rounded-md border border-gray-300"  placeholder="Masukkan nama barang">
+            </td>
+
+            <td class="p-2">
+                <input type="number" name="banyak[]" class="w-full p-2 rounded-md border border-gray-300"  placeholder="Masukkan banyak barang">
+            </td>
+
+            <td class="p-2">
+                <select class="w-full p-2 rounded-md border border-gray-300" name="satuan[]">
+                    <option value="">Pilih Satuan</option>
+                    <?php foreach ($satuan as $stn): ?>
+                        <option value="<?= $stn->code ?>"><?= $stn->name ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+
+            <td class="p-2">
+                <input type="number" name="harga_satuan[]" class="w-full p-2 rounded-md border border-gray-300" placeholder="Masukkan harga satuan">
+            </td>
+
+            <td class="p-2">
+                <input type="text" name="jumlah[]" disabled  class="w-full p-2 rounded-md border border-gray-300 bg-gray-100">
+            </td>
+
+            <td class="p-2">
+                <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
+            </td>
+        </tr>
+    `;
+
+        tbody.insertAdjacentHTML("beforeend", newRow);
+        hitungTotal();
+    });
+
+    document.querySelector("tbody").addEventListener("click", function(e) {
+
+        let btn = e.target.closest(".btnHapus");
+
+        if (btn) {
+
+            let row = btn.closest("tr");
+            row.remove();
+            hitungTotal();
+
+            let rows = document.querySelectorAll("tbody tr");
+            rows.forEach((tr, index) => {
+                tr.children[0].innerText = index + 1;
+            });
+
+        }
+
+    });
+
+    document.querySelector("tbody").addEventListener("input", function(e) {
+
+        let row = e.target.closest("tr");
+        if (!row) return;
+
+        let banyak = row.querySelector("[name='banyak[]']").value;
+        let harga = row.querySelector("[name='harga_satuan[]']").value;
+        let jumlahInput = row.querySelector("[name='jumlah[]']");
+
+        let hasil = (parseFloat(banyak) || 0) * (parseFloat(harga) || 0);
+
+        jumlahInput.value = hasil ? hasil : "";
+    });
+
+    function hitungTotal() {
+
+        let jumlahInputs = document.querySelectorAll("[name='jumlah[]']");
+        let total = 0;
+
+        jumlahInputs.forEach(input => {
+
+            let value = input.value.replace(/[^0-9]/g, ""); // hilangkan Rp & titik
+
+            total += parseFloat(value) || 0;
+        });
+
+        document.getElementById("totalSemua").innerText =
+            "Rp " + total.toLocaleString("id-ID");
+    }
+
+    document.querySelector("tbody").addEventListener("input", function(e) {
+
+        let row = e.target.closest("tr");
+        if (!row) return;
+
+        let banyak = row.querySelector("[name='banyak[]']").value;
+        let harga = row.querySelector("[name='harga_satuan[]']").value;
+        let jumlahInput = row.querySelector("[name='jumlah[]']");
+
+        let hasil = (parseFloat(banyak) || 0) * (parseFloat(harga) || 0);
+
+        jumlahInput.value = hasil ?
+            "Rp " + hasil.toLocaleString("id-ID") :
+            "";
+
+        hitungTotal(); 
     });
 </script>

@@ -31,22 +31,52 @@ class C_Input extends CI_Controller
     public function simpanHeader()
     {
 
-        $data = [
-            'noticket'   => $this->input->post('noticket'),
+        $noticket = $this->input->post('noticket');
+
+        $data_header = [
+            'noticket'   => $noticket,
             'judul'      => $this->input->post('judul'),
             'organisasi' => $this->input->post('organisasi'),
-            'total'      => 0,
+            'total'      => $this->input->post('total'),
             'userinput'  => $this->session->userdata('user_id')
         ];
 
-        $simpan = $this->M_input->simpanHeader($data);
+        // simpan header
+        $simpanHeader = $this->M_input->simpanHeader($data_header);
 
-        if ($simpan) {
-            echo "success";
-        } else {
-            echo "gagal";
+        if (!$simpanHeader) {
+            echo "Gagal simpan header";
+            return;
         }
 
-        //coba push
+        // ambil data detail
+        $kategori     = $this->input->post('kategori');
+        $nama_barang  = $this->input->post('nama_barang');
+        $banyak       = $this->input->post('banyak');
+        $satuan       = $this->input->post('satuan');
+        $harga_satuan = $this->input->post('harga_satuan');
+        $jumlah        = $this->input->post('jumlah');
+
+        $data_detail = [];
+
+        for ($i = 0; $i < count($kategori); $i++) {
+
+            $jumlah = $banyak[$i] * $harga_satuan[$i];
+
+            $data_detail[] = [
+                'notiket'      => $noticket,
+                'kategori'     => $kategori[$i],
+                'nama_barang'  => $nama_barang[$i],
+                'banyak'       => $banyak[$i],
+                'satuan'       => $satuan[$i],
+                'harga_satuan' => $harga_satuan[$i],
+                'jumlah'       => $jumlah
+            ];
+        }
+
+        // simpan detail
+        $this->M_input->simpanDetail($data_detail);
+
+        echo "success";
     }
 }
