@@ -13,17 +13,10 @@ class C_Login extends CI_Controller
         $this->load->library('session');
     }
 
-    public function index()
-    {
-
-        $data['kelas'] = $this->M_login->getKelas();
-
-        $this->load->view('layout/header');
-        $this->load->view('auth/register', $data);
-    }
-
     public function register()
     {
+        $data['kelas'] = $this->M_login->getKelas();
+
         if ($this->input->post()) {
 
             $fullname = $this->input->post('fullname');
@@ -74,7 +67,7 @@ class C_Login extends CI_Controller
 
         // INI WAJIB ADA
         $this->load->view('layout/header');
-        $this->load->view('auth/register');
+        $this->load->view('auth/register', $data);
     }
 
     public function login()
