@@ -86,7 +86,5 @@
         .swal2-cancel {
             border-radius: 6px !important;
         }
-
-        
     </style>
 </head>

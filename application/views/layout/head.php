@@ -14,7 +14,7 @@
         <a href="<?= base_url('profile'); ?>" class="flex items-center gap-3 p-2 rounded-lg
             hover:bg-gray-100 hover:shadow-sm hover:scale-105
             transition-all duration-200">
-            
+
             <span class="w-5 h-5">
                 <?= file_get_contents(FCPATH . 'assets/icons/user.svg'); ?>
             </span>
@@ -24,7 +24,7 @@
         <a href="#" id="btnLogout" class="flex items-center gap-3 p-2 rounded-lg
             hover:bg-red-100 hover:text-red-500 hover:shadow-sm hover:scale-105
             transition-all duration-200">
-            
+
             <span class="w-5 h-5">
                 <?= file_get_contents(FCPATH . 'assets/icons/logout.svg'); ?>
             </span>
@@ -35,37 +35,37 @@
 </div>
 
 <script>
-document.getElementById('btnLogout').addEventListener('click', function(e) {
-    e.preventDefault();
+    document.getElementById('btnLogout').addEventListener('click', function (e) {
+        e.preventDefault();
 
-    Swal.fire({
-        title: "Keluar",
-        text: "Anda yakin ingin keluar dari akun ini?",
-        
-        imageUrl: "<?= base_url('assets/icons/icon-logout.svg') ?>",
-        imageWidth: 60,
-        imageHeight: 60,
+        Swal.fire({
+            title: "Keluar",
+            text: "Anda yakin ingin keluar dari akun ini?",
 
-        showCancelButton: true,
-        confirmButtonText: "Ya, Keluar",
-        cancelButtonText: "Tidak",
+            imageUrl: "<?= base_url('assets/icons/icon-logout.svg') ?>",
+            imageWidth: 60,
+            imageHeight: 60,
 
-        confirmButtonColor: "#3b82f6", // biru
-        cancelButtonColor: "#cccccc"
-        
-    }).then((result) => {
-        if (result.isConfirmed) {
+            showCancelButton: true,
+            confirmButtonText: "Ya, Keluar",
+            cancelButtonText: "Tidak",
 
-            Swal.fire({
-                title: "Berhasil logout!",
-                icon: "success",
-                timer: 1500,
-                showConfirmButton: false
-            }).then(() => {
-                window.location.href = "<?= base_url('logout') ?>";
-            });
+            confirmButtonColor: "#3b82f6", // biru
+            cancelButtonColor: "#cccccc"
 
-        }
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                Swal.fire({
+                    title: "Berhasil logout!",
+                    icon: "success",
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = "<?= base_url('logout') ?>";
+                });
+
+            }
+        });
     });
-});
 </script>
