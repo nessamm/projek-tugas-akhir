@@ -169,7 +169,7 @@
                     Swal.fire({
                         icon: 'success',
                         title: 'Login Berhasil!',
-                        text: 'Selamat datang pengguna 😊',
+                        text: 'Selamat datang 😊',
                         confirmButtonText: 'Lanjut'
                     }).then(() => {
 

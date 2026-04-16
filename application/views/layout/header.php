@@ -7,7 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <link href="<?= base_url('assets/css/select2.min.css') ?>" rel="stylesheet" />
+    <link rel="stylesheet" href="<?= base_url('assets/datatables/datatables.min.css') ?>">
     <script src="<?= base_url('assets/js/jquery-3.6.0.min.js') ?>"></script>
+    <script src="<?= base_url('assets/datatables/datatables.min.js') ?>"></script>
     <script src="<?= base_url('assets/js/select2.min.js') ?>"></script>
     <script src="<?= base_url('assets/js/sweetalert2@11.js') ?>"></script>
 
