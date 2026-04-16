@@ -31,16 +31,12 @@ class C_Monitoring extends CI_Controller
             $no++;
 
             $data[] = [
+                "id" => $row->id,
                 "no" => $no,
                 "noticket" => $row->noticket,
                 "judul" => $row->judul,
                 "organisasi" => $row->organisasi, // sudah join (nama, bukan code)
-                "timeinput" => date('d M Y H:i:s', strtotime($row->timeinput)),
-                "action" => '
-                    <button class="bg-yellow-100 text-yellow-600 border border-yellow-500 px-2 py-2 rounded-lg"><img src="'.base_url('assets/icons/pencil.svg').'" class="w-4 h-4"></button>
-                    <button class="bg-green-100 text-green-600 border border-green-500 px-2 py-2 rounded-lg"><img src="'.base_url('assets/icons/download.svg').'" class="w-4 h-4"></button>
-                    <button class="bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><img src="'.base_url('assets/icons/trash.svg').'" class="w-4 h-4"></button>
-                '
+                "timeinput" => date('d M Y H:i:s', strtotime($row->timeinput))
             ];
         }
 
@@ -52,5 +48,14 @@ class C_Monitoring extends CI_Controller
         ];
 
         echo json_encode($output);
+    }
+
+    public function edit($id)
+    {
+        $data['monitoring'] = $this->M_monitoring->getById($id);
+
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidebar');
+        $this->load->view('V_EditMonitoring', $data);
     }
 }

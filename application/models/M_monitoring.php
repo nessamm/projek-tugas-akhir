@@ -5,7 +5,7 @@ class M_monitoring extends CI_Model
     var $table = 'anggaran_header';
 
     // kolom untuk sorting
-    var $column_order = [ 'anggaran_header.id', 'noticket', 'judul', 'msorganisasi.name', 'timeinput'];
+    var $column_order = ['anggaran_header.id', 'noticket', 'judul', 'msorganisasi.name', 'timeinput'];
 
     // kolom untuk search
     var $column_search = ['noticket', 'judul', 'msorganisasi.name'];
@@ -69,5 +69,21 @@ class M_monitoring extends CI_Model
     {
         $this->db->from($this->table);
         return $this->db->count_all_results();
+    }
+
+    public function getById($id)
+    {
+        $this->db->select('anggaran_header.*, msorganisasi.name as organisasi');
+        $this->db->from($this->table);
+        $this->db->join('msorganisasi', 'msorganisasi.code = anggaran_header.organisasi', 'left');
+
+        // 🔥 filter berdasarkan id
+        $this->db->where('anggaran_header.id', $id);
+
+        // 🔥 (PENTING) filter user juga biar aman
+        $user_id = $this->session->userdata('user_id');
+        $this->db->where('anggaran_header.userinput', $user_id);
+
+        return $this->db->get()->row();
     }
 }
