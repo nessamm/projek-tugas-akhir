@@ -11,6 +11,7 @@ class C_Monitoring extends CI_Controller
         $this->load->library('session');
         $this->load->database();
         $this->load->model('M_monitoring');
+        $this->load->model('M_input');
     }
 
     public function index()
@@ -52,7 +53,15 @@ class C_Monitoring extends CI_Controller
 
     public function edit($id)
     {
-        $data['monitoring'] = $this->M_monitoring->getById($id);
+
+        $header = $this->M_monitoring->getById($id);
+        $data['header'] = $header;
+        $data['detail'] = $this->M_monitoring->getDetailByNoticket($header->noticket);
+
+        // 🔥 dropdown
+        $data['organisasi'] = $this->M_input->getOrganisasi();
+        $data['kategori']   = $this->M_input->getKategori();
+        $data['satuan']     = $this->M_input->getSatuan();
 
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar');

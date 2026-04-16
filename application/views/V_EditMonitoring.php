@@ -25,24 +25,27 @@
                     <div>
                         <label class="text-sm text-gray-600">Tiket</label>
                         <input disabled type="text"
-                            value=""
+                            value="<?= $header->noticket ?>"
                             class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300">
                     </div>
-                    <input type="hidden" name="noticket" id="noticket" value="">
+                    <input type="hidden" id="noticket" value="<?= $header->noticket ?>">
 
                     <div>
                         <label class="text-sm text-gray-600">Judul</label>
                         <input type="text" name="judul" id="judul"
                             placeholder="Masukkan Judul Laporan"
-                            class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
+                            class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $header->judul ?>">
                     </div>
 
                     <div>
                         <label class="text-sm text-gray-600">Organisasi</label>
                         <select class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="organisasi" id="organisasi">
-                            <option value="">Pilih organisasi</option>
-
-                            
+                            <?php foreach ($organisasi as $org): ?>
+                                <option value="<?= $org->code ?>"
+                                    <?= $org->code == $header->organisasi ? 'selected' : '' ?>>
+                                    <?= $org->name ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
@@ -71,56 +74,71 @@
                         </thead>
 
                         <tbody class="divide-y">
+                            <?php if (!empty($detail)): ?>
+                                <?php $no = 1;
+                                foreach ($detail as $d): ?>
 
-                            <!-- Row -->
-                            <tr>
-                                <td class="p-2">1</td>
+                                    <!-- Row -->
+                                    <tr>
+                                        <td class="p-2">1</td>
 
-                                <td class="p-2">
-                                    <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="kategori[]" id="kategori">
-                                        <option value="">Pilih Kategori</option>
+                                        <td class="p-2">
+                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="kategori[]" id="kategori">
+                                                <option value="">Pilih Kategori</option>
 
-                                        <
-                                    </select>
-                                </td>
+                                                <?php foreach ($kategori as $k): ?>
+                                                    <option value="<?= $k->code ?>"
+                                                        <?= $k->code == $d->kategori ? 'selected' : '' ?>>
+                                                        <?= $k->name ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </td>
 
-                                <td class="p-2">
-                                    <input type="text" name="nama_barang[]"
-                                        placeholder="Masukkan nama barang"
-                                        class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
-                                </td>
+                                        <td class="p-2">
+                                            <input type="text" name="nama_barang[]"
+                                                placeholder="Masukkan nama barang"
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->nama_barang ?>">
+                                        </td>
 
-                                <td class="p-2">
-                                    <input type="number" name="banyak[]"
-                                        placeholder="Masukkan banyak"
-                                        class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
-                                </td>
+                                        <td class="p-2">
+                                            <input type="number" name="banyak[]"
+                                                placeholder="Masukkan banyak"
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->banyak ?>">
+                                        </td>
 
-                                <td class="p-2">
-                                    <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="satuan[]">
-                                        <option value="">Pilih Satuan</option>
+                                        <td class="p-2">
+                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="satuan[]">
+                                                <option value="">Pilih Satuan</option>
+                                                <?php foreach ($satuan as $s): ?>
+                                                    <option value="<?= $s->code ?>"
+                                                        <?= $s->code == $d->satuan ? 'selected' : '' ?>>
+                                                        <?= $s->name ?>
+                                                    </option>
+                                                <?php endforeach; ?>
 
-                                        
-                                    </select>
-                                </td>
 
-                                <td class="p-2">
-                                    <input type="number" name="harga_satuan[]"
-                                        placeholder="Masukkan harga satuan"
-                                        class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
-                                </td>
+                                            </select>
+                                        </td>
 
-                                <td class="p-2">
-                                    <input type="text" name="jumlah[]"
-                                        disabled
-                                        class="w-full p-2 rounded-md border border-gray-300 bg-gray-100">
-                                </td>
+                                        <td class="p-2">
+                                            <input type="number" name="harga_satuan[]"
+                                                placeholder="Masukkan harga satuan"
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->harga_satuan ?>">
+                                        </td>
 
-                                <td class="p-2">
-                                    <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"></button>
-                                </td>
-                            </tr>
+                                        <td class="p-2">
+                                            <input type="text" name="jumlah[]"
+                                                disabled
+                                                class="w-full p-2 rounded-md border border-gray-300 bg-gray-100" value="Rp <?= number_format($d->jumlah, 0, ',', '.') ?>">
+                                        </td>
 
+                                        <td class="p-2">
+                                            <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"></button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
 
                     </table>
@@ -137,7 +155,7 @@
                     <span class="font-semibold">Total</span>
 
                     <span id="totalSemua" class="text-blue-600 font-semibold">
-                        Rp 0
+                        Rp <?= number_format($header->total, 0, ',', '.') ?>
                     </span>
 
                 </div>

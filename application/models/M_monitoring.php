@@ -86,4 +86,20 @@ class M_monitoring extends CI_Model
 
         return $this->db->get()->row();
     }
+
+    public function getDetailById($id)
+    {
+        return $this->db
+            ->where('id', $id)
+            ->get('anggarand')
+            ->result();
+    }
+
+    public function getDetailByNoticket($noticket)
+    {
+        return $this->db
+            ->where('notiket', $noticket)
+            ->get('anggarand')
+            ->result();
+    }
 }
