@@ -91,9 +91,57 @@
             <!-- Header -->
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold">Monitoring - Daftar Anggaran</h2>
-                <button class="bg-blue-500 text-white px-3 py-2 rounded-md shadow flex items-center gap-2">
+                <button class="btnPilihFilter bg-blue-500 text-white px-3 py-2 rounded-md shadow flex items-center gap-2">
                     <?= file_get_contents(FCPATH . 'assets/icons/filter.svg'); ?> Pilih Filter
                 </button>
+            </div>
+
+            <div class="card-filter bg-white rounded-lg shadow-sm border p-6 mb-6 hidden">
+                <div class="flex flex-wrap items-end gap-4">
+
+                    <!-- Tiket -->
+                    <div class="flex flex-col">
+                        <label class="text-bold text-sm text-gray-600 mb-1">Tiket</label>
+                        <input id="filterTiket" type="text" placeholder="Masukkan No Tiket"
+                            class="w-64 px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Judul -->
+                    <div class="flex flex-col">
+                        <label class="text-sm text-gray-600 mb-1">Judul</label>
+                        <input id="filterJudul" type="text" placeholder="Masukkan Judul Anda"
+                            class="w-64 px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Organisasi -->
+                    <div class="flex flex-col">
+                        <label class="text-sm text-gray-600 mb-1">Organisasi</label>
+                        <select
+                            id="filterOrganisasi" class="w-52 px-3 py-2 border rounded-md text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Pilih Organisasi</option>
+                            <?php foreach ($organisasi as $org): ?>
+                                <option value="<?= $org->code ?>">
+                                    <?= $org->name ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <!-- Periode -->
+                    <div class="flex flex-col">
+                        <label class="text-sm text-gray-600 mb-1">Periode</label>
+                        <input id="filterPeriode" type="date"
+                            class="w-48 px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Button -->
+                    <div>
+                        <button id="btnFilter" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md text-sm mb-3">
+                            Terapkan
+                        </button>
+                    </div>
+
+                </div>
             </div>
 
             <!-- Table -->
@@ -123,13 +171,27 @@
 </html>
 
 <script>
+    const btn = document.querySelector('.btnPilihFilter');
+    const cardRealisasi = document.querySelector('.card-filter');
+
+
+    btn.addEventListener('click', function() {
+        cardRealisasi.classList.remove('hidden');
+    });
+
     $(document).ready(function () {
-        $('#tableMonitoring').DataTable({
+        var table = $('#tableMonitoring').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
                 url: "<?= base_url('C_Monitoring/getData') ?>",
-                type: "POST"
+                type: "POST",
+                data: function (data) {
+                    data.tiket = $('#filterTiket').val();
+                    data.judul = $('#filterJudul').val();
+                    data.organisasi = $('#filterOrganisasi').val();
+                    data.periode = $('#filterPeriode').val();
+                }
             },
             columns: [
                 { data: null }, // NO
@@ -206,10 +268,61 @@
                     });
             }
         });
-
+        
         $(document).on('click', '.btn-edit', function () {
             let id = $(this).data('id');
             window.location.href = "<?= base_url('C_Monitoring/edit/') ?>" + id;
         });
+
+        $('#btnFilter').on('click', function () {
+            table.ajax.reload();
+        });
     });
+
+    $(document).on('click', '.btn-delete', function () {
+    let id = $(this).data('id');
+
+    Swal.fire({
+        title: "Yakin hapus?",
+        text: "Data yang dihapus tidak bisa dikembalikan!",
+        imageUrl: "<?= base_url('assets/icons/trash.svg') ?>",
+        imageWidth: 60,
+        imageHeight: 60,
+        showCancelButton: true,
+        confirmButtonText: "Ya, Hapus",
+        cancelButtonText: "Batal"
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            $.ajax({
+                url: "<?= base_url('C_Monitoring/delete/') ?>" + id,
+                type: "POST",
+                success: function (res) {
+
+                    if (res == "success") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Berhasil",
+                            text: "Data berhasil dihapus"
+                        });
+
+                        // 🔥 reload datatable
+                        $('#tableMonitoring').DataTable().ajax.reload();
+
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Gagal",
+                            text: res
+                        });
+                    }
+                }
+            });
+
+        }
+
+    });
+});
+
 </script>

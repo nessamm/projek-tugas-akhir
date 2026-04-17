@@ -18,11 +18,33 @@ class M_monitoring extends CI_Model
         $this->db->from($this->table);
         $this->db->join('msorganisasi', 'msorganisasi.code = anggaran_header.organisasi', 'left');
 
-        // ✅ FILTER USER (PENTING BANGET)
+        // ✅ FILTER USER (WAJIB)
         $user_id = $this->session->userdata('user_id');
         $this->db->where('anggaran_header.userinput', $user_id);
 
-        // 🔍 SEARCH
+        // filter tiket
+        if (!empty($_POST['tiket'])) {
+            $this->db->like('noticket', $_POST['tiket']);
+        }
+
+        // filter judul
+        if (!empty($_POST['judul'])) {
+            $this->db->like('judul', $_POST['judul']);
+        }
+
+        // filter organisasi (pakai CODE, bukan name)
+        if (!empty($_POST['organisasi'])) {
+            $this->db->where('anggaran_header.organisasi', $_POST['organisasi']);
+        }
+
+        // filter tanggal (periode)
+        if (!empty($_POST['periode'])) {
+            $this->db->like('anggaran_header.timeinput', $_POST['periode']);
+        }
+
+        // =====================================
+        // 🔍 SEARCH DATATABLES (global search)
+        // =====================================
         if (!empty($_POST['search']['value'])) {
             $search = $_POST['search']['value'];
 
@@ -37,7 +59,9 @@ class M_monitoring extends CI_Model
             $this->db->group_end();
         }
 
+        // =====================================
         // 🔽 ORDER
+        // =====================================
         if (isset($_POST['order'])) {
             $this->db->order_by(
                 $this->column_order[$_POST['order']['0']['column']],

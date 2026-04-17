@@ -68,4 +68,8 @@
             }
         });
     });
+
+    document.getElementById("btnBack").addEventListener("click", function () {
+        window.history.back();
+    });
 </script>

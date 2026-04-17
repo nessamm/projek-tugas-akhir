@@ -206,6 +206,8 @@
         for (let i = 0; i < kategori.length; i++) {
 
             if (
+                !judul ||
+                !organisasi ||
                 !kategori[i].value ||
                 !nama_barang[i].value ||
                 !banyak[i].value ||

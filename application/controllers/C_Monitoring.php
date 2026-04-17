@@ -2,13 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class C_Monitoring extends CI_Controller
 {
-
+    
     public function __construct()
     {
         parent::__construct();
         $this->load->helper('url');
-        $this->load->library('form_validation');
-        $this->load->library('session');
+        $this->load->library(['form_validation','session']);
         $this->load->database();
         $this->load->model('M_monitoring');
         $this->load->model('M_input');
@@ -16,12 +15,14 @@ class C_Monitoring extends CI_Controller
 
     public function index()
     {
+        $data['organisasi'] = $this->M_input->getOrganisasi();
+
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar');
-        $this->load->view('V_Monitoring');
+        $this->load->view('V_Monitoring', $data);
     }
 
-    // ambil data untuk datatables
+    // ================== DATATABLE ==================
     public function getData()
     {
         $list = $this->M_monitoring->get_datatables();
@@ -36,39 +37,38 @@ class C_Monitoring extends CI_Controller
                 "no" => $no,
                 "noticket" => $row->noticket,
                 "judul" => $row->judul,
-                "organisasi" => $row->organisasi, // sudah join (nama, bukan code)
+                "organisasi" => $row->organisasi,
                 "timeinput" => date('d M Y H:i:s', strtotime($row->timeinput))
             ];
         }
 
-        $output = [
+        echo json_encode([
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->M_monitoring->count_all(),
             "recordsFiltered" => $this->M_monitoring->count_filtered(),
             "data" => $data
-        ];
-
-        echo json_encode($output);
+        ]);
     }
 
+    // ================== EDIT ==================
     public function edit($id)
     {
-
         $header = $this->M_monitoring->getById($id);
+
         $data['header'] = $header;
         $data['detail_rancangan'] = $this->M_monitoring->getRancangan($header->noticket);
         $data['detail_realisasi'] = $this->M_monitoring->getRealisasi($header->noticket);
 
-        // 🔥 dropdown
         $data['organisasi'] = $this->M_input->getOrganisasi();
-        $data['kategori']   = $this->M_input->getKategori();
-        $data['satuan']     = $this->M_input->getSatuan();
+        $data['kategori'] = $this->M_input->getKategori();
+        $data['satuan'] = $this->M_input->getSatuan();
 
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar');
         $this->load->view('V_EditMonitoring', $data);
     }
 
+    // ================== SIMPAN ==================
     public function simpan()
     {
         $data = [
@@ -98,13 +98,10 @@ class C_Monitoring extends CI_Controller
 
         $result = $this->M_monitoring->simpanData($data);
 
-        if ($result) {
-            echo "success";
-        } else {
-            echo "gagal simpan";
-        }
+        echo $result ? "success" : "gagal simpan";
     }
 
+    // ================== UPDATE REALISASI ==================
     public function update_realisasi()
     {
         $noticket = $this->input->post('noticket');
@@ -121,8 +118,28 @@ class C_Monitoring extends CI_Controller
         $totalRealisasi = $this->input->post('totalrealisasi');
         $selisih        = $this->input->post('selisih');
 
-        // panggil model
         $this->M_monitoring->update_realisasi($noticket, $data, $totalRealisasi, $selisih);
+
+        echo "success";
+    }
+
+    // ================== DELETE ==================
+    public function delete($id)
+    {
+        $header = $this->M_monitoring->getById($id);
+
+        if (!$header) {
+            echo "Data tidak ditemukan";
+            return;
+        }
+
+        // hapus detail dulu
+        $this->db->where('notiket', $header->noticket);
+        $this->db->delete('anggarand');
+
+        // hapus header
+        $this->db->where('id', $id);
+        $this->db->delete('anggaran_header');
 
         echo "success";
     }
