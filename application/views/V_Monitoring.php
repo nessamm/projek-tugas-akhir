@@ -105,8 +105,8 @@
                             <th class="px-6 py-3">NO</th>
                             <th class="px-6 py-3">Tiket</th>
                             <th class="px-6 py-3">Judul</th>
-                            <th class="px-6 py-3">Terakhir Diperbarui</th>
                             <th class="px-6 py-3">Organisasi</th>
+                            <th class="px-6 py-3">Terakhir Diperbarui</th>
                             <th class="px-6 py-3 w-40">Action</th>
                         </tr>
                     </thead>
