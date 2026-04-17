@@ -31,9 +31,9 @@
                     <input type="hidden" name="noticket" id="noticket" value="<?= $noticket ?>">
 
                     <div>
-                        <label class="text-sm text-gray-600">Judul</label>
+                        <label class="text-sm text-gray-600">Nama Kegiatan</label>
                         <input type="text" name="judul" id="judul"
-                            placeholder="Masukkan Judul Laporan"
+                            placeholder="Masukkan Nama Kegiatan"
                             class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200">
                     </div>
 

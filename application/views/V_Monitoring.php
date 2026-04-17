@@ -108,8 +108,8 @@
 
                     <!-- Judul -->
                     <div class="flex flex-col">
-                        <label class="text-sm text-gray-600 mb-1">Judul</label>
-                        <input id="filterJudul" type="text" placeholder="Masukkan Judul Anda"
+                        <label class="text-sm text-gray-600 mb-1">Nama Kegiatan</label>
+                        <input id="filterJudul" type="text" placeholder="Masukkan Nama Kegiatan"
                             class="w-64 px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
 
@@ -152,7 +152,7 @@
                         <tr>
                             <th class="px-6 py-3">NO</th>
                             <th class="px-6 py-3">Tiket</th>
-                            <th class="px-6 py-3">Judul</th>
+                            <th class="px-6 py-3">Nama Kegiatan</th>
                             <th class="px-6 py-3">Organisasi</th>
                             <th class="px-6 py-3">Terakhir Diperbarui</th>
                             <th class="px-6 py-3 w-40">Action</th>
