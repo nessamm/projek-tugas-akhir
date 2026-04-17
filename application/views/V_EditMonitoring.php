@@ -112,7 +112,7 @@
                                         <td class="p-2">1</td>
 
                                         <td class="p-2">
-                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="kategori[]" id="kategori">
+                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="kategori[]">
                                                 <option value="">Pilih Kategori</option>
 
                                                 <?php foreach ($kategori as $k): ?>
@@ -174,7 +174,7 @@
                 </div>
 
                 <!-- Add Row -->
-                <button class="mt-4 text-blue-600 text-sm font-medium" id="btnTambahBaris">
+                <button class="mt-4 text-blue-600 text-sm font-medium btnTambahBaris">
                     + Tambah Baris Baru
                 </button>
 
@@ -183,7 +183,7 @@
 
                     <span class="text-sm font-medium text-gray-600">Total</span>
 
-                    <span id="totalSemua" class="text-blue-600 font-semibold">
+                    <span class="text-blue-600 font-semibold totalSemua">
                         Rp <?= number_format($header->total, 0, ',', '.') ?>
                     </span>
 
@@ -240,7 +240,7 @@
                                         <td class="p-2">1</td>
 
                                         <td class="p-2">
-                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="kategori[]" id="kategori">
+                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="kategori[]">
                                                 <option value="">Pilih Kategori</option>
 
                                                 <?php foreach ($kategori as $k): ?>
@@ -302,7 +302,7 @@
                 </div>
 
                 <!-- Add Row -->
-                <button class="mt-4 text-blue-600 text-sm font-medium" id="btnTambahBaris">
+                <button class="mt-4 text-blue-600 text-sm font-medium btnTambahBaris">
                     + Tambah Baris Baru
                 </button>
 
@@ -311,7 +311,7 @@
 
                     <span class="text-sm font-medium text-gray-600">Total</span>
 
-                    <span id="totalSemua" class="text-blue-600 font-semibold">
+                    <span class="text-blue-600 font-semibold totalsemua">
                         Rp <?= number_format($header->total, 0, ',', '.') ?>
                     </span>
 
@@ -338,8 +338,7 @@
             </div>
 
             <div class="border border-gray-200 rounded-lg overflow-hidden">
-
-                <!-- 🔝 BAGIAN ATAS (ABU-ABU) -->
+                
                 <div class="card-selisih bg-gray-100 px-4 py-3 flex items-center justify-between hidden">
                     <span class="text-sm font-medium text-gray-600">
                         Selisih
@@ -350,17 +349,15 @@
                     </span>
                 </div>
 
-                <!-- 🔽 BAGIAN BAWAH (PUTIH) -->
                 <div class="bg-white px-4 py-3 flex justify-end gap-2">
 
-                    <!-- BATAL -->
-                    <button
-                        class="px-4 py-2 text-sm text-blue-600 bg-blue-100 border border-blue-300 rounded-md hover:bg-blue-200 transition">
+                    <button id="btnBatal"
+                        class="px-4 py-2 text-sm text-blue-600 bg-blue-100 border border-blue-300 rounded-md">
                         Batal
                     </button>
 
-                    <!-- SIMPAN -->
-                    <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded-md hover:bg-blue-700 transition">
+                    <button id="btnSimpan"
+                        class="px-4 py-2 text-sm text-white bg-blue-600 rounded-md">
                         Simpan
                     </button>
 
@@ -377,19 +374,101 @@
 </html>
 
 <script>
+
     const btn = document.querySelector('.btnTambahRealiasasi');
     const cardRealisasi = document.querySelector('.card-realisasi');
     const cardSelisih = document.querySelector('.card-selisih');
 
     btn.addEventListener('click', function() {
-        // munculin card
         cardRealisasi.classList.remove('hidden');
         cardSelisih.classList.remove('hidden');
 
-        // ubah style tombol jadi abu-abu
         btn.classList.remove('bg-blue-600');
         btn.classList.add('bg-gray-400');
     });
+
+    document.querySelectorAll(".btnTambahBaris").forEach(btn => {
+        btn.addEventListener("click", function() {
+
+            let card = this.closest(".bg-white");
+            let tbody = card.querySelector("tbody");
+
+            let rowCount = tbody.querySelectorAll("tr").length + 1;
+
+            let firstRow = tbody.querySelector("tr");
+            let newRow = firstRow.cloneNode(true);
+
+            // reset isi input
+            newRow.querySelectorAll("input").forEach(input => input.value = "");
+            newRow.querySelectorAll("select").forEach(select => select.selectedIndex = 0);
+
+            // update nomor
+            newRow.children[0].innerText = rowCount;
+
+            tbody.appendChild(newRow);
+        });
+    });
+
+    document.querySelectorAll("tbody").forEach(tbody => {
+        tbody.addEventListener("click", function(e) {
+
+            let btn = e.target.closest(".btnHapus");
+
+            if (btn) {
+                let row = btn.closest("tr");
+                row.remove();
+
+                // update nomor
+                let rows = tbody.querySelectorAll("tr");
+                rows.forEach((tr, index) => {
+                    tr.children[0].innerText = index + 1;
+                });
+
+                hitungTotal(tbody);
+            }
+        });
+    });
+
+    document.querySelectorAll("tbody").forEach(tbody => {
+
+        tbody.addEventListener("input", function(e) {
+
+            let row = e.target.closest("tr");
+            if (!row) return;
+
+            let banyak = row.querySelector("[name='banyak[]']").value;
+            let harga = row.querySelector("[name='harga_satuan[]']").value;
+            let jumlahInput = row.querySelector("[name='jumlah[]']");
+
+            let hasil = (parseFloat(banyak) || 0) * (parseFloat(harga) || 0);
+
+            jumlahInput.value = hasil ?
+                "Rp " + hasil.toLocaleString("id-ID") :
+                "";
+
+            hitungTotal(tbody);
+        });
+
+    });
+
+    function hitungTotal(tbody) {
+
+        let jumlahInputs = tbody.querySelectorAll("[name='jumlah[]']");
+        let total = 0;
+
+        jumlahInputs.forEach(input => {
+            let value = input.value.replace(/[^0-9]/g, "");
+            total += parseFloat(value) || 0;
+        });
+
+        let totalEl = tbody.closest(".bg-white").querySelector(".totalSemua");
+
+        if (totalEl) {
+            totalEl.innerText = "Rp " + total.toLocaleString("id-ID");
+        }
+
+        hitungSelisih();
+    }
 
     document.getElementById("btnSimpan").addEventListener("click", function(e) {
 
@@ -398,7 +477,8 @@
         let judul = document.getElementById("judul").value;
         let organisasi = document.getElementById("organisasi").value;
         let noticket = document.getElementById("noticket").value;
-        let total = document.getElementById("totalSemua").innerText.replace(/[^0-9]/g, ""); // hilangkan Rp & titik
+
+        let total = document.querySelector(".totalSemua").innerText.replace(/[^0-9]/g, "");
 
         let kategori = document.querySelectorAll("[name='kategori[]']");
         let nama_barang = document.querySelectorAll("[name='nama_barang[]']");
@@ -417,7 +497,6 @@
         }
 
         for (let i = 0; i < kategori.length; i++) {
-
             if (
                 !kategori[i].value ||
                 !nama_barang[i].value ||
@@ -428,7 +507,7 @@
                 Swal.fire({
                     icon: "warning",
                     title: "Peringatan",
-                    text: `Semua field wajib diisi`
+                    text: "Semua field wajib diisi"
                 });
                 return;
             }
@@ -456,231 +535,80 @@
             })
             .then(res => res.text())
             .then(res => {
-
                 if (res == "success") {
                     Swal.fire({
                         icon: "success",
                         title: "Berhasil",
                         text: "Data berhasil disimpan"
-                    }).then(() => {
-                        location.reload();
-                    })
+                    }).then(() => location.reload());
                 } else {
                     Swal.fire({
                         icon: "error",
                         title: "Gagal",
                         text: res
-                    })
+                    });
                 }
-
             });
-
-    });
-
-    document.getElementById("btnTambahBaris").addEventListener("click", function() {
-
-        let tbody = document.querySelector("tbody");
-        let rowCount = tbody.querySelectorAll("tr").length + 1;
-
-        let newRow = `
-        <tr>
-            <td class="p-2">${rowCount}</td>
-
-            <td class="p-2">
-                <select class="w-full p-2 rounded-md border border-gray-300" name="kategori[]">
-                    <option value="">Pilih Kategori</option>
-                    
-                </select>
-            </td>
-
-            <td class="p-2">
-                <input type="text" name="nama_barang[]" class="w-full p-2 rounded-md border border-gray-300"  placeholder="Masukkan nama barang">
-            </td>
-
-            <td class="p-2">
-                <input type="number" name="banyak[]" class="w-full p-2 rounded-md border border-gray-300"  placeholder="Masukkan banyak barang">
-            </td>
-
-            <td class="p-2">
-                <select class="w-full p-2 rounded-md border border-gray-300" name="satuan[]">
-                    <option value="">Pilih Satuan</option>
-                    
-                </select>
-            </td>
-
-            <td class="p-2">
-                <input type="number" name="harga_satuan[]" class="w-full p-2 rounded-md border border-gray-300" placeholder="Masukkan harga satuan">
-            </td>
-
-            <td class="p-2">
-                <input type="text" name="jumlah[]" disabled  class="w-full p-2 rounded-md border border-gray-300 bg-gray-100">
-            </td>
-
-            <td class="p-2">
-                <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
-            </td>
-        </tr>
-    `;
-
-        tbody.insertAdjacentHTML("beforeend", newRow);
-        hitungTotal();
-    });
-
-    document.querySelector("tbody").addEventListener("click", function(e) {
-
-        let btn = e.target.closest(".btnHapus");
-
-        if (btn) {
-
-            let row = btn.closest("tr");
-            row.remove();
-            hitungTotal();
-
-            let rows = document.querySelectorAll("tbody tr");
-            rows.forEach((tr, index) => {
-                tr.children[0].innerText = index + 1;
-            });
-
-        }
-
-    });
-
-    document.querySelector("tbody").addEventListener("input", function(e) {
-
-        let row = e.target.closest("tr");
-        if (!row) return;
-
-        let banyak = row.querySelector("[name='banyak[]']").value;
-        let harga = row.querySelector("[name='harga_satuan[]']").value;
-        let jumlahInput = row.querySelector("[name='jumlah[]']");
-
-        let hasil = (parseFloat(banyak) || 0) * (parseFloat(harga) || 0);
-
-        jumlahInput.value = hasil ? hasil : "";
-    });
-
-    function hitungTotal() {
-
-        let jumlahInputs = document.querySelectorAll("[name='jumlah[]']");
-        let total = 0;
-
-        jumlahInputs.forEach(input => {
-
-            let value = input.value.replace(/[^0-9]/g, ""); // hilangkan Rp & titik
-
-            total += parseFloat(value) || 0;
-        });
-
-        document.getElementById("totalSemua").innerText =
-            "Rp " + total.toLocaleString("id-ID");
-    }
-
-    document.querySelector("tbody").addEventListener("input", function(e) {
-
-        let row = e.target.closest("tr");
-        if (!row) return;
-
-        let banyak = row.querySelector("[name='banyak[]']").value;
-        let harga = row.querySelector("[name='harga_satuan[]']").value;
-        let jumlahInput = row.querySelector("[name='jumlah[]']");
-
-        let hasil = (parseFloat(banyak) || 0) * (parseFloat(harga) || 0);
-
-        jumlahInput.value = hasil ?
-            "Rp " + hasil.toLocaleString("id-ID") :
-            "";
-
-        hitungTotal();
     });
 
     document.getElementById("btnBatal").addEventListener("click", function() {
 
         Swal.fire({
-
-            html: `
-            <div class="flex flex-col items-center text-center">
-                
-                <!-- ICON -->
-                <div>
-                    <img src="" 
-                         class="w-20 h-20 mx-auto">
-                </div>
-
-                <!-- TITLE -->
-                <h2 class="text-xl font-semibold text-gray-800 " style="margin-top: 16px;">
-                    Data Belum Tersimpan
-                </h2>
-
-                <!-- TEXT -->
-                <p class="text-gray-500 text-sm">
-                    Perubahan Anda belum tersimpan, yakin tutup?
-                </p>
-
-            </div>
-        `,
+            title: "Data belum tersimpan",
+            text: "Yakin ingin membatalkan?",
+            icon: "warning",
             showCancelButton: true,
-            confirmButtonText: "Ya, Tutup",
+            confirmButtonText: "Ya",
             cancelButtonText: "Tidak"
         }).then((result) => {
 
             if (result.isConfirmed) {
 
-                // 🔴 Reset header
                 document.getElementById("judul").value = "";
                 document.getElementById("organisasi").value = "";
 
-                // 🔴 Reset tabel (hapus semua baris)
-                let tbody = document.querySelector("tbody");
-                tbody.innerHTML = "";
+                document.querySelectorAll("tbody").forEach(tbody => {
+                    let firstRow = tbody.querySelector("tr");
+                    tbody.innerHTML = "";
 
-                // 🔴 Tambahkan 1 baris kosong kembali
-                let newRow = `
-                <tr>
-                    <td class="p-2">1</td>
+                    let newRow = firstRow.cloneNode(true);
 
-                    <td class="p-2">
-                        <select class="w-full p-2 rounded-md border border-gray-300" name="kategori[]">
-                            <option value="">Pilih Kategori</option>
-                            
-                        </select>
-                    </td>
+                    newRow.querySelectorAll("input").forEach(input => input.value = "");
+                    newRow.querySelectorAll("select").forEach(select => select.selectedIndex = 0);
 
-                    <td class="p-2">
-                        <input type="text" name="nama_barang[]" class="w-full p-2 rounded-md border border-gray-300" placeholder="Masukkan nama barang">
-                    </td>
+                    newRow.children[0].innerText = 1;
 
-                    <td class="p-2">
-                        <input type="number" name="banyak[]" class="w-full p-2 rounded-md border border-gray-300" placeholder="Masukkan banyak barang">
-                    </td>
+                    tbody.appendChild(newRow);
+                });
 
-                    <td class="p-2">
-                        <select class="w-full p-2 rounded-md border border-gray-300" name="satuan[]">
-                            <option value="">Pilih Satuan</option>
-                            
-                        </select>
-                    </td>
-
-                    <td class="p-2">
-                        <input type="number" name="harga_satuan[]" class="w-full p-2 rounded-md border border-gray-300" placeholder="Masukkan harga satuan">
-                    </td>
-
-                    <td class="p-2">
-                        <input type="text" name="jumlah[]" disabled class="w-full p-2 rounded-md border bg-gray-100">
-                    </td>
-
-                    <td class="p-2">
-                        <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
-                    </td>
-                </tr>
-            `;
-
-                tbody.insertAdjacentHTML("beforeend", newRow);
-
-                document.getElementById("totalSemua").innerText = "Rp 0";
-
+                document.querySelectorAll(".totalSemua").forEach(el => {
+                    el.innerText = "Rp 0";
+                });
             }
-
         });
-
     });
+
+    function hitungSelisih() {
+
+        let totals = document.querySelectorAll(".totalSemua");
+
+        if (totals.length < 2) return;
+
+        let totalRancangan = totals[0].innerText.replace(/[^0-9]/g, "");
+        let totalRealisasi = totals[1].innerText.replace(/[^0-9]/g, "");
+
+        let selisih = (parseFloat(totalRancangan) || 0) - (parseFloat(totalRealisasi) || 0);
+
+        let elSelisih = document.getElementById("selisih");
+
+        elSelisih.innerText = "Rp " + selisih.toLocaleString("id-ID");
+
+        if (selisih > 0) {
+            elSelisih.classList.remove("text-red-600");
+            elSelisih.classList.add("text-blue-600");
+        } else if (selisih < 0) {
+            elSelisih.classList.remove("text-blue-600");
+            elSelisih.classList.add("text-red-600");
+        }
+    }
 </script>
