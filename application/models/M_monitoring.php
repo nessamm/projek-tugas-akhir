@@ -102,4 +102,99 @@ class M_monitoring extends CI_Model
             ->get('anggarand')
             ->result();
     }
+
+    public function getRancangan($noticket)
+    {
+        return $this->db->get_where('anggarand', ['notiket' => $noticket])->result();
+    }
+
+    public function getRealisasi($noticket)
+    {
+        return $this->db->get_where('realisasid', ['notiket' => $noticket])->result();
+    }
+
+    public function simpanData($data)
+    {
+        $this->db->trans_start(); // 🔥 biar aman (rollback kalau gagal)
+
+        // ================= HEADER =================
+        $this->db->where('noticket', $data['noticket']);
+        $this->db->update('anggaran_header', [
+            'judul' => $data['judul'],
+            'organisasi' => $data['organisasi'],
+            'total' => $data['total'],
+            'totalrealisasi' => $data['totalrealisasi'],
+            'selisih' => $data['selisih']
+        ]);
+
+        // ================= HAPUS DETAIL LAMA =================
+        $this->db->where('notiket', $data['noticket'])->delete('anggarand');
+        $this->db->where('notiket', $data['noticket'])->delete('realisasid');
+
+        // ================= INSERT RANCANGAN =================
+        if (!empty($data['kategori_r'])) {
+            for ($i = 0; $i < count($data['kategori_r']); $i++) {
+
+                $this->db->insert('anggarand', [
+                    'notiket' => $data['noticket'], // 🔥 mapping dari noticket → notiket
+                    'kategori' => $data['kategori_r'][$i],
+                    'nama_barang' => $data['nama_barang_r'][$i],
+                    'banyak' => $data['banyak_r'][$i],
+                    'satuan' => $data['satuan_r'][$i],
+                    'harga_satuan' => $data['harga_r'][$i],
+                    'jumlah' => preg_replace('/[^0-9]/', '', $data['jumlah_r'][$i])
+                ]);
+            }
+        }
+
+        // ================= INSERT REALISASI =================
+        if (!empty($data['kategori_re'])) {
+            for ($i = 0; $i < count($data['kategori_re']); $i++) {
+
+                $this->db->insert('realisasid', [
+                    'notiket' => $data['noticket'], // 🔥 mapping juga
+                    'kategori' => $data['kategori_re'][$i],
+                    'nama_barang' => $data['nama_barang_re'][$i],
+                    'banyak' => $data['banyak_re'][$i],
+                    'satuan' => $data['satuan_re'][$i],
+                    'harga_satuan' => $data['harga_re'][$i],
+                    'jumlah' => preg_replace('/[^0-9]/', '', $data['jumlah_re'][$i])
+                ]);
+            }
+        }
+
+        $this->db->trans_complete();
+
+        return $this->db->trans_status();
+    }
+
+    public function update_realisasi($noticket, $data, $totalRealisasi, $selisih)
+    {
+        // 🔥 hapus data lama
+        $this->db->where('notiket', $noticket);
+        $this->db->delete('realisasid');
+
+        // 🔥 insert ulang
+        for ($i = 0; $i < count($data['kategori']); $i++) {
+
+            $insert = [
+                'notiket'     => $noticket,
+                'kategori'     => $data['kategori'][$i],
+                'nama_barang'  => $data['nama'][$i],
+                'banyak'       => $data['banyak'][$i],
+                'satuan'       => $data['satuan'][$i],
+                'harga_satuan' => $data['harga'][$i],
+                'jumlah'       => preg_replace('/[^0-9]/', '', $data['jumlah'][$i])
+            ];
+
+            $this->db->insert('realisasid', $insert);
+        }
+
+        // 🔥 update header
+        $this->db->where('noticket', $noticket);
+        $this->db->update('anggaran_header', [
+            'totalrealisasi' => $totalRealisasi,
+            'selisih'        => $selisih
+        ]);
+    }
 }

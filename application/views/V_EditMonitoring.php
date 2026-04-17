@@ -53,8 +53,7 @@
             </div>
 
             <!-- ALERT BOX -->
-            <div class="flex items-center justify-between bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-
+            <div class="flex items-center justify-between bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6  <?= !empty($detail_realisasi) ? 'hidden' : '' ?>">
                 <!-- LEFT -->
                 <div class="flex items-start gap-3">
                     <!-- ICON -->
@@ -75,14 +74,14 @@
                 </div>
 
                 <!-- RIGHT BUTTON -->
-                <button class="btnTambahRealiasasi bg-blue-600 text-white rounded-md px-4 py-2">
+                <button class="btnTambahRealiasasi bg-blue-600 text-white rounded-md px-4 py-2 <?= !empty($detail_realisasi) ? 'hidden' : '' ?>">
                     Tambah Data Realisasi
                 </button>
 
             </div>
 
             <!-- Detail Table -->
-            <div class="bg-white rounded-lg shadow-sm border p-6 mb-4">
+            <div class="card-rancangan bg-white rounded-lg shadow-sm border p-6 mb-4">
 
                 <h2 class="text-lg font-semibold mb-4">Detail Item - Rancangan</h2>
 
@@ -103,16 +102,16 @@
                         </thead>
 
                         <tbody class="divide-y">
-                            <?php if (!empty($detail)): ?>
+                            <?php if (!empty($detail_rancangan)): ?>
                                 <?php $no = 1;
-                                foreach ($detail as $d): ?>
+                                foreach ($detail_rancangan as $d): ?>
 
                                     <!-- Row -->
                                     <tr>
                                         <td class="p-2">1</td>
 
                                         <td class="p-2">
-                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="kategori[]">
+                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="kategori_rancangan[]">
                                                 <option value="">Pilih Kategori</option>
 
                                                 <?php foreach ($kategori as $k): ?>
@@ -125,19 +124,19 @@
                                         </td>
 
                                         <td class="p-2">
-                                            <input type="text" name="nama_barang[]"
-                                                placeholder="Masukkan nama barang"
+                                            <input type="text" name="nama_barang_rancangan[]"
+                                                placeholder=" Masukkan nama barang"
                                                 class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->nama_barang ?>">
                                         </td>
 
                                         <td class="p-2">
-                                            <input type="number" name="banyak[]"
+                                            <input type="number" name="banyak_rancangan[]"
                                                 placeholder="Masukkan banyak"
                                                 class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->banyak ?>">
                                         </td>
 
                                         <td class="p-2">
-                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="satuan[]">
+                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="satuan_rancangan[]">
                                                 <option value="">Pilih Satuan</option>
                                                 <?php foreach ($satuan as $s): ?>
                                                     <option value="<?= $s->code ?>"
@@ -151,13 +150,13 @@
                                         </td>
 
                                         <td class="p-2">
-                                            <input type="number" name="harga_satuan[]"
+                                            <input type="number" name="harga_satuan_rancangan[]"
                                                 placeholder="Masukkan harga satuan"
                                                 class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->harga_satuan ?>">
                                         </td>
 
                                         <td class="p-2">
-                                            <input type="text" name="jumlah[]"
+                                            <input type="text" name="jumlah_rancangan[]"
                                                 disabled
                                                 class="w-full p-2 rounded-md border border-gray-300 bg-gray-100" value="Rp <?= number_format($d->jumlah, 0, ',', '.') ?>">
                                         </td>
@@ -183,7 +182,7 @@
 
                     <span class="text-sm font-medium text-gray-600">Total</span>
 
-                    <span class="text-blue-600 font-semibold totalSemua">
+                    <span class="text-blue-600 font-semibold totalRancangan">
                         Rp <?= number_format($header->total, 0, ',', '.') ?>
                     </span>
 
@@ -210,7 +209,7 @@
             </div>
 
             <!-- Detail Table Realisasi-->
-            <div class="card-realisasi bg-white rounded-lg shadow-sm border p-6 mb-4 hidden">
+            <div class="card-realisasi bg-white rounded-lg shadow-sm border p-6 mb-4 <?= empty($detail_realisasi) ? 'hidden' : '' ?>">
 
                 <h2 class="text-lg font-semibold mb-4">Detail Item - Realisasi</h2>
 
@@ -231,16 +230,16 @@
                         </thead>
 
                         <tbody class="divide-y">
-                            <?php if (!empty($detail)): ?>
+                            <?php if (!empty($detail_realisasi)): ?>
                                 <?php $no = 1;
-                                foreach ($detail as $d): ?>
+                                foreach ($detail_realisasi as $d): ?>
 
                                     <!-- Row -->
                                     <tr>
                                         <td class="p-2">1</td>
 
                                         <td class="p-2">
-                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="kategori[]">
+                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="kategori_realisasi[]">
                                                 <option value="">Pilih Kategori</option>
 
                                                 <?php foreach ($kategori as $k): ?>
@@ -253,19 +252,19 @@
                                         </td>
 
                                         <td class="p-2">
-                                            <input type="text" name="nama_barang[]"
+                                            <input type="text" name="nama_barang_realisasi[]"
                                                 placeholder="Masukkan nama barang"
                                                 class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->nama_barang ?>">
                                         </td>
 
                                         <td class="p-2">
-                                            <input type="number" name="banyak[]"
+                                            <input type="number" name="banyak_realisasi[]"
                                                 placeholder="Masukkan banyak"
                                                 class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->banyak ?>">
                                         </td>
 
                                         <td class="p-2">
-                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="satuan[]">
+                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="satuan_realisasi[]">
                                                 <option value="">Pilih Satuan</option>
                                                 <?php foreach ($satuan as $s): ?>
                                                     <option value="<?= $s->code ?>"
@@ -279,13 +278,13 @@
                                         </td>
 
                                         <td class="p-2">
-                                            <input type="number" name="harga_satuan[]"
+                                            <input type="number" name="harga_satuan_realisasi[]"
                                                 placeholder="Masukkan harga satuan"
                                                 class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->harga_satuan ?>">
                                         </td>
 
                                         <td class="p-2">
-                                            <input type="text" name="jumlah[]"
+                                            <input type="text" name="jumlah_realisasi[]"
                                                 disabled
                                                 class="w-full p-2 rounded-md border border-gray-300 bg-gray-100" value="Rp <?= number_format($d->jumlah, 0, ',', '.') ?>">
                                         </td>
@@ -311,8 +310,8 @@
 
                     <span class="text-sm font-medium text-gray-600">Total</span>
 
-                    <span class="text-blue-600 font-semibold totalsemua">
-                        Rp <?= number_format($header->total, 0, ',', '.') ?>
+                    <span class="text-blue-600 font-semibold totalRealisasi">
+                        Rp <?= number_format($header->totalrealisasi, 0, ',', '.') ?>
                     </span>
 
                 </div>
@@ -338,14 +337,22 @@
             </div>
 
             <div class="border border-gray-200 rounded-lg overflow-hidden">
-                
+
                 <div class="card-selisih bg-gray-100 px-4 py-3 flex items-center justify-between hidden">
                     <span class="text-sm font-medium text-gray-600">
                         Selisih
                     </span>
 
-                    <span id="selisih" class="text-sm font-semibold text-blue-600">
-                        Rp 00,00
+                    <?php
+                    $selisih = $header->selisih;
+                    $isMinus = $selisih < 0;
+                    ?>
+
+                    <span id="selisih"
+                        class="text-sm font-semibold <?= $isMinus ? 'text-red-600' : 'text-blue-600' ?>">
+
+                        <?= $isMinus ? '- Rp ' . number_format(abs($selisih), 0, ',', '.')
+                            : 'Rp ' . number_format($selisih, 0, ',', '.') ?>
                     </span>
                 </div>
 
@@ -374,6 +381,13 @@
 </html>
 
 <script>
+    let initialState = "";
+
+    window.addEventListener("load", function() {
+        initialState = document.querySelector(".p-8").innerHTML;
+    });
+
+    let isEditRealisasi = document.querySelectorAll("[name='kategori_realisasi[]']").length > 0;
 
     const btn = document.querySelector('.btnTambahRealiasasi');
     const cardRealisasi = document.querySelector('.card-realisasi');
@@ -385,6 +399,9 @@
 
         btn.classList.remove('bg-blue-600');
         btn.classList.add('bg-gray-400');
+
+        copyRancanganToRealisasi();
+        disableAnggaran();
     });
 
     document.querySelectorAll(".btnTambahBaris").forEach(btn => {
@@ -436,9 +453,9 @@
             let row = e.target.closest("tr");
             if (!row) return;
 
-            let banyak = row.querySelector("[name='banyak[]']").value;
-            let harga = row.querySelector("[name='harga_satuan[]']").value;
-            let jumlahInput = row.querySelector("[name='jumlah[]']");
+            let banyak = row.querySelector("[name*='banyak_']").value;
+            let harga = row.querySelector("[name*='harga_satuan_']").value;
+            let jumlahInput = row.querySelector("[name*='jumlah_']");
 
             let hasil = (parseFloat(banyak) || 0) * (parseFloat(harga) || 0);
 
@@ -453,7 +470,7 @@
 
     function hitungTotal(tbody) {
 
-        let jumlahInputs = tbody.querySelectorAll("[name='jumlah[]']");
+        let jumlahInputs = tbody.querySelectorAll("[name*='jumlah_']");
         let total = 0;
 
         jumlahInputs.forEach(input => {
@@ -461,7 +478,11 @@
             total += parseFloat(value) || 0;
         });
 
-        let totalEl = tbody.closest(".bg-white").querySelector(".totalSemua");
+        let card = tbody.closest(".bg-white");
+
+        let totalEl =
+            card.querySelector(".totalRancangan") ||
+            card.querySelector(".totalRealisasi");
 
         if (totalEl) {
             totalEl.innerText = "Rp " + total.toLocaleString("id-ID");
@@ -474,88 +495,138 @@
 
         e.preventDefault();
 
-        let judul = document.getElementById("judul").value;
-        let organisasi = document.getElementById("organisasi").value;
-        let noticket = document.getElementById("noticket").value;
+        Swal.fire({
+            title: "Simpan Data?",
+            text: "Pastikan data sudah benar",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Ya, simpan",
+            cancelButtonText: "Batal"
+        }).then((result) => {
 
-        let total = document.querySelector(".totalSemua").innerText.replace(/[^0-9]/g, "");
+            if (!result.isConfirmed) return;
 
-        let kategori = document.querySelectorAll("[name='kategori[]']");
-        let nama_barang = document.querySelectorAll("[name='nama_barang[]']");
-        let banyak = document.querySelectorAll("[name='banyak[]']");
-        let satuan = document.querySelectorAll("[name='satuan[]']");
-        let harga_satuan = document.querySelectorAll("[name='harga_satuan[]']");
-        let jumlah = document.querySelectorAll("[name='jumlah[]']");
+            let judul = document.getElementById("judul").value;
+            let organisasi = document.getElementById("organisasi").value;
+            let noticket = document.getElementById("noticket").value;
 
-        if (kategori.length === 0) {
-            Swal.fire({
-                icon: "warning",
-                title: "Peringatan",
-                text: "Minimal harus ada 1 baris data"
-            });
-            return;
-        }
+            // 🔥 FIX TOTAL
+            let total = document.querySelector(".totalRancangan")
+                ?.innerText.replace(/[^0-9]/g, "") || 0;
+            let totalRealisasi = document.querySelector(".totalRealisasi")
+                ?.innerText.replace(/[^0-9]/g, "") || 0;
 
-        for (let i = 0; i < kategori.length; i++) {
-            if (
-                !kategori[i].value ||
-                !nama_barang[i].value ||
-                !banyak[i].value ||
-                !satuan[i].value ||
-                !harga_satuan[i].value
-            ) {
+            // ================= RANCANGAN =================
+            let kategori_r = document.querySelectorAll("[name='kategori_rancangan[]']");
+            let nama_barang_r = document.querySelectorAll("[name='nama_barang_rancangan[]']");
+            let banyak_r = document.querySelectorAll("[name='banyak_rancangan[]']");
+            let satuan_r = document.querySelectorAll("[name='satuan_rancangan[]']");
+            let harga_r = document.querySelectorAll("[name='harga_satuan_rancangan[]']");
+            let jumlah_r = document.querySelectorAll("[name='jumlah_rancangan[]']");
+
+            // ================= REALISASI =================
+            let kategori_re = document.querySelectorAll("[name='kategori_realisasi[]']");
+            let nama_barang_re = document.querySelectorAll("[name='nama_barang_realisasi[]']");
+            let banyak_re = document.querySelectorAll("[name='banyak_realisasi[]']");
+            let satuan_re = document.querySelectorAll("[name='satuan_realisasi[]']");
+            let harga_re = document.querySelectorAll("[name='harga_satuan_realisasi[]']");
+            let jumlah_re = document.querySelectorAll("[name='jumlah_realisasi[]']");
+
+            // 🔥 FIX TOTAL AMAN
+            let totalR = document.querySelector(".totalRancangan")
+                ?.innerText.replace(/[^0-9]/g, "") || 0;
+
+            let totalRe = document.querySelector(".totalRealisasi")
+                ?.innerText.replace(/[^0-9]/g, "") || 0;
+
+            let selisih = (parseFloat(totalR) || 0) - (parseFloat(totalRe) || 0);
+
+            if (kategori_r.length === 0) {
                 Swal.fire({
                     icon: "warning",
                     title: "Peringatan",
-                    text: "Semua field wajib diisi"
+                    text: "Minimal harus ada 1 baris data"
                 });
                 return;
             }
-        }
 
-        let formData = new FormData();
-
-        formData.append("noticket", noticket);
-        formData.append("judul", judul);
-        formData.append("organisasi", organisasi);
-        formData.append("total", total);
-
-        for (let i = 0; i < kategori.length; i++) {
-            formData.append("kategori[]", kategori[i].value);
-            formData.append("nama_barang[]", nama_barang[i].value);
-            formData.append("banyak[]", banyak[i].value);
-            formData.append("satuan[]", satuan[i].value);
-            formData.append("harga_satuan[]", harga_satuan[i].value);
-            formData.append("jumlah[]", jumlah[i].value);
-        }
-
-        fetch("", {
-                method: "POST",
-                body: formData
-            })
-            .then(res => res.text())
-            .then(res => {
-                if (res == "success") {
+            for (let i = 0; i < kategori_r.length; i++) {
+                if (
+                    !kategori_r[i].value ||
+                    !nama_barang_r[i].value ||
+                    !banyak_r[i].value ||
+                    !satuan_r[i].value ||
+                    !harga_r[i].value
+                ) {
                     Swal.fire({
-                        icon: "success",
-                        title: "Berhasil",
-                        text: "Data berhasil disimpan"
-                    }).then(() => location.reload());
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Gagal",
-                        text: res
+                        icon: "warning",
+                        title: "Peringatan",
+                        text: "Semua field wajib diisi"
                     });
+                    return;
                 }
-            });
-    });
+            }
+
+            let formData = new FormData();
+
+            formData.append("noticket", noticket);
+            formData.append("judul", judul);
+            formData.append("organisasi", organisasi);
+            formData.append("total", total);
+            formData.append("totalrealisasi", totalRealisasi);
+            formData.append("selisih", selisih);
+
+            for (let i = 0; i < kategori_r.length; i++) {
+                formData.append("kategori_rancangan[]", kategori_r[i].value);
+                formData.append("nama_barang_rancangan[]", nama_barang_r[i].value);
+                formData.append("banyak_rancangan[]", banyak_r[i].value);
+                formData.append("satuan_rancangan[]", satuan_r[i].value);
+                formData.append("harga_satuan_rancangan[]", harga_r[i].value);
+                formData.append("jumlah_rancangan[]", jumlah_r[i].value);
+            }
+
+            for (let i = 0; i < kategori_re.length; i++) {
+                formData.append("kategori_realisasi[]", kategori_re[i].value);
+                formData.append("nama_barang_realisasi[]", nama_barang_re[i].value);
+                formData.append("banyak_realisasi[]", banyak_re[i].value);
+                formData.append("satuan_realisasi[]", satuan_re[i].value);
+                formData.append("harga_satuan_realisasi[]", harga_re[i].value);
+                formData.append("jumlah_realisasi[]", jumlah_re[i].value);
+            }
+
+            let url = isEditRealisasi ?
+                "<?= base_url('C_monitoring/update_realisasi') ?>" :
+                "<?= base_url('C_monitoring/simpan') ?>";
+
+            fetch(url, {
+                    method: "POST",
+                    body: formData
+                })
+                .then(res => res.text())
+                .then(res => {
+                    if (res == "success") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Berhasil",
+                            text: "Data berhasil disimpan"
+                        }).then(() => location.reload());
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Gagal",
+                            text: res
+                        });
+                    }
+                });
+
+        }); // ✅ ini nutup Swal
+    }); // ✅ ini nutup addEventListener
 
     document.getElementById("btnBatal").addEventListener("click", function() {
 
         Swal.fire({
-            title: "Data belum tersimpan",
-            text: "Yakin ingin membatalkan?",
+            title: "Batalkan perubahan?",
+            text: "Semua perubahan akan dikembalikan seperti semula",
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: "Ya",
@@ -564,38 +635,22 @@
 
             if (result.isConfirmed) {
 
-                document.getElementById("judul").value = "";
-                document.getElementById("organisasi").value = "";
+                // 🔥 restore ke kondisi awal
+                document.querySelector(".p-8").innerHTML = initialState;
 
-                document.querySelectorAll("tbody").forEach(tbody => {
-                    let firstRow = tbody.querySelector("tr");
-                    tbody.innerHTML = "";
-
-                    let newRow = firstRow.cloneNode(true);
-
-                    newRow.querySelectorAll("input").forEach(input => input.value = "");
-                    newRow.querySelectorAll("select").forEach(select => select.selectedIndex = 0);
-
-                    newRow.children[0].innerText = 1;
-
-                    tbody.appendChild(newRow);
-                });
-
-                document.querySelectorAll(".totalSemua").forEach(el => {
-                    el.innerText = "Rp 0";
-                });
+                // 🔥 reload script biar event aktif lagi
+                location.reload();
             }
         });
     });
 
     function hitungSelisih() {
 
-        let totals = document.querySelectorAll(".totalSemua");
+        let totalRancangan = document.querySelector(".totalRancangan")
+            ?.innerText.replace(/[^0-9]/g, "") || 0;
 
-        if (totals.length < 2) return;
-
-        let totalRancangan = totals[0].innerText.replace(/[^0-9]/g, "");
-        let totalRealisasi = totals[1].innerText.replace(/[^0-9]/g, "");
+        let totalRealisasi = document.querySelector(".totalRealisasi")
+            ?.innerText.replace(/[^0-9]/g, "") || 0;
 
         let selisih = (parseFloat(totalRancangan) || 0) - (parseFloat(totalRealisasi) || 0);
 
@@ -609,6 +664,74 @@
         } else if (selisih < 0) {
             elSelisih.classList.remove("text-blue-600");
             elSelisih.classList.add("text-red-600");
+        } else {
+            elSelisih.classList.remove("text-red-600");
+            elSelisih.classList.add("text-blue-600");
         }
     }
+
+    function disableAnggaran() {
+
+        let cardRancangan = document.querySelector(".card-rancangan");
+
+        if (!cardRancangan) return;
+
+        // disable input & select
+        let inputs = cardRancangan.querySelectorAll("input, select");
+
+        inputs.forEach(el => {
+            el.disabled = true;
+            el.classList.add("bg-gray-100", "cursor-not-allowed");
+        });
+
+        // disable tombol hapus
+        cardRancangan.querySelectorAll(".btnHapus").forEach(btn => {
+            btn.disabled = true;
+            btn.classList.add("opacity-50", "cursor-not-allowed");
+        });
+
+        // disable tombol tambah baris
+        let btnTambah = cardRancangan.querySelector(".btnTambahBaris");
+        if (btnTambah) {
+            btnTambah.disabled = true;
+            btnTambah.classList.add("opacity-50", "cursor-not-allowed");
+        }
+    }
+
+    function copyRancanganToRealisasi() {
+
+        let tbodyRancangan = document.querySelector(".card-rancangan tbody");
+        let tbodyRealisasi = document.querySelector(".card-realisasi tbody");
+
+        tbodyRealisasi.innerHTML = "";
+
+        let rows = tbodyRancangan.querySelectorAll("tr");
+
+        rows.forEach((tr, index) => {
+
+            let newRow = tr.cloneNode(true);
+
+            // 🔥 FIX NAME
+            newRow.querySelectorAll("[name]").forEach(el => {
+                if (el.name.includes("rancangan")) {
+                    el.name = el.name.replace("rancangan", "realisasi");
+                }
+            });
+
+            newRow.children[0].innerText = index + 1;
+
+            tbodyRealisasi.appendChild(newRow);
+        });
+
+        hitungTotal(tbodyRealisasi);
+    }
+
+    window.addEventListener("load", function() {
+        let adaRealisasi = document.querySelector(".card-realisasi:not(.hidden)");
+
+        if (adaRealisasi) {
+            disableAnggaran();
+            document.querySelector('.card-selisih').classList.remove('hidden');
+        }
+    });
 </script>
