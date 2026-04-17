@@ -52,10 +52,39 @@
                 </div>
             </div>
 
-            <!-- Detail Table -->
-            <div class="bg-white rounded-lg shadow-sm border p-6">
+            <!-- ALERT BOX -->
+            <div class="flex items-center justify-between bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
 
-                <h2 class="text-lg font-semibold mb-4">Detail Tabel</h2>
+                <!-- LEFT -->
+                <div class="flex items-start gap-3">
+                    <!-- ICON -->
+                    <div class="bg-yellow-100 text-yellow-600 p-2 rounded-md">
+                        <?= file_get_contents(FCPATH . 'assets/icons/warning.svg'); ?>
+                    </div>
+
+                    <!-- TEXT -->
+                    <div>
+                        <h3 class="font-semibold text-gray-800">
+                            Tambah Data untuk Realisasi
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Apabila Anda ingin menambah tabel untuk data realisasi anggaran belanja,
+                            silakan klik tombol Tambah Data Realisasi untuk melanjutkan
+                        </p>
+                    </div>
+                </div>
+
+                <!-- RIGHT BUTTON -->
+                <button class="btnTambahRealiasasi bg-blue-600 text-white rounded-md px-4 py-2">
+                    Tambah Data Realisasi
+                </button>
+
+            </div>
+
+            <!-- Detail Table -->
+            <div class="bg-white rounded-lg shadow-sm border p-6 mb-4">
+
+                <h2 class="text-lg font-semibold mb-4">Detail Item - Rancangan</h2>
 
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm">
@@ -134,7 +163,7 @@
                                         </td>
 
                                         <td class="p-2">
-                                            <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"></button>
+                                            <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -150,9 +179,9 @@
                 </button>
 
                 <!-- Total -->
-                <div class="flex justify-between items-center mt-6 border-t pt-4">
+                <div class="flex items-center justify-between mt-6 p-4 bg-gray-100 rounded-lg border border-gray-200">
 
-                    <span class="font-semibold">Total</span>
+                    <span class="text-sm font-medium text-gray-600">Total</span>
 
                     <span id="totalSemua" class="text-blue-600 font-semibold">
                         Rp <?= number_format($header->total, 0, ',', '.') ?>
@@ -163,11 +192,175 @@
                 <!-- Action Buttons -->
                 <div class="flex justify-end gap-3 mt-6">
 
-                    <button class="px-4 py-2 bg-gray-200 rounded-md" id="btnBatal">
+                    <button
+                        class="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-600 border border-green-400 rounded-lg hover:bg-green-200 transition">
+
+                        <!-- ICON -->
+                        <?= file_get_contents(FCPATH . 'assets/icons/download.svg'); ?>
+
+                        <!-- TEXT -->
+                        <span class="font-medium">
+                            Export to Excel
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- Detail Table Realisasi-->
+            <div class="card-realisasi bg-white rounded-lg shadow-sm border p-6 mb-4 hidden">
+
+                <h2 class="text-lg font-semibold mb-4">Detail Item - Realisasi</h2>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+
+                        <thead class="bg-gray-50">
+                            <tr class="text-gray-600">
+                                <th class="p-3 text-left">NO</th>
+                                <th class="p-3 text-left">Kategori</th>
+                                <th class="p-3 text-left">Nama Barang</th>
+                                <th class="p-3 text-left">Banyak</th>
+                                <th class="p-3 text-left">Satuan</th>
+                                <th class="p-3 text-left">Harga Satuan</th>
+                                <th class="p-3 text-left">Jumlah</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="divide-y">
+                            <?php if (!empty($detail)): ?>
+                                <?php $no = 1;
+                                foreach ($detail as $d): ?>
+
+                                    <!-- Row -->
+                                    <tr>
+                                        <td class="p-2">1</td>
+
+                                        <td class="p-2">
+                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="kategori[]" id="kategori">
+                                                <option value="">Pilih Kategori</option>
+
+                                                <?php foreach ($kategori as $k): ?>
+                                                    <option value="<?= $k->code ?>"
+                                                        <?= $k->code == $d->kategori ? 'selected' : '' ?>>
+                                                        <?= $k->name ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </td>
+
+                                        <td class="p-2">
+                                            <input type="text" name="nama_barang[]"
+                                                placeholder="Masukkan nama barang"
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->nama_barang ?>">
+                                        </td>
+
+                                        <td class="p-2">
+                                            <input type="number" name="banyak[]"
+                                                placeholder="Masukkan banyak"
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->banyak ?>">
+                                        </td>
+
+                                        <td class="p-2">
+                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="satuan[]">
+                                                <option value="">Pilih Satuan</option>
+                                                <?php foreach ($satuan as $s): ?>
+                                                    <option value="<?= $s->code ?>"
+                                                        <?= $s->code == $d->satuan ? 'selected' : '' ?>>
+                                                        <?= $s->name ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+
+
+                                            </select>
+                                        </td>
+
+                                        <td class="p-2">
+                                            <input type="number" name="harga_satuan[]"
+                                                placeholder="Masukkan harga satuan"
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->harga_satuan ?>">
+                                        </td>
+
+                                        <td class="p-2">
+                                            <input type="text" name="jumlah[]"
+                                                disabled
+                                                class="w-full p-2 rounded-md border border-gray-300 bg-gray-100" value="Rp <?= number_format($d->jumlah, 0, ',', '.') ?>">
+                                        </td>
+
+                                        <td class="p-2">
+                                            <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+
+                    </table>
+                </div>
+
+                <!-- Add Row -->
+                <button class="mt-4 text-blue-600 text-sm font-medium" id="btnTambahBaris">
+                    + Tambah Baris Baru
+                </button>
+
+                <!-- Total -->
+                <div class="flex items-center justify-between mt-6 p-4 bg-gray-100 rounded-lg border border-gray-200">
+
+                    <span class="text-sm font-medium text-gray-600">Total</span>
+
+                    <span id="totalSemua" class="text-blue-600 font-semibold">
+                        Rp <?= number_format($header->total, 0, ',', '.') ?>
+                    </span>
+
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex justify-end gap-3 mt-6">
+
+                    <button
+                        class="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-600 border border-green-400 rounded-lg hover:bg-green-200 transition">
+
+                        <!-- ICON -->
+                        <?= file_get_contents(FCPATH . 'assets/icons/download.svg'); ?>
+
+                        <!-- TEXT -->
+                        <span class="font-medium">
+                            Export to Excel
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+
+                <!-- 🔝 BAGIAN ATAS (ABU-ABU) -->
+                <div class="card-selisih bg-gray-100 px-4 py-3 flex items-center justify-between hidden">
+                    <span class="text-sm font-medium text-gray-600">
+                        Selisih
+                    </span>
+
+                    <span id="selisih" class="text-sm font-semibold text-blue-600">
+                        Rp 00,00
+                    </span>
+                </div>
+
+                <!-- 🔽 BAGIAN BAWAH (PUTIH) -->
+                <div class="bg-white px-4 py-3 flex justify-end gap-2">
+
+                    <!-- BATAL -->
+                    <button
+                        class="px-4 py-2 text-sm text-blue-600 bg-blue-100 border border-blue-300 rounded-md hover:bg-blue-200 transition">
                         Batal
                     </button>
 
-                    <button class="px-4 py-2 bg-blue-600 text-white rounded-md" id="btnSimpan">
+                    <!-- SIMPAN -->
+                    <button class="px-4 py-2 text-sm text-white bg-blue-600 rounded-md hover:bg-blue-700 transition">
                         Simpan
                     </button>
 
@@ -184,6 +377,20 @@
 </html>
 
 <script>
+    const btn = document.querySelector('.btnTambahRealiasasi');
+    const cardRealisasi = document.querySelector('.card-realisasi');
+    const cardSelisih = document.querySelector('.card-selisih');
+
+    btn.addEventListener('click', function() {
+        // munculin card
+        cardRealisasi.classList.remove('hidden');
+        cardSelisih.classList.remove('hidden');
+
+        // ubah style tombol jadi abu-abu
+        btn.classList.remove('bg-blue-600');
+        btn.classList.add('bg-gray-400');
+    });
+
     document.getElementById("btnSimpan").addEventListener("click", function(e) {
 
         e.preventDefault();
@@ -310,7 +517,7 @@
             </td>
 
             <td class="p-2">
-                <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"></button>
+                <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
             </td>
         </tr>
     `;
@@ -462,7 +669,7 @@
                     </td>
 
                     <td class="p-2">
-                        <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"></button>
+                        <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
                     </td>
                 </tr>
             `;

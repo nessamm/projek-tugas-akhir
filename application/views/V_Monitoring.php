@@ -137,25 +137,29 @@
                 { data: "judul" },
                 { data: "organisasi" },
                 { data: "timeinput" },
-                { 
+                {
                     data: "id",
-        orderable: false,
-        render: function (data, type, row) {
-            return `
-                <a href="<?= base_url('C_Monitoring/edit/') ?>${data}" 
-                   class="bg-yellow-100 text-yellow-600 border border-yellow-500 px-2 py-2 rounded-lg inline-block">
-                    <img src="<?= base_url('assets/icons/pencil.svg') ?>" class="w-4 h-4">
-                </a>
+                    orderable: false,
+                    render: function (data, type, row) {
+                        return `
+                            <div class="flex items-center justify-center gap-2">
 
-                <button class="bg-green-100 text-green-600 border border-green-500 px-2 py-2 rounded-lg">
-                    <img src="<?= base_url('assets/icons/download.svg') ?>" class="w-4 h-4">
-                </button>
+                                <a href="<?= base_url('C_Monitoring/edit/') ?>${data}" 
+                                class="bg-yellow-100 text-yellow-600 border border-yellow-500 p-2 rounded-lg flex items-center justify-center">
+                                    <img src="<?= base_url('assets/icons/pencil.svg') ?>" class="w-4 h-4">
+                                </a>
 
-                <button class="btn-delete bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg" data-id="${data}">
-                    <img src="<?= base_url('assets/icons/trash.svg') ?>" class="w-4 h-4">
-                </button>
-            `;
-        }
+                                <button class="bg-green-100 text-green-600 border border-green-500 p-2 rounded-lg flex items-center justify-center">
+                                    <img src="<?= base_url('assets/icons/download.svg') ?>" class="w-4 h-4">
+                                </button>
+
+                                <button class="btn-delete bg-red-100 text-red-600 border border-red-500 p-2 rounded-lg flex items-center justify-center" data-id="${data}">
+                                    <img src="<?= base_url('assets/icons/trash.svg') ?>" class="w-4 h-4">
+                                </button>
+
+                            </div>
+                        `;
+                    }
                 }
             ],
             pageLength: 10,
