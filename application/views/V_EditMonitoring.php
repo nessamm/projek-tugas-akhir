@@ -191,7 +191,7 @@
                 <!-- Action Buttons -->
                 <div class="flex justify-end gap-3 mt-6">
 
-                    <button
+                    <a href="<?= base_url('C_export/export_excel/' . $header->noticket) ?>"
                         class="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-600 border border-green-400 rounded-lg hover:bg-green-200 transition">
 
                         <!-- ICON -->
@@ -202,7 +202,7 @@
                             Export to Excel
                         </span>
 
-                    </button>
+                    </a>
 
                 </div>
 
@@ -319,7 +319,7 @@
                 <!-- Action Buttons -->
                 <div class="flex justify-end gap-3 mt-6">
 
-                    <button
+                    <a href="<?= base_url('C_export/export_excel_realisasi/' . $header->noticket) ?>"
                         class="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-600 border border-green-400 rounded-lg hover:bg-green-200 transition">
 
                         <!-- ICON -->
@@ -330,7 +330,7 @@
                             Export to Excel
                         </span>
 
-                    </button>
+                    </a>
 
                 </div>
 
@@ -404,26 +404,44 @@
         disableAnggaran();
     });
 
-    document.querySelectorAll(".btnTambahBaris").forEach(btn => {
+    document.querySelectorAll(".card-realisasi .btnTambahBaris").forEach(btn => {
         btn.addEventListener("click", function() {
 
-            let card = this.closest(".bg-white");
+            let card = this.closest(".card-realisasi");
             let tbody = card.querySelector("tbody");
 
-            let rowCount = tbody.querySelectorAll("tr").length + 1;
-
             let firstRow = tbody.querySelector("tr");
+            if (!firstRow) return;
+
             let newRow = firstRow.cloneNode(true);
 
-            // reset isi input
-            newRow.querySelectorAll("input").forEach(input => input.value = "");
-            newRow.querySelectorAll("select").forEach(select => select.selectedIndex = 0);
+            newRow.setAttribute("data-source", "new");
 
-            // update nomor
-            newRow.children[0].innerText = rowCount;
+            newRow.querySelectorAll("input").forEach(input => {
+                input.value = "";
+                input.disabled = false;
+                input.classList.remove("bg-gray-100", "cursor-not-allowed");
+            });
+
+            newRow.querySelectorAll("select").forEach(select => {
+                select.selectedIndex = 0;
+                select.disabled = false;
+                select.classList.remove("bg-gray-100", "cursor-not-allowed");
+            });
+
+            newRow.querySelectorAll("[name]").forEach(el => {
+                el.name = el.name.replace("rancangan", "realisasi");
+            });
+
+            newRow.querySelectorAll("[name*='jumlah_realisasi']").forEach(el => {
+                el.disabled = true;
+            });
+            newRow.children[0].innerText = tbody.querySelectorAll("tr").length + 1;
 
             tbody.appendChild(newRow);
         });
+
+        updateNomorRealisasi();
     });
 
     document.querySelectorAll("tbody").forEach(tbody => {
@@ -435,7 +453,6 @@
                 let row = btn.closest("tr");
                 row.remove();
 
-                // update nomor
                 let rows = tbody.querySelectorAll("tr");
                 rows.forEach((tr, index) => {
                     tr.children[0].innerText = index + 1;
@@ -444,6 +461,8 @@
                 hitungTotal(tbody);
             }
         });
+
+        updateNomorRealisasi();
     });
 
     document.querySelectorAll("tbody").forEach(tbody => {
@@ -510,13 +529,11 @@
             let organisasi = document.getElementById("organisasi").value;
             let noticket = document.getElementById("noticket").value;
 
-            // 🔥 FIX TOTAL
             let total = document.querySelector(".totalRancangan")
                 ?.innerText.replace(/[^0-9]/g, "") || 0;
             let totalRealisasi = document.querySelector(".totalRealisasi")
                 ?.innerText.replace(/[^0-9]/g, "") || 0;
 
-            // ================= RANCANGAN =================
             let kategori_r = document.querySelectorAll("[name='kategori_rancangan[]']");
             let nama_barang_r = document.querySelectorAll("[name='nama_barang_rancangan[]']");
             let banyak_r = document.querySelectorAll("[name='banyak_rancangan[]']");
@@ -524,7 +541,6 @@
             let harga_r = document.querySelectorAll("[name='harga_satuan_rancangan[]']");
             let jumlah_r = document.querySelectorAll("[name='jumlah_rancangan[]']");
 
-            // ================= REALISASI =================
             let kategori_re = document.querySelectorAll("[name='kategori_realisasi[]']");
             let nama_barang_re = document.querySelectorAll("[name='nama_barang_realisasi[]']");
             let banyak_re = document.querySelectorAll("[name='banyak_realisasi[]']");
@@ -532,7 +548,6 @@
             let harga_re = document.querySelectorAll("[name='harga_satuan_realisasi[]']");
             let jumlah_re = document.querySelectorAll("[name='jumlah_realisasi[]']");
 
-            // 🔥 FIX TOTAL AMAN
             let totalR = document.querySelector(".totalRancangan")
                 ?.innerText.replace(/[^0-9]/g, "") || 0;
 
@@ -619,8 +634,8 @@
                     }
                 });
 
-        }); // ✅ ini nutup Swal
-    }); // ✅ ini nutup addEventListener
+        }); 
+    });
 
     document.getElementById("btnBatal").addEventListener("click", function() {
 
@@ -635,10 +650,7 @@
 
             if (result.isConfirmed) {
 
-                // 🔥 restore ke kondisi awal
                 document.querySelector(".p-8").innerHTML = initialState;
-
-                // 🔥 reload script biar event aktif lagi
                 location.reload();
             }
         });
@@ -676,26 +688,14 @@
 
         if (!cardRancangan) return;
 
-        // disable input & select
-        let inputs = cardRancangan.querySelectorAll("input, select");
-
-        inputs.forEach(el => {
+        cardRancangan.querySelectorAll("[name*='rancangan']").forEach(el => {
             el.disabled = true;
             el.classList.add("bg-gray-100", "cursor-not-allowed");
         });
 
-        // disable tombol hapus
-        cardRancangan.querySelectorAll(".btnHapus").forEach(btn => {
+        cardRancangan.querySelectorAll(".btnHapus, .btnTambahBaris").forEach(btn => {
             btn.disabled = true;
-            btn.classList.add("opacity-50", "cursor-not-allowed");
         });
-
-        // disable tombol tambah baris
-        let btnTambah = cardRancangan.querySelector(".btnTambahBaris");
-        if (btnTambah) {
-            btnTambah.disabled = true;
-            btnTambah.classList.add("opacity-50", "cursor-not-allowed");
-        }
     }
 
     function copyRancanganToRealisasi() {
@@ -705,17 +705,37 @@
 
         tbodyRealisasi.innerHTML = "";
 
-        let rows = tbodyRancangan.querySelectorAll("tr");
-
-        rows.forEach((tr, index) => {
+        tbodyRancangan.querySelectorAll("tr").forEach((tr, index) => {
 
             let newRow = tr.cloneNode(true);
 
-            // 🔥 FIX NAME
             newRow.querySelectorAll("[name]").forEach(el => {
-                if (el.name.includes("rancangan")) {
-                    el.name = el.name.replace("rancangan", "realisasi");
-                }
+                el.name = el.name.replace("rancangan", "realisasi");
+            });
+
+            newRow.querySelectorAll("input, select").forEach(el => {
+                el.disabled = false;
+                el.classList.remove("bg-gray-100", "cursor-not-allowed");
+            });
+
+            newRow.querySelectorAll(
+                "[name*='kategori_realisasi'], " +
+                "[name*='nama_barang_realisasi'], " +
+                "[name*='satuan_realisasi']"
+            ).forEach(el => {
+                el.disabled = true;
+                el.classList.add("bg-gray-100", "cursor-not-allowed");
+            });
+
+            newRow.querySelectorAll(
+                "[name*='banyak_realisasi'], " +
+                "[name*='harga_satuan_realisasi']"
+            ).forEach(el => {
+                el.disabled = false;
+            });
+
+            newRow.querySelectorAll("[name*='jumlah_realisasi']").forEach(el => {
+                el.disabled = true;
             });
 
             newRow.children[0].innerText = index + 1;
@@ -724,14 +744,62 @@
         });
 
         hitungTotal(tbodyRealisasi);
+        updateNomorRealisasi();
     }
 
     window.addEventListener("load", function() {
         let adaRealisasi = document.querySelector(".card-realisasi:not(.hidden)");
 
         if (adaRealisasi) {
-            disableAnggaran();
+            setEditModeRealisasi();
             document.querySelector('.card-selisih').classList.remove('hidden');
         }
     });
+
+    function setEditModeRealisasi() {
+        let cardRancangan = document.querySelector(".card-rancangan");
+        let cardRealisasi = document.querySelector(".card-realisasi");
+
+        if (!cardRancangan || !cardRealisasi) return;
+
+        cardRancangan.querySelectorAll("input, select").forEach(el => {
+            el.disabled = true;
+            el.classList.add("bg-gray-100", "cursor-not-allowed");
+        });
+
+        cardRancangan.querySelectorAll(".btnHapus, .btnTambahBaris").forEach(btn => {
+            btn.disabled = true;
+        });
+
+        cardRealisasi.querySelectorAll("tr").forEach(tr => {
+
+            tr.querySelectorAll("input, select").forEach(el => {
+                el.disabled = false;
+                el.classList.remove("bg-gray-100", "cursor-not-allowed");
+            });
+
+            tr.querySelectorAll("[name*='kategori_realisasi'], [name*='nama_barang_realisasi'], [name*='satuan_realisasi']")
+                .forEach(el => {
+                    el.disabled = true;
+                    el.classList.add("bg-gray-100", "cursor-not-allowed");
+                });
+
+            tr.querySelectorAll("[name*='banyak_realisasi'], [name*='harga_satuan_realisasi']")
+                .forEach(el => {
+                    el.disabled = false;
+                    el.classList.remove("bg-gray-100", "cursor-not-allowed");
+                });
+
+            tr.querySelectorAll("[name*='jumlah_realisasi']")
+                .forEach(el => el.disabled = true);
+        });
+    }
+
+    function updateNomorRealisasi() {
+        let rows = document.querySelectorAll(".card-realisasi tbody tr");
+
+        rows.forEach((tr, index) => {
+            tr.children[0].innerText = index + 1;
+        });
+    }
 </script>

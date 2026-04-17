@@ -179,30 +179,39 @@
         cardRealisasi.classList.remove('hidden');
     });
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         var table = $('#tableMonitoring').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
                 url: "<?= base_url('C_Monitoring/getData') ?>",
                 type: "POST",
-                data: function (data) {
+                data: function(data) {
                     data.tiket = $('#filterTiket').val();
                     data.judul = $('#filterJudul').val();
                     data.organisasi = $('#filterOrganisasi').val();
                     data.periode = $('#filterPeriode').val();
                 }
             },
-            columns: [
-                { data: null }, // NO
-                { data: "noticket" },
-                { data: "judul" },
-                { data: "organisasi" },
-                { data: "timeinput" },
+            columns: [{
+                    data: null
+                }, // NO
+                {
+                    data: "noticket"
+                },
+                {
+                    data: "judul"
+                },
+                {
+                    data: "organisasi"
+                },
+                {
+                    data: "timeinput"
+                },
                 {
                     data: "id",
                     orderable: false,
-                    render: function (data, type, row) {
+                    render: function(data, type, row) {
                         return `
                             <div class="flex items-center justify-center gap-2">
 
@@ -211,9 +220,12 @@
                                     <img src="<?= base_url('assets/icons/pencil.svg') ?>" class="w-4 h-4">
                                 </a>
 
-                                <button class="bg-green-100 text-green-600 border border-green-500 p-2 rounded-lg flex items-center justify-center">
+                                <a href="<?= base_url('C_Export/export_excel_full/') ?>${data}" 
+                                class="bg-green-100 text-green-600 border border-green-500 p-2 rounded-lg flex items-center justify-center"
+                                title="Export Excel">
+
                                     <img src="<?= base_url('assets/icons/download.svg') ?>" class="w-4 h-4">
-                                </button>
+                                </a>
 
                                 <button class="btn-delete bg-red-100 text-red-600 border border-red-500 p-2 rounded-lg flex items-center justify-center" data-id="${data}">
                                     <img src="<?= base_url('assets/icons/trash.svg') ?>" class="w-4 h-4">
@@ -229,10 +241,18 @@
             // 🔥 posisi bawah kiri & kanan 
             dom: "t" + "<'flex items-center justify-between mt-6'<'text-sm text-gray-400'i><'custom-pagination'p>>",
             // 🔥 ubah icon prev next 
-            language: { paginate: { previous: "Prev", next: "Next", first: "<", last: ">" } },
-            order: [[0, 'asc']], // berdasarkan timeinput
-            columnDefs: [
-                {
+            language: {
+                paginate: {
+                    previous: "Prev",
+                    next: "Next",
+                    first: "<",
+                    last: ">"
+                }
+            },
+            order: [
+                [0, 'asc']
+            ], // berdasarkan timeinput
+            columnDefs: [{
                     targets: [0, 1, 3, 4, 5],
                     className: "text-center",
                     orderable: true,
@@ -243,7 +263,7 @@
                     orderable: true,
                 }
             ],
-            drawCallback: function (settings) {
+            drawCallback: function(settings) {
                 var api = this.api();
                 var order = api.order();
 
@@ -253,9 +273,12 @@
                 var length = settings._iDisplayLength;
                 var total = settings._iRecordsDisplay;
 
-                api.column(0, { search: 'applied', order: 'applied' })
+                api.column(0, {
+                        search: 'applied',
+                        order: 'applied'
+                    })
                     .nodes()
-                    .each(function (cell, i) {
+                    .each(function(cell, i) {
 
                         if (isAsc) {
                             // 1,2,3
@@ -268,61 +291,60 @@
                     });
             }
         });
-        
-        $(document).on('click', '.btn-edit', function () {
+
+        $(document).on('click', '.btn-edit', function() {
             let id = $(this).data('id');
             window.location.href = "<?= base_url('C_Monitoring/edit/') ?>" + id;
         });
 
-        $('#btnFilter').on('click', function () {
+        $('#btnFilter').on('click', function() {
             table.ajax.reload();
         });
     });
 
-    $(document).on('click', '.btn-delete', function () {
-    let id = $(this).data('id');
+    $(document).on('click', '.btn-delete', function() {
+        let id = $(this).data('id');
 
-    Swal.fire({
-        title: "Yakin hapus?",
-        text: "Data yang dihapus tidak bisa dikembalikan!",
-        imageUrl: "<?= base_url('assets/icons/trash.svg') ?>",
-        imageWidth: 60,
-        imageHeight: 60,
-        showCancelButton: true,
-        confirmButtonText: "Ya, Hapus",
-        cancelButtonText: "Batal"
-    }).then((result) => {
+        Swal.fire({
+            title: "Yakin hapus?",
+            text: "Data yang dihapus tidak bisa dikembalikan!",
+            imageUrl: "<?= base_url('assets/icons/trash.svg') ?>",
+            imageWidth: 60,
+            imageHeight: 60,
+            showCancelButton: true,
+            confirmButtonText: "Ya, Hapus",
+            cancelButtonText: "Batal"
+        }).then((result) => {
 
-        if (result.isConfirmed) {
+            if (result.isConfirmed) {
 
-            $.ajax({
-                url: "<?= base_url('C_Monitoring/delete/') ?>" + id,
-                type: "POST",
-                success: function (res) {
+                $.ajax({
+                    url: "<?= base_url('C_Monitoring/delete/') ?>" + id,
+                    type: "POST",
+                    success: function(res) {
 
-                    if (res == "success") {
-                        Swal.fire({
-                            icon: "success",
-                            title: "Berhasil",
-                            text: "Data berhasil dihapus"
-                        });
+                        if (res == "success") {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Berhasil",
+                                text: "Data berhasil dihapus"
+                            });
 
-                        // 🔥 reload datatable
-                        $('#tableMonitoring').DataTable().ajax.reload();
+                            // 🔥 reload datatable
+                            $('#tableMonitoring').DataTable().ajax.reload();
 
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Gagal",
-                            text: res
-                        });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Gagal",
+                                text: res
+                            });
+                        }
                     }
-                }
-            });
+                });
 
-        }
+            }
 
+        });
     });
-});
-
 </script>

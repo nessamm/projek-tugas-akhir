@@ -132,9 +132,49 @@ class M_monitoring extends CI_Model
         return $this->db->get_where('anggarand', ['notiket' => $noticket])->result();
     }
 
+    public function getRancanganExcel($noticket)
+    {
+        $this->db->select('
+        a.*,
+        b.name as kategori_nama,
+        c.name as satuan_nama
+    ');
+        $this->db->from('anggarand a');
+        $this->db->join('mskategori b', 'b.code = a.kategori', 'left');
+        $this->db->join('mssatuan c', 'c.code = a.satuan', 'left');
+        $this->db->where('a.notiket', $noticket);
+
+        return $this->db->get()->result();
+    }
+
     public function getRealisasi($noticket)
     {
         return $this->db->get_where('realisasid', ['notiket' => $noticket])->result();
+    }
+
+    public function getRealisasiExcel($noticket)
+    {
+        $this->db->select('
+        a.*,
+        b.name as kategori_nama,
+        c.name as satuan_nama
+    ');
+        $this->db->from('realisasid a');
+        $this->db->join('mskategori b', 'b.code = a.kategori', 'left');
+        $this->db->join('mssatuan c', 'c.code = a.satuan', 'left');
+        $this->db->where('a.notiket', $noticket);
+
+        return $this->db->get()->result();
+    }
+
+    public function getHeaderByTicket($noticket)
+    {
+        $this->db->select('anggaran_header.*, msorganisasi.name as organisasi');
+        $this->db->from('anggaran_header');
+        $this->db->join('msorganisasi', 'msorganisasi.code = anggaran_header.organisasi', 'left');
+        $this->db->where('anggaran_header.noticket', $noticket);
+
+        return $this->db->get()->row();
     }
 
     public function simpanData($data)

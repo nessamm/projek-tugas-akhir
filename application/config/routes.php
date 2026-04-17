@@ -54,6 +54,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'C_Login/login';
 $route['monitoring'] = 'C_Monitoring';
+$route['export'] = 'C_Export';
 $route['monitoring/data'] = 'C_Monitoring/getData';
 $route['input'] = 'C_Input/index';
 $route['pengguna'] = 'C_Pengguna/index';
