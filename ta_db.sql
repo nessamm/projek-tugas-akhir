@@ -30,9 +30,9 @@ CREATE TABLE IF NOT EXISTS `anggarand` (
   `harga_satuan` decimal(15,2) DEFAULT NULL,
   `jumlah` decimal(15,2) DEFAULT NULL,
   PRIMARY KEY (`seqno`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table ta_db.anggarand: ~9 rows (approximately)
+-- Dumping data for table ta_db.anggarand: ~18 rows (approximately)
 REPLACE INTO `anggarand` (`seqno`, `notiket`, `kategori`, `nama_barang`, `banyak`, `satuan`, `harga_satuan`, `jumlah`) VALUES
 	(1, '0', 0, 'apa ya', 1, 'jam', 2000.00, 2000.00),
 	(2, '0', 0, 'aaaaa', 1, 'minggu', 1111.00, 1111.00),
@@ -54,7 +54,7 @@ REPLACE INTO `anggarand` (`seqno`, `notiket`, `kategori`, `nama_barang`, `banyak
 	(32, 'RAB260403', 1, 'hmmm', 2, '1', 2000.00, 4000.00),
 	(35, 'RAB260405', 1, 'buku', 12, '1', 2000.00, 24000.00),
 	(36, 'RAB260405', 1, 'pensil', 12, '1', 1000.00, 12000.00),
-	(37, 'RAB260406', 1, 'mikir kids', 12, '1', 20000.00, 240000.00);
+	(38, 'RAB260406', 1, 'mikir kids', 12, '1', 20000.00, 240000.00);
 
 -- Dumping structure for table ta_db.anggaran_header
 CREATE TABLE IF NOT EXISTS `anggaran_header` (
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `anggaran_header` (
   UNIQUE KEY `tiket` (`noticket`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table ta_db.anggaran_header: ~11 rows (approximately)
+-- Dumping data for table ta_db.anggaran_header: ~19 rows (approximately)
 REPLACE INTO `anggaran_header` (`id`, `noticket`, `judul`, `organisasi`, `total`, `userinput`, `timeinput`, `selisih`, `totalrealisasi`) VALUES
 	(1, 'RAB260301', 'trialalalla', NULL, 0.00, NULL, '2026-03-10 08:48:01', NULL, NULL),
 	(2, 'RAB260302', 'apaluuu', NULL, 0.00, NULL, '2026-03-10 09:06:28', NULL, NULL),
@@ -90,10 +90,26 @@ REPLACE INTO `anggaran_header` (`id`, `noticket`, `judul`, `organisasi`, `total`
 	(15, 'RAB260315', 'trial selasa', 1, 40000.00, '13', '2026-03-31 07:37:22', NULL, NULL),
 	(16, 'RAB260401', 'anis rabu', 1, 130000.00, '13', '2026-04-01 15:01:40', NULL, NULL),
 	(17, 'RAB260402', 'trial 16 april', 1, 40000.00, '12', '2026-04-16 16:18:17', NULL, NULL),
-	(18, 'RAB260403', '', 1, 44000.00, '18', '2026-04-17 13:47:09', 16000.00, NULL),
-	(19, 'RAB260404', 'iyayayayay', 1, 42000.00, '18', '2026-04-17 13:48:05', 0.00, NULL),
+	(18, 'RAB260403', '', 1, 44000.00, '18', '2026-04-17 13:47:09', 14000.00, 30000.00),
+	(19, 'RAB260404', 'iyayayayay', 1, 42000.00, '18', '2026-04-17 13:48:05', 0.00, 42000.00),
 	(20, 'RAB260405', 'coba trial jumat 17 april', 1, 36000.00, '18', '2026-04-17 16:13:04', -12000.00, 48000.00),
-	(21, 'RAB260406', 'kepoo', 1, 240000.00, '18', '2026-04-17 16:35:28', 0.00, 0.00);
+	(21, 'RAB260406', 'kepoo', 1, 240000.00, '18', '2026-04-17 16:35:28', 20000.00, 220000.00);
+
+-- Dumping structure for table ta_db.export_log
+CREATE TABLE IF NOT EXISTS `export_log` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `noticket` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
+  `tipe_export` enum('rancangan','realisasi','full') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Dumping data for table ta_db.export_log: ~0 rows (approximately)
+REPLACE INTO `export_log` (`id`, `noticket`, `user_id`, `tipe_export`, `created_at`) VALUES
+	(1, 'RAB260403', 18, 'full', '2026-04-18 07:29:41'),
+	(2, 'RAB260403', 18, 'rancangan', '2026-04-18 07:32:16'),
+	(3, 'RAB260403', 18, 'full', '2026-04-18 08:04:23');
 
 -- Dumping structure for table ta_db.mskategori
 CREATE TABLE IF NOT EXISTS `mskategori` (
@@ -119,8 +135,7 @@ CREATE TABLE IF NOT EXISTS `mskelas` (
 
 -- Dumping data for table ta_db.mskelas: ~1 rows (approximately)
 REPLACE INTO `mskelas` (`code`, `name`, `description`, `timeinput`) VALUES
-	(1, 'xiii', 'sija', '2026-03-27 07:21:46'),
-	(2, 'xi', 'yah', '2026-03-27 08:26:22');
+	(1, 'xiii', 'sija', '2026-03-27 07:21:46');
 
 -- Dumping structure for table ta_db.msorganisasi
 CREATE TABLE IF NOT EXISTS `msorganisasi` (
@@ -158,16 +173,18 @@ CREATE TABLE IF NOT EXISTS `realisasid` (
   `harga_satuan` decimal(15,2) DEFAULT NULL,
   `jumlah` decimal(15,2) DEFAULT NULL,
   PRIMARY KEY (`seqno`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table ta_db.realisasid: ~6 rows (approximately)
+-- Dumping data for table ta_db.realisasid: ~0 rows (approximately)
 REPLACE INTO `realisasid` (`seqno`, `notiket`, `kategori`, `nama_barang`, `banyak`, `satuan`, `harga_satuan`, `jumlah`) VALUES
 	(9, 'RAB260404', 1, 'hiaiaiai bsjabsak', 2, '1', 20000.00, 40000.00),
 	(10, 'RAB260404', 1, 'ini ulanhg tahun ku1', 1, '1', 2000.00, 2000.00),
-	(11, 'RAB260403', 1, 'hayoyo jumat ini', 2, '1', 12000.00, 24000.00),
-	(12, 'RAB260403', 1, 'hmmm', 2, '1', 2000.00, 4000.00),
 	(15, 'RAB260405', 1, 'buku', 12, '1', 2500.00, 30000.00),
-	(16, 'RAB260405', 1, 'pensil ku dimana', 12, '1', 1500.00, 18000.00);
+	(16, 'RAB260405', 1, 'pensil ku dimana', 12, '1', 1500.00, 18000.00),
+	(18, 'RAB260406', 1, 'mikir kids', 12, '1', 18000.00, 216000.00),
+	(19, 'RAB260406', 1, 'dadada', 2, '1', 2000.00, 4000.00),
+	(20, 'RAB260403', 1, 'hayoyo jumat ini', 2, '1', 12000.00, 24000.00),
+	(21, 'RAB260403', 1, 'hmmm', 3, '1', 2000.00, 6000.00);
 
 -- Dumping structure for table ta_db.tregister_ta
 CREATE TABLE IF NOT EXISTS `tregister_ta` (
