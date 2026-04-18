@@ -168,7 +168,7 @@
 
 
     btn.addEventListener('click', function() {
-        cardRealisasi.classList.remove('hidden');
+        cardRealisasi.classList.toggle('hidden');
     });
 
     $(document).ready(function() {

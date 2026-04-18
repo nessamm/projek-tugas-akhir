@@ -20,8 +20,6 @@
 
             <h1 class="text-3xl font-bold text-gray-800 mb-6">Profil</h1>
 
-            <div class="grid grid-cols-12 gap-6">
-
                 <!-- FORM PROFIL -->
                 <div class="col-span-8 bg-white rounded-xl shadow p-6">
 
@@ -102,33 +100,6 @@
                     </form>
 
                 </div>
-
-                <div class="col-span-4 flex flex-col gap-4">
-                    <div class="bg-white rounded-xl shadow p-5 flex items-center justify-between flex-1">
-                        <div>
-                            <p class="text-gray-500 text-sm">Total Input</p>
-                            <h2 class="text-3xl font-bold text-gray-800">2040</h2>
-                        </div>
-
-                        <div class="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center">
-                            <?= file_get_contents(FCPATH . 'assets/icons/clock24.svg'); ?>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-xl shadow p-5 flex items-center justify-between flex-1">
-                        <div>
-                            <p class="text-gray-500 text-sm">Total Dokumen</p>
-                            <h2 class="text-3xl font-bold text-gray-800">2040</h2>
-                        </div>
-
-                        <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center">
-                            <?= file_get_contents(FCPATH . 'assets/icons/download24.svg'); ?>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
 
         </div>
 

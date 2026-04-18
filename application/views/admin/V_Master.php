@@ -48,9 +48,6 @@
             <!-- Header -->
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold">Master - Master Data</h2>
-                <button class="bg-blue-500 text-white px-3 py-2 rounded-lg shadow flex items-center gap-2">
-                    <?= file_get_contents(FCPATH . 'assets/icons/filter.svg'); ?> Pilih Filter
-                </button>
             </div>
 
             <div class="space-y-4">
