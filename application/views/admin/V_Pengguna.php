@@ -41,24 +41,19 @@
         </table>
         </div>
 
-        <!-- Pagination -->
         <div class="flex items-center justify-between mt-6">
 
-            <!-- Showing -->
             <div class="text-sm text-gray-500">
                 Showing 1 of 1
             </div>
 
-            <!-- Pagination -->
             <div class="flex items-center bg-white border rounded-lg px-2 py-1 space-x-1">
 
-                <!-- Prev -->
                 <button class="px-3 py-1.5 bg-gray-200 text-gray-500 rounded-md hover:bg-gray-300 transition">
                     &#8249;
                 </button>
                 <span class="text-sm text-gray-400 px-1">Prev</span>
 
-                <!-- Numbers -->
                 <button class="px-3 py-1 text-gray-600 rounded-md hover:bg-gray-200 transition">
                     1
                 </button>
@@ -79,7 +74,6 @@
                     5
                 </button>
 
-                <!-- Next -->
                 <span class="text-sm text-gray-400 px-1">Next</span>
                 <button class="px-3 py-1.5 bg-gray-200 text-gray-500 rounded-md hover:bg-gray-300 transition">
                     &#8250;

@@ -9,14 +9,11 @@
 <body class="bg-gray-100 flex min-h-screen">
 
     <div class="flex-1 ml-64">
-        <!-- HEADER BAR -->
         <?php $this->load->view('layout/head'); ?>
 
         <div class="p-8">
-            <!-- Title -->
             <h1 class="text-2xl font-semibold mb-6">Input Anggaran</h1>
 
-            <!-- Detail Header -->
             <div class="bg-white rounded-lg shadow-sm border p-6 mb-6">
                 <h2 class="text-lg font-semibold mb-4">Detail Header</h2>
 
@@ -53,7 +50,6 @@
                 </div>
             </div>
 
-            <!-- Detail Table -->
             <div class="bg-white rounded-lg shadow-sm border p-6">
 
                 <h2 class="text-lg font-semibold mb-4">Detail Tabel</h2>
@@ -76,7 +72,6 @@
 
                         <tbody class="divide-y">
 
-                            <!-- Row -->
                             <tr>
                                 <td class="p-2">1</td>
 
@@ -138,12 +133,10 @@
                     </table>
                 </div>
 
-                <!-- Add Row -->
                 <button class="mt-4 text-blue-600 text-sm font-medium" id="btnTambahBaris">
                     + Tambah Baris Baru
                 </button>
 
-                <!-- Total -->
                 <div class="flex justify-between items-center mt-6 border-t pt-4">
 
                     <span class="font-semibold">Total</span>
@@ -154,7 +147,6 @@
 
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="flex justify-end gap-3 mt-6">
 
                     <button class="px-4 py-2 bg-gray-200 rounded-md" id="btnBatal">
@@ -418,15 +410,12 @@
 
             if (result.isConfirmed) {
 
-                // 🔴 Reset header
                 document.getElementById("judul").value = "";
                 document.getElementById("organisasi").value = "";
 
-                // 🔴 Reset tabel (hapus semua baris)
                 let tbody = document.querySelector("tbody");
                 tbody.innerHTML = "";
 
-                // 🔴 Tambahkan 1 baris kosong kembali
                 let newRow = `
                 <tr>
                     <td class="p-2">1</td>

@@ -69,4 +69,20 @@ class M_login extends CI_Model
     {
         return $this->db->get('mskelas')->result();
     }
+
+    public function getTotalInput($id)
+    {
+        return $this->db
+            ->from('anggaran_header')
+            ->where('userinput', $id)
+            ->count_all_results();
+    }
+
+    public function getTotalExport($user_id)
+    {
+        return $this->db
+            ->from('export_log')
+            ->where('user_id', $user_id)
+            ->count_all_results();
+    }
 }

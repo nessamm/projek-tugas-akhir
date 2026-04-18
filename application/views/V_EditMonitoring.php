@@ -9,14 +9,11 @@
 <body class="bg-gray-100 flex min-h-screen">
 
     <div class="flex-1 ml-64">
-        <!-- HEADER BAR -->
         <?php $this->load->view('layout/head'); ?>
 
         <div class="p-8">
-            <!-- Title -->
             <h1 class="text-2xl font-semibold mb-6">Monitoring - Daftar Anggaran - Detail</h1>
 
-            <!-- Detail Header -->
             <div class="bg-white rounded-lg shadow-sm border p-6 mb-6">
                 <h2 class="text-lg font-semibold mb-4">Detail Header</h2>
 
@@ -52,16 +49,12 @@
                 </div>
             </div>
 
-            <!-- ALERT BOX -->
             <div class="flex items-center justify-between bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6  <?= !empty($detail_realisasi) ? 'hidden' : '' ?>">
-                <!-- LEFT -->
                 <div class="flex items-start gap-3">
-                    <!-- ICON -->
                     <div class="bg-yellow-100 text-yellow-600 p-2 rounded-md">
                         <?= file_get_contents(FCPATH . 'assets/icons/warning.svg'); ?>
                     </div>
 
-                    <!-- TEXT -->
                     <div>
                         <h3 class="font-semibold text-gray-800">
                             Tambah Data untuk Realisasi
@@ -73,14 +66,12 @@
                     </div>
                 </div>
 
-                <!-- RIGHT BUTTON -->
                 <button class="btnTambahRealiasasi bg-blue-600 text-white rounded-md px-4 py-2 <?= !empty($detail_realisasi) ? 'hidden' : '' ?>">
                     Tambah Data Realisasi
                 </button>
 
             </div>
 
-            <!-- Detail Table -->
             <div class="card-rancangan bg-white rounded-lg shadow-sm border p-6 mb-4">
 
                 <h2 class="text-lg font-semibold mb-4">Detail Item - Rancangan</h2>
@@ -172,12 +163,10 @@
                     </table>
                 </div>
 
-                <!-- Add Row -->
                 <button class="mt-4 text-blue-600 text-sm font-medium btnTambahBaris">
                     + Tambah Baris Baru
                 </button>
 
-                <!-- Total -->
                 <div class="flex items-center justify-between mt-6 p-4 bg-gray-100 rounded-lg border border-gray-200">
 
                     <span class="text-sm font-medium text-gray-600">Total</span>
@@ -188,16 +177,13 @@
 
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="flex justify-end gap-3 mt-6">
 
                     <a href="<?= base_url('C_export/export_excel/' . $header->noticket) ?>"
                         class="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-600 border border-green-400 rounded-lg hover:bg-green-200 transition">
 
-                        <!-- ICON -->
                         <?= file_get_contents(FCPATH . 'assets/icons/download.svg'); ?>
 
-                        <!-- TEXT -->
                         <span class="font-medium">
                             Export to Excel
                         </span>
@@ -208,7 +194,6 @@
 
             </div>
 
-            <!-- Detail Table Realisasi-->
             <div class="card-realisasi bg-white rounded-lg shadow-sm border p-6 mb-4 <?= empty($detail_realisasi) ? 'hidden' : '' ?>">
 
                 <h2 class="text-lg font-semibold mb-4">Detail Item - Realisasi</h2>
@@ -234,7 +219,6 @@
                                 <?php $no = 1;
                                 foreach ($detail_realisasi as $d): ?>
 
-                                    <!-- Row -->
                                     <tr>
                                         <td class="p-2">1</td>
 
@@ -300,12 +284,10 @@
                     </table>
                 </div>
 
-                <!-- Add Row -->
                 <button class="mt-4 text-blue-600 text-sm font-medium btnTambahBaris">
                     + Tambah Baris Baru
                 </button>
 
-                <!-- Total -->
                 <div class="flex items-center justify-between mt-6 p-4 bg-gray-100 rounded-lg border border-gray-200">
 
                     <span class="text-sm font-medium text-gray-600">Total</span>
@@ -316,16 +298,13 @@
 
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="flex justify-end gap-3 mt-6">
 
                     <a href="<?= base_url('C_export/export_excel_realisasi/' . $header->noticket) ?>"
                         class="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-600 border border-green-400 rounded-lg hover:bg-green-200 transition">
 
-                        <!-- ICON -->
                         <?= file_get_contents(FCPATH . 'assets/icons/download.svg'); ?>
 
-                        <!-- TEXT -->
                         <span class="font-medium">
                             Export to Excel
                         </span>

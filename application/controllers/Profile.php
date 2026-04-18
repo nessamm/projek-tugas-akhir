@@ -9,14 +9,18 @@ class Profile extends CI_Controller {
         $this->load->model('M_login');
         $this->load->library('session');
         $this->load->database();
+
+        if (!$this->session->userdata('logged_in')) {
+            redirect('login');
+        }
     }
 
     public function index()
     {
         $role = $this->session->userdata('role');
         $id   = $this->session->userdata('user_id');
+        
 
-        // kalau admin
         if ($role == 1) {
             $data['user'] = $this->M_login->getUserById($id);
 
@@ -24,9 +28,10 @@ class Profile extends CI_Controller {
             $this->load->view('admin/V_AdminPengguna', $data);
         }
 
-        // kalau user biasa
         if ($role == 2) {
-            $data['user'] = $this->M_login->getUserById($id);
+            $data['user']            = $this->M_login->getUserById($id);
+            $data['total_input']     = $this->M_login->getTotalInput($id);
+            $data['total_export']    = $this->M_login->getTotalExport($id);
 
             $this->load->view('layout/header');
             $this->load->view('auth/profile', $data);

@@ -12,15 +12,19 @@ class C_Master extends CI_Controller
         $this->load->library('session');
         $this->load->database();
         $this->load->model('M_master');
+
+        if (!$this->session->userdata('logged_in')) {
+            redirect('login');
+        }
     }
 
     public function index()
     {
 
-        $data['kelas'] = $this->M_master->getData('mskelas');
+        $data['kelas']      = $this->M_master->getData('mskelas');
         $data['organisasi'] = $this->M_master->getData('msorganisasi');
-        $data['kategori'] = $this->M_master->getData('mskategori');
-        $data['satuan'] = $this->M_master->getData('mssatuan');
+        $data['kategori']   = $this->M_master->getData('mskategori');
+        $data['satuan']     = $this->M_master->getData('mssatuan');
 
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar_admin');
@@ -29,7 +33,7 @@ class C_Master extends CI_Controller
 
     public function simpanKelas()
     {
-        $nama = $this->input->post('nama');
+        $nama      = $this->input->post('nama');
         $deskripsi = $this->input->post('deskripsi');
 
         // VALIDASI
@@ -54,7 +58,7 @@ class C_Master extends CI_Controller
 
     public function simpanOrganisasi()
     {
-        $nama = $this->input->post('nama');
+        $nama      = $this->input->post('nama');
         $deskripsi = $this->input->post('deskripsi');
 
         // VALIDASI
@@ -79,7 +83,7 @@ class C_Master extends CI_Controller
 
     public function simpanKategori()
     {
-        $nama = $this->input->post('nama');
+        $nama      = $this->input->post('nama');
         $deskripsi = $this->input->post('deskripsi');
 
         // VALIDASI
@@ -143,15 +147,14 @@ class C_Master extends CI_Controller
 
     public function deleteData()
 {
-    $table = $this->input->post('table');
-    $id = $this->input->post('id'); // primary key "code"
+    $table  = $this->input->post('table');
+    $id     = $this->input->post('id'); 
 
     if (!$table || !$id) {
         echo "Parameter tidak lengkap";
         return;
     }
 
-    // Semua master pakai kolom 'code' sebagai primary key
     $validTables = ['mskelas', 'msorganisasi', 'mskategori', 'mssatuan'];
     if (!in_array($table, $validTables)) {
         echo "Tabel tidak valid";

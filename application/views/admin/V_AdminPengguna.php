@@ -29,7 +29,6 @@
                         Edit Profil
                     </h2>
 
-                    <!-- ✅ SATU FORM SAJA -->
                     <form id="formProfile" class="space-y-4">
 
                         <div class="grid grid-cols-2 gap-4">
@@ -86,7 +85,6 @@
 
                         </div>
 
-                        <!-- BUTTON -->
                         <div class="flex justify-end gap-3 pt-4">
 
                             <button id="btnCancel" type="button"
@@ -105,9 +103,7 @@
 
                 </div>
 
-                <!-- CARD -->
                 <div class="col-span-4 flex flex-col gap-4">
-                    <!-- CARD 1 -->
                     <div class="bg-white rounded-xl shadow p-5 flex items-center justify-between flex-1">
                         <div>
                             <p class="text-gray-500 text-sm">Total Input</p>
@@ -119,7 +115,6 @@
                         </div>
                     </div>
 
-                    <!-- CARD 2 -->
                     <div class="bg-white rounded-xl shadow p-5 flex items-center justify-between flex-1">
                         <div>
                             <p class="text-gray-500 text-sm">Total Dokumen</p>
@@ -151,7 +146,6 @@
 
         fields.forEach(field => {
 
-            // simpan nilai awal
             field.dataset.initial = field.value;
 
             field.addEventListener('click', function () {

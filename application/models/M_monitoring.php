@@ -18,33 +18,25 @@ class M_monitoring extends CI_Model
         $this->db->from($this->table);
         $this->db->join('msorganisasi', 'msorganisasi.code = anggaran_header.organisasi', 'left');
 
-        // ✅ FILTER USER (WAJIB)
         $user_id = $this->session->userdata('user_id');
         $this->db->where('anggaran_header.userinput', $user_id);
 
-        // filter tiket
         if (!empty($_POST['tiket'])) {
             $this->db->like('noticket', $_POST['tiket']);
         }
 
-        // filter judul
         if (!empty($_POST['judul'])) {
             $this->db->like('judul', $_POST['judul']);
         }
 
-        // filter organisasi (pakai CODE, bukan name)
         if (!empty($_POST['organisasi'])) {
             $this->db->where('anggaran_header.organisasi', $_POST['organisasi']);
         }
 
-        // filter tanggal (periode)
         if (!empty($_POST['periode'])) {
             $this->db->like('anggaran_header.timeinput', $_POST['periode']);
         }
 
-        // =====================================
-        // 🔍 SEARCH DATATABLES (global search)
-        // =====================================
         if (!empty($_POST['search']['value'])) {
             $search = $_POST['search']['value'];
 
@@ -59,9 +51,6 @@ class M_monitoring extends CI_Model
             $this->db->group_end();
         }
 
-        // =====================================
-        // 🔽 ORDER
-        // =====================================
         if (isset($_POST['order'])) {
             $this->db->order_by(
                 $this->column_order[$_POST['order']['0']['column']],
@@ -101,10 +90,8 @@ class M_monitoring extends CI_Model
         $this->db->from($this->table);
         $this->db->join('msorganisasi', 'msorganisasi.code = anggaran_header.organisasi', 'left');
 
-        // 🔥 filter berdasarkan id
         $this->db->where('anggaran_header.id', $id);
 
-        // 🔥 (PENTING) filter user juga biar aman
         $user_id = $this->session->userdata('user_id');
         $this->db->where('anggaran_header.userinput', $user_id);
 
@@ -179,9 +166,8 @@ class M_monitoring extends CI_Model
 
     public function simpanData($data)
     {
-        $this->db->trans_start(); // 🔥 biar aman (rollback kalau gagal)
+        $this->db->trans_start();
 
-        // ================= HEADER =================
         $this->db->where('noticket', $data['noticket']);
         $this->db->update('anggaran_header', [
             'judul' => $data['judul'],
@@ -191,16 +177,14 @@ class M_monitoring extends CI_Model
             'selisih' => $data['selisih']
         ]);
 
-        // ================= HAPUS DETAIL LAMA =================
         $this->db->where('notiket', $data['noticket'])->delete('anggarand');
         $this->db->where('notiket', $data['noticket'])->delete('realisasid');
 
-        // ================= INSERT RANCANGAN =================
         if (!empty($data['kategori_r'])) {
             for ($i = 0; $i < count($data['kategori_r']); $i++) {
 
                 $this->db->insert('anggarand', [
-                    'notiket' => $data['noticket'], // 🔥 mapping dari noticket → notiket
+                    'notiket' => $data['noticket'], 
                     'kategori' => $data['kategori_r'][$i],
                     'nama_barang' => $data['nama_barang_r'][$i],
                     'banyak' => $data['banyak_r'][$i],
@@ -211,12 +195,11 @@ class M_monitoring extends CI_Model
             }
         }
 
-        // ================= INSERT REALISASI =================
         if (!empty($data['kategori_re'])) {
             for ($i = 0; $i < count($data['kategori_re']); $i++) {
 
                 $this->db->insert('realisasid', [
-                    'notiket' => $data['noticket'], // 🔥 mapping juga
+                    'notiket' => $data['noticket'], 
                     'kategori' => $data['kategori_re'][$i],
                     'nama_barang' => $data['nama_barang_re'][$i],
                     'banyak' => $data['banyak_re'][$i],
@@ -234,11 +217,9 @@ class M_monitoring extends CI_Model
 
     public function update_realisasi($noticket, $data, $totalRealisasi, $selisih)
     {
-        // 🔥 hapus data lama
         $this->db->where('notiket', $noticket);
         $this->db->delete('realisasid');
 
-        // 🔥 insert ulang
         for ($i = 0; $i < count($data['kategori']); $i++) {
 
             $insert = [
@@ -254,11 +235,22 @@ class M_monitoring extends CI_Model
             $this->db->insert('realisasid', $insert);
         }
 
-        // 🔥 update header
         $this->db->where('noticket', $noticket);
         $this->db->update('anggaran_header', [
             'totalrealisasi' => $totalRealisasi,
             'selisih'        => $selisih
         ]);
+    }
+
+    public function insertLog($user_id, $noticket, $jenis)
+    {
+        $data = [
+            'user_id'     => $user_id,
+            'noticket'    => $noticket,
+            'tipe_export' => $jenis,
+            'created_at'  => date('Y-m-d H:i:s')
+        ];
+
+        return $this->db->insert('export_log', $data);
     }
 }

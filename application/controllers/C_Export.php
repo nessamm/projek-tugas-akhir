@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 class C_Export extends CI_Controller
 {
     
@@ -7,10 +7,14 @@ class C_Export extends CI_Controller
     {
         parent::__construct();
         $this->load->helper('url');
-        $this->load->library(['form_validation','session']);
+        $this->load->library(['form_validation', 'session']);
         $this->load->database();
         $this->load->model('M_monitoring');
         $this->load->model('M_input');
+
+        if (!$this->session->userdata('logged_in')) {
+            redirect('login');
+        }
     }
 
     public function export_excel($noticket)
@@ -24,7 +28,6 @@ class C_Export extends CI_Controller
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        // ================= STYLE =================
         $bold = [
             'font' => ['bold' => true]
         ];
@@ -44,7 +47,6 @@ class C_Export extends CI_Controller
             ],
         ];
 
-        // ================= TITLE =================
         $sheet->setCellValue('A1', 'RANCANGAN ANGGARAN BIAYA');
         $sheet->mergeCells('A1:D1');
 
@@ -54,7 +56,6 @@ class C_Export extends CI_Controller
 
         $sheet->getRowDimension(2)->setRowHeight(10);
 
-        // ================= HEADER INFO =================
         $sheet->setCellValue('A3', 'NOTICKET');
         $sheet->setCellValue('B3', ': ' . ($header->noticket ?? '-'));
         $sheet->mergeCells('B3:D3');
@@ -74,7 +75,6 @@ class C_Export extends CI_Controller
 
         $sheet->getRowDimension(6)->setRowHeight(10);
 
-        // ================= TABLE HEADER =================
         $sheet->setCellValue('A7', 'NO');
         $sheet->setCellValue('B7', 'Kategori');
         $sheet->setCellValue('C7', 'Nama Barang');
@@ -86,7 +86,6 @@ class C_Export extends CI_Controller
         $sheet->getStyle('A7:G7')->applyFromArray($bold);
         $sheet->getStyle('A7:G7')->applyFromArray($center);
 
-        // ================= DATA =================
         $row = 8;
         $no = 1;
 
@@ -101,7 +100,6 @@ class C_Export extends CI_Controller
             $row++;
         }
 
-        // ================= TOTAL =================
         $total = $header->total ?? 0;
 
         $sheet->setCellValue('F' . $row, 'TOTAL');
@@ -113,21 +111,24 @@ class C_Export extends CI_Controller
         $sheet->getStyle('F' . $row . ':G' . $row)->getBorders()->getAllBorders()
             ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
 
-        // ================= BORDER TABLE =================
         $sheet->getStyle('A7:G' . $row)
             ->applyFromArray($borderStyle);
 
-        // ================= AUTO SIZE =================
         foreach (range('A', 'G') as $col) {
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
 
-        // ================= FORMAT ANGKA =================
         $sheet->getStyle('D8:G' . $row)
             ->getNumberFormat()
             ->setFormatCode('#,##0');
 
-        // ================= CLEAN OUTPUT =================
+
+        $this->M_monitoring->insertLog(
+            $this->session->userdata('user_id'),
+            $noticket,
+            'rancangan'
+        );
+
         if (ob_get_length()) ob_end_clean();
 
         $filename = "Rancangan_{$noticket}.xlsx";
@@ -139,6 +140,8 @@ class C_Export extends CI_Controller
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
         $writer->save('php://output');
         exit;
+
+
     }
 
     public function export_excel_realisasi($noticket)
@@ -152,7 +155,6 @@ class C_Export extends CI_Controller
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        // ================= STYLE =================
         $bold = [
             'font' => ['bold' => true]
         ];
@@ -172,8 +174,7 @@ class C_Export extends CI_Controller
             ],
         ];
 
-        // ================= TITLE =================
-        $sheet->setCellValue('A1', 'REALISASI ANGGARAN BIAYA');
+       $sheet->setCellValue('A1', 'REALISASI ANGGARAN BIAYA');
         $sheet->mergeCells('A1:D1');
 
         $sheet->getStyle('A1')->applyFromArray($bold);
@@ -182,7 +183,6 @@ class C_Export extends CI_Controller
 
         $sheet->getRowDimension(2)->setRowHeight(10);
 
-        // ================= HEADER INFO =================
         $sheet->setCellValue('A3', 'NOTICKET');
         $sheet->setCellValue('B3', ': ' . ($header->noticket ?? '-'));
         $sheet->mergeCells('B3:D3');
@@ -202,7 +202,6 @@ class C_Export extends CI_Controller
 
         $sheet->getRowDimension(6)->setRowHeight(10);
 
-        // ================= TABLE HEADER =================
         $sheet->setCellValue('A7', 'NO');
         $sheet->setCellValue('B7', 'Kategori');
         $sheet->setCellValue('C7', 'Nama Barang');
@@ -214,7 +213,6 @@ class C_Export extends CI_Controller
         $sheet->getStyle('A7:G7')->applyFromArray($bold);
         $sheet->getStyle('A7:G7')->applyFromArray($center);
 
-        // ================= DATA =================
         $row = 8;
         $no = 1;
 
@@ -229,7 +227,6 @@ class C_Export extends CI_Controller
             $row++;
         }
 
-        // ================= TOTAL =================
         $total = $header->totalrealisasi ?? 0;
 
         $sheet->setCellValue('F' . $row, 'TOTAL');
@@ -241,21 +238,23 @@ class C_Export extends CI_Controller
         $sheet->getStyle('F' . $row . ':G' . $row)->getBorders()->getAllBorders()
             ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
 
-        // ================= BORDER TABLE =================
         $sheet->getStyle('A7:G' . $row)
             ->applyFromArray($borderStyle);
 
-        // ================= AUTO SIZE =================
         foreach (range('A', 'G') as $col) {
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
 
-        // ================= FORMAT ANGKA =================
         $sheet->getStyle('D8:G' . $row)
             ->getNumberFormat()
             ->setFormatCode('#,##0');
 
-        // ================= CLEAN OUTPUT =================
+        $this->M_monitoring->insertLog(
+            $this->session->userdata('user_id'),
+            $noticket,
+            'realisasi'
+        );
+
         if (ob_get_length()) ob_end_clean();
 
         $filename = "Realisasi_{$noticket}.xlsx";
@@ -274,7 +273,6 @@ class C_Export extends CI_Controller
         require_once FCPATH . 'vendor/autoload.php';
         $this->load->model('M_monitoring');
 
-        // ================= AMBIL HEADER DARI ID =================
         $header = $this->M_monitoring->getById($id);
 
         if (!$header) {
@@ -283,32 +281,32 @@ class C_Export extends CI_Controller
 
         $noticket = $header->noticket;
 
-        // ================= AMBIL DATA =================
         $rancangan = $this->M_monitoring->getRancanganExcel($noticket);
         $realisasi = $this->M_monitoring->getRealisasiExcel($noticket);
 
-        // ================= INIT SPREADSHEET =================
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
-        // ================= SHEET 1 =================
         $sheet1 = $spreadsheet->getActiveSheet();
         $sheet1->setTitle('Rancangan');
 
         $this->buildSheet($sheet1, $header, $rancangan, 'RANCANGAN ANGGARAN BIAYA', 'total');
 
-        // ================= SHEET 2 =================
         $sheet2 = $spreadsheet->createSheet();
         $sheet2->setTitle('Realisasi');
 
         $this->buildSheet($sheet2, $header, $realisasi, 'REALISASI ANGGARAN BIAYA', 'totalrealisasi');
 
-        // ================= SHEET 3 =================
         $sheet3 = $spreadsheet->createSheet();
         $sheet3->setTitle('Perbandingan');
 
         $this->buildComparisonSheet($sheet3, $header, $rancangan, $realisasi);
 
-        // ================= OUTPUT =================
+        $this->M_monitoring->insertLog(
+            $this->session->userdata('user_id'),
+            $noticket,
+            'full'
+        );
+
         if (ob_get_length()) ob_end_clean();
 
         $filename = "RAB_Full_{$noticket}.xlsx";
@@ -360,14 +358,12 @@ class C_Export extends CI_Controller
 
         $sheet->getStyle('A3:A5')->applyFromArray($bold);
 
-        // TABLE HEADER
         $sheet->fromArray([
             ['NO', 'Kategori', 'Nama Barang', 'Banyak', 'Satuan', 'Harga', 'Jumlah']
         ], NULL, 'A7');
 
         $sheet->getStyle('A7:G7')->applyFromArray($bold)->applyFromArray($center);
 
-        // DATA
         $row = 8;
         $no = 1;
 
@@ -382,7 +378,6 @@ class C_Export extends CI_Controller
             $row++;
         }
 
-        // TOTAL
         $total = $header->$totalField ?? 0;
 
         $sheet->setCellValue('F' . $row, 'TOTAL');
@@ -390,15 +385,12 @@ class C_Export extends CI_Controller
 
         $sheet->getStyle('F' . $row . ':G' . $row)->applyFromArray($bold)->applyFromArray($center);
 
-        // BORDER
         $sheet->getStyle('A7:G' . $row)->applyFromArray($border);
 
-        // AUTO SIZE
         foreach (range('A', 'G') as $c) {
             $sheet->getColumnDimension($c)->setAutoSize(true);
         }
 
-        // FORMAT
         $sheet->getStyle('D8:G' . $row)
             ->getNumberFormat()
             ->setFormatCode('#,##0');
@@ -423,14 +415,12 @@ class C_Export extends CI_Controller
             ],
         ];
 
-        // ================= TITLE =================
         $sheet->setCellValue('A1', 'PERBANDINGAN ANGGARAN (RANCANGAN vs REALISASI)');
         $sheet->mergeCells('A1:E1');
         $sheet->getStyle('A1')->applyFromArray($bold)->applyFromArray($center)->getFont()->setSize(14);
 
         $sheet->getRowDimension(2)->setRowHeight(10);
 
-        // ================= HEADER INFO =================
         $sheet->setCellValue('A3', 'NOTICKET');
         $sheet->setCellValue('B3', ': ' . $header->noticket);
         $sheet->mergeCells('B3:D3');
@@ -447,14 +437,12 @@ class C_Export extends CI_Controller
 
         $sheet->getRowDimension(6)->setRowHeight(10);
 
-        // ================= TABLE HEADER =================
         $sheet->fromArray([
             ['NO', 'Nama Barang', 'Rancangan', 'Realisasi', 'Selisih']
         ], NULL, 'A7');
 
         $sheet->getStyle('A7:E7')->applyFromArray($bold)->applyFromArray($center);
 
-        // ================= MAP DATA =================
         $map = [];
 
         foreach ($rancangan as $r) {
@@ -477,7 +465,6 @@ class C_Export extends CI_Controller
             }
         }
 
-        // ================= DATA ROW =================
         $row = 8;
         $no = 1;
 
@@ -501,7 +488,6 @@ class C_Export extends CI_Controller
             $row++;
         }
 
-        // ================= TOTAL ROW (DI DALAM TABEL) =================
         // $totalSelisih = $totalRealisasi - $totalRancangan;
         $totalSelisih = $totalRancangan - $totalRealisasi;
 
@@ -517,15 +503,12 @@ class C_Export extends CI_Controller
 
         $sheet->getStyle('B' . $row . ':E' . $row)->applyFromArray($center);
 
-        // ================= BORDER =================
         $sheet->getStyle('A7:E' . $row)->applyFromArray($border);
 
-        // ================= AUTO SIZE =================
         foreach (range('A', 'E') as $c) {
             $sheet->getColumnDimension($c)->setAutoSize(true);
         }
 
-        // ================= FORMAT RUPIAH =================
         $sheet->getStyle('C8:E' . $row)
             ->getNumberFormat()
             ->setFormatCode('"Rp" #,##0');

@@ -109,7 +109,6 @@
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value.trim();
 
-        // VALIDASI EMAIL KOSONG
         if (email === "") {
             Swal.fire({
                 icon: "warning",
@@ -119,7 +118,6 @@
             return;
         }
 
-        // VALIDASI FORMAT EMAIL
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailPattern.test(email)) {
@@ -131,7 +129,6 @@
             return;
         }
 
-        // VALIDASI PASSWORD KOSONG
         if (password === "") {
             Swal.fire({
                 icon: "warning",

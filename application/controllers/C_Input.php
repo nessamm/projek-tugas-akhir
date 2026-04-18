@@ -13,15 +13,19 @@ class C_Input extends CI_Controller
         $this->load->database();
         $this->load->model('M_login');
         $this->load->model('M_input');
+
+        if (!$this->session->userdata('logged_in')) {
+            redirect('login');
+        }
     }
 
     public function index()
     {
 
-        $data['noticket'] = $this->M_login->generateTicket();
+        $data['noticket']   = $this->M_login->generateTicket();
         $data['organisasi'] = $this->M_input->getOrganisasi();
-        $data['kategori'] = $this->M_input->getKategori();
-        $data['satuan'] = $this->M_input->getSatuan();
+        $data['kategori']   = $this->M_input->getKategori();
+        $data['satuan']     = $this->M_input->getSatuan();
 
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar');
@@ -41,7 +45,6 @@ class C_Input extends CI_Controller
             'userinput'  => $this->session->userdata('user_id')
         ];
 
-        // simpan header
         $simpanHeader = $this->M_input->simpanHeader($data_header);
 
         if (!$simpanHeader) {
@@ -49,7 +52,6 @@ class C_Input extends CI_Controller
             return;
         }
 
-        // ambil data detail
         $kategori     = $this->input->post('kategori');
         $nama_barang  = $this->input->post('nama_barang');
         $banyak       = $this->input->post('banyak');
@@ -74,7 +76,6 @@ class C_Input extends CI_Controller
             ];
         }
 
-        // simpan detail
         $this->M_input->simpanDetail($data_detail);
 
         echo "success";

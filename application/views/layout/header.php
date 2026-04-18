@@ -14,7 +14,6 @@
     <script src="<?= base_url('assets/js/sweetalert2@11.js') ?>"></script>
 
     <style>
-        /* Container */
         .select2-container--default .select2-selection--single {
             height: 3rem;
             /* sama dengan input Tailwind */
@@ -26,12 +25,10 @@
             background-color: white;
         }
 
-        /* Teks yang tampil */
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             line-height: 2rem;
         }
 
-        /* Panah dropdown */
         .select2-container--default .select2-selection--single .select2-selection__arrow {
             height: 2rem;
             right: 0.5rem;
@@ -59,7 +56,6 @@
 
 
         }
-
 
         .swal2-html-container {
             margin: 0 !important;

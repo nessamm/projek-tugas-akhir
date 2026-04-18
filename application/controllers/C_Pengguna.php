@@ -9,6 +9,10 @@ class C_Pengguna extends CI_Controller {
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->load->library('session');
+
+        if (!$this->session->userdata('logged_in')) {
+            redirect('login');
+        }
     }
 
     public function index()

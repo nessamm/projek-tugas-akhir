@@ -53,7 +53,6 @@
                 </button>
             </div>
 
-            <!-- Card List -->
             <div class="space-y-4">
 
                 <!-- Master Kelas -->
@@ -282,13 +281,11 @@
         </div>
         `,
             didOpen: () => {
-                // tombol close
                 document.getElementById('closeSwal').onclick = (e) => {
                     e.stopPropagation();
                     Swal.close();
                 };
 
-                // tombol simpan
                 document.getElementById("btnSimpanKelas").addEventListener("click", function (e) {
                     e.stopPropagation();
 
@@ -364,10 +361,8 @@
         `,
             didOpen: () => {
 
-                // tombol close
                 document.getElementById('closeSwalorg').onclick = () => Swal.close();
 
-                // tombol simpan
                 document.getElementById("simpanDataOrg").addEventListener("click", function () {
 
                     let organisasi = document.getElementById("orginput").value;
@@ -456,10 +451,8 @@
         `,
             didOpen: () => {
 
-                // tombol close
                 document.getElementById('closeSwalKtgr').onclick = () => Swal.close();
 
-                // tombol simpan
                 document.getElementById("simpanDataKtgr").addEventListener("click", function () {
 
                     let kategori = document.getElementById("KtgrInput").value;
@@ -550,10 +543,8 @@
         `,
             didOpen: () => {
 
-                // tombol close
                 document.getElementById('closeSwalSatuan').onclick = () => Swal.close();
 
-                // tombol simpan
                 document.getElementById("simpanDataSatuan").addEventListener("click", function () {
 
                     let satuan = document.getElementById("satuan").value;
@@ -610,7 +601,6 @@
 
         content.classList.toggle('hidden');
 
-        // Header color
         if (!content.classList.contains('hidden')) {
             header.classList.add('bg-gray-100');
             arrow.style.transform = 'rotate(90deg)'; // arrow down
@@ -664,8 +654,6 @@
             }
         });
     }
-
-
 
 </script>
 

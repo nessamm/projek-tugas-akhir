@@ -85,10 +85,8 @@
     <div class="flex-1 ml-64">
         <?php $this->load->view('layout/head'); ?>
 
-        <!-- CONTENT -->
         <div class="p-8">
 
-            <!-- Header -->
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold">Monitoring - Daftar Anggaran</h2>
                 <button class="btnPilihFilter bg-blue-500 text-white px-3 py-2 rounded-md shadow flex items-center gap-2">
@@ -99,21 +97,18 @@
             <div class="card-filter bg-white rounded-lg shadow-sm border p-6 mb-6 hidden">
                 <div class="flex flex-wrap items-end gap-4">
 
-                    <!-- Tiket -->
                     <div class="flex flex-col">
                         <label class="text-bold text-sm text-gray-600 mb-1">Tiket</label>
                         <input id="filterTiket" type="text" placeholder="Masukkan No Tiket"
                             class="w-64 px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
 
-                    <!-- Judul -->
                     <div class="flex flex-col">
                         <label class="text-sm text-gray-600 mb-1">Nama Kegiatan</label>
                         <input id="filterJudul" type="text" placeholder="Masukkan Nama Kegiatan"
                             class="w-64 px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
 
-                    <!-- Organisasi -->
                     <div class="flex flex-col">
                         <label class="text-sm text-gray-600 mb-1">Organisasi</label>
                         <select
@@ -127,14 +122,12 @@
                         </select>
                     </div>
 
-                    <!-- Periode -->
                     <div class="flex flex-col">
                         <label class="text-sm text-gray-600 mb-1">Periode</label>
                         <input id="filterPeriode" type="date"
                             class="w-48 px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
 
-                    <!-- Button -->
                     <div>
                         <button id="btnFilter" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md text-sm mb-3">
                             Terapkan
@@ -144,7 +137,6 @@
                 </div>
             </div>
 
-            <!-- Table -->
             <div>
                 <table id="tableMonitoring"
                     class="bg-white rounded-xl shadow overflow-hidden min-w-full text-sm text-gray-600">
@@ -238,9 +230,7 @@
             ],
             pageLength: 10,
             lengthChange: false,
-            // 🔥 posisi bawah kiri & kanan 
             dom: "t" + "<'flex items-center justify-between mt-6'<'text-sm text-gray-400'i><'custom-pagination'p>>",
-            // 🔥 ubah icon prev next 
             language: {
                 paginate: {
                     previous: "Prev",
@@ -251,7 +241,7 @@
             },
             order: [
                 [0, 'asc']
-            ], // berdasarkan timeinput
+            ],
             columnDefs: [{
                     targets: [0, 1, 3, 4, 5],
                     className: "text-center",
@@ -330,7 +320,6 @@
                                 text: "Data berhasil dihapus"
                             });
 
-                            // 🔥 reload datatable
                             $('#tableMonitoring').DataTable().ajax.reload();
 
                         } else {

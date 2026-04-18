@@ -50,7 +50,6 @@
     menuItems.forEach(item => {
         const link = item.querySelector('.menu-link');
 
-        // Cek apakah url sama dengan halaman sekarang
         if (currentUrl.includes(link.getAttribute('href'))) {
 
             item.querySelector('.indicator')

@@ -65,7 +65,6 @@ class C_Login extends CI_Controller
             return;
         }
 
-        // INI WAJIB ADA
         $this->load->view('layout/header');
         $this->load->view('auth/register', $data);
     }
@@ -94,7 +93,6 @@ class C_Login extends CI_Controller
                 return;
             }
 
-            // Simpan session
             $this->session->set_userdata([
                 'user_id'   => $user->id,
                 'fullname'  => $user->fullname,
@@ -103,7 +101,6 @@ class C_Login extends CI_Controller
                 'logged_in' => true
             ]);
 
-            // Cek role
             if ($user->role == 1) {
                 echo "pengguna";
             } else {
@@ -119,9 +116,10 @@ class C_Login extends CI_Controller
 
     public function profile()
     {
-        $id = $this->session->userdata('user_id');
-
-        $data['user'] = $this->M_login->getUserById($id);
+        $id                     = $this->session->userdata('user_id');
+        $data['user']           = $this->M_login->getUserById($id);
+        $data['total_input']    = $this->M_login->getTotalInput($id);
+        $data['total_export']   = $this->M_login->getTotalExport($id);     
 
         $this->load->view('layout/header');
         $this->load->view('auth/profile', $data);
@@ -129,8 +127,7 @@ class C_Login extends CI_Controller
 
     public function admin()
     {
-        $id = $this->session->userdata('user_id');
-
+        $id           = $this->session->userdata('user_id');
         $data['user'] = $this->M_login->getUserById($id);
 
         $this->load->view('layout/header');
@@ -152,9 +149,9 @@ class C_Login extends CI_Controller
         $kelas    = $this->input->post('kelas');
 
         $data = [
-            'fullname' => $fullname,
-            'username' => $username,
-            'kelas'    => $kelas,
+            'fullname'   => $fullname,
+            'username'   => $username,
+            'kelas'      => $kelas,
             'updated_at' => date('Y-m-d H:i:s')
         ];
 
