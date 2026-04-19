@@ -21,25 +21,25 @@
 
                     <div>
                         <label class="text-sm text-gray-600">Tiket</label>
-                        <input disabled type="text"
-                            value="<?= $header->noticket ?>"
+                        <input disabled type="text" value="<?= $header->noticket ?>"
                             class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300">
                     </div>
                     <input type="hidden" id="noticket" value="<?= $header->noticket ?>">
 
                     <div>
                         <label class="text-sm text-gray-600">Judul</label>
-                        <input type="text" name="judul" id="judul"
-                            placeholder="Masukkan Judul Laporan"
-                            class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $header->judul ?>">
+                        <input type="text" name="judul" id="judul" placeholder="Masukkan Judul Laporan"
+                            class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200"
+                            value="<?= $header->judul ?>">
                     </div>
 
                     <div>
                         <label class="text-sm text-gray-600">Organisasi</label>
-                        <select class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="organisasi" id="organisasi">
+                        <select
+                            class="text-sm mt-1 px-3 py-2 w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200"
+                            name="organisasi" id="organisasi">
                             <?php foreach ($organisasi as $org): ?>
-                                <option value="<?= $org->code ?>"
-                                    <?= $org->code == $header->organisasi ? 'selected' : '' ?>>
+                                <option value="<?= $org->code ?>" <?= $org->code == $header->organisasi ? 'selected' : '' ?>>
                                     <?= $org->name ?>
                                 </option>
                             <?php endforeach; ?>
@@ -49,7 +49,8 @@
                 </div>
             </div>
 
-            <div class="flex items-center justify-between bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6  <?= !empty($detail_realisasi) ? 'hidden' : '' ?>">
+            <div
+                class="flex items-center justify-between bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6  <?= !empty($detail_realisasi) ? 'hidden' : '' ?>">
                 <div class="flex items-start gap-3">
                     <div class="bg-yellow-100 text-yellow-600 p-2 rounded-md">
                         <?= file_get_contents(FCPATH . 'assets/icons/warning.svg'); ?>
@@ -66,7 +67,8 @@
                     </div>
                 </div>
 
-                <button class="btnTambahRealiasasi bg-blue-600 text-white rounded-md px-4 py-2 <?= !empty($detail_realisasi) ? 'hidden' : '' ?>">
+                <button
+                    class="btnTambahRealiasasi bg-blue-600 text-white rounded-md px-4 py-2 <?= !empty($detail_realisasi) ? 'hidden' : '' ?>">
                     Tambah Data Realisasi
                 </button>
 
@@ -102,12 +104,13 @@
                                         <td class="p-2">1</td>
 
                                         <td class="p-2">
-                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="kategori_rancangan[]">
+                                            <select
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200"
+                                                name="kategori_rancangan[]">
                                                 <option value="">Pilih Kategori</option>
 
                                                 <?php foreach ($kategori as $k): ?>
-                                                    <option value="<?= $k->code ?>"
-                                                        <?= $k->code == $d->kategori ? 'selected' : '' ?>>
+                                                    <option value="<?= $k->code ?>" <?= $k->code == $d->kategori ? 'selected' : '' ?>>
                                                         <?= $k->name ?>
                                                     </option>
                                                 <?php endforeach; ?>
@@ -117,21 +120,23 @@
                                         <td class="p-2">
                                             <input type="text" name="nama_barang_rancangan[]"
                                                 placeholder=" Masukkan nama barang"
-                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->nama_barang ?>">
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200"
+                                                value="<?= $d->nama_barang ?>">
                                         </td>
 
                                         <td class="p-2">
-                                            <input type="number" name="banyak_rancangan[]"
-                                                placeholder="Masukkan banyak"
-                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->banyak ?>">
+                                            <input type="number" name="banyak_rancangan[]" placeholder="Masukkan banyak"
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200"
+                                                value="<?= $d->banyak ?>">
                                         </td>
 
                                         <td class="p-2">
-                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="satuan_rancangan[]">
+                                            <select
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200"
+                                                name="satuan_rancangan[]">
                                                 <option value="">Pilih Satuan</option>
                                                 <?php foreach ($satuan as $s): ?>
-                                                    <option value="<?= $s->code ?>"
-                                                        <?= $s->code == $d->satuan ? 'selected' : '' ?>>
+                                                    <option value="<?= $s->code ?>" <?= $s->code == $d->satuan ? 'selected' : '' ?>>
                                                         <?= $s->name ?>
                                                     </option>
                                                 <?php endforeach; ?>
@@ -143,17 +148,19 @@
                                         <td class="p-2">
                                             <input type="number" name="harga_satuan_rancangan[]"
                                                 placeholder="Masukkan harga satuan"
-                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->harga_satuan ?>">
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200"
+                                                value="<?= $d->harga_satuan ?>">
                                         </td>
 
                                         <td class="p-2">
-                                            <input type="text" name="jumlah_rancangan[]"
-                                                disabled
-                                                class="w-full p-2 rounded-md border border-gray-300 bg-gray-100" value="Rp <?= number_format($d->jumlah, 0, ',', '.') ?>">
+                                            <input type="text" name="jumlah_rancangan[]" disabled
+                                                class="w-full p-2 rounded-md border border-gray-300 bg-gray-100"
+                                                value="Rp <?= number_format($d->jumlah, 0, ',', '.') ?>">
                                         </td>
 
                                         <td class="p-2">
-                                            <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
+                                            <button
+                                                class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -194,7 +201,8 @@
 
             </div>
 
-            <div class="card-realisasi bg-white rounded-lg shadow-sm border p-6 mb-4 <?= empty($detail_realisasi) ? 'hidden' : '' ?>">
+            <div
+                class="card-realisasi bg-white rounded-lg shadow-sm border p-6 mb-4 <?= empty($detail_realisasi) ? 'hidden' : '' ?>">
 
                 <h2 class="text-lg font-semibold mb-4">Detail Item - Realisasi</h2>
 
@@ -223,12 +231,13 @@
                                         <td class="p-2">1</td>
 
                                         <td class="p-2">
-                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="kategori_realisasi[]">
+                                            <select
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200"
+                                                name="kategori_realisasi[]">
                                                 <option value="">Pilih Kategori</option>
 
                                                 <?php foreach ($kategori as $k): ?>
-                                                    <option value="<?= $k->code ?>"
-                                                        <?= $k->code == $d->kategori ? 'selected' : '' ?>>
+                                                    <option value="<?= $k->code ?>" <?= $k->code == $d->kategori ? 'selected' : '' ?>>
                                                         <?= $k->name ?>
                                                     </option>
                                                 <?php endforeach; ?>
@@ -236,23 +245,24 @@
                                         </td>
 
                                         <td class="p-2">
-                                            <input type="text" name="nama_barang_realisasi[]"
-                                                placeholder="Masukkan nama barang"
-                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->nama_barang ?>">
+                                            <input type="text" name="nama_barang_realisasi[]" placeholder="Masukkan nama barang"
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200"
+                                                value="<?= $d->nama_barang ?>">
                                         </td>
 
                                         <td class="p-2">
-                                            <input type="number" name="banyak_realisasi[]"
-                                                placeholder="Masukkan banyak"
-                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->banyak ?>">
+                                            <input type="number" name="banyak_realisasi[]" placeholder="Masukkan banyak"
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200"
+                                                value="<?= $d->banyak ?>">
                                         </td>
 
                                         <td class="p-2">
-                                            <select class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" name="satuan_realisasi[]">
+                                            <select
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200"
+                                                name="satuan_realisasi[]">
                                                 <option value="">Pilih Satuan</option>
                                                 <?php foreach ($satuan as $s): ?>
-                                                    <option value="<?= $s->code ?>"
-                                                        <?= $s->code == $d->satuan ? 'selected' : '' ?>>
+                                                    <option value="<?= $s->code ?>" <?= $s->code == $d->satuan ? 'selected' : '' ?>>
                                                         <?= $s->name ?>
                                                     </option>
                                                 <?php endforeach; ?>
@@ -264,17 +274,19 @@
                                         <td class="p-2">
                                             <input type="number" name="harga_satuan_realisasi[]"
                                                 placeholder="Masukkan harga satuan"
-                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200" value="<?= $d->harga_satuan ?>">
+                                                class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200"
+                                                value="<?= $d->harga_satuan ?>">
                                         </td>
 
                                         <td class="p-2">
-                                            <input type="text" name="jumlah_realisasi[]"
-                                                disabled
-                                                class="w-full p-2 rounded-md border border-gray-300 bg-gray-100" value="Rp <?= number_format($d->jumlah, 0, ',', '.') ?>">
+                                            <input type="text" name="jumlah_realisasi[]" disabled
+                                                class="w-full p-2 rounded-md border border-gray-300 bg-gray-100"
+                                                value="Rp <?= number_format($d->jumlah, 0, ',', '.') ?>">
                                         </td>
 
                                         <td class="p-2">
-                                            <button class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
+                                            <button
+                                                class="btnHapus bg-red-100 text-red-600 border border-red-500 px-2 py-2 rounded-lg"><?= file_get_contents(FCPATH . 'assets/icons/trash.svg'); ?></button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -327,8 +339,7 @@
                     $isMinus = $selisih < 0;
                     ?>
 
-                    <span id="selisih"
-                        class="text-sm font-semibold <?= $isMinus ? 'text-red-600' : 'text-blue-600' ?>">
+                    <span id="selisih" class="text-sm font-semibold <?= $isMinus ? 'text-red-600' : 'text-blue-600' ?>">
 
                         <?= $isMinus ? '- Rp ' . number_format(abs($selisih), 0, ',', '.')
                             : 'Rp ' . number_format($selisih, 0, ',', '.') ?>
@@ -342,8 +353,7 @@
                         Batal
                     </button>
 
-                    <button id="btnSimpan"
-                        class="px-4 py-2 text-sm text-white bg-blue-600 rounded-md">
+                    <button id="btnSimpan" class="px-4 py-2 text-sm text-white bg-blue-600 rounded-md">
                         Simpan
                     </button>
 
@@ -362,7 +372,7 @@
 <script>
     let initialState = "";
 
-    window.addEventListener("load", function() {
+    window.addEventListener("load", function () {
         initialState = document.querySelector(".p-8").innerHTML;
     });
 
@@ -372,7 +382,7 @@
     const cardRealisasi = document.querySelector('.card-realisasi');
     const cardSelisih = document.querySelector('.card-selisih');
 
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         cardRealisasi.classList.remove('hidden');
         cardSelisih.classList.remove('hidden');
 
@@ -384,7 +394,7 @@
     });
 
     document.querySelectorAll(".card-realisasi .btnTambahBaris").forEach(btn => {
-        btn.addEventListener("click", function() {
+        btn.addEventListener("click", function () {
 
             let card = this.closest(".card-realisasi");
             let tbody = card.querySelector("tbody");
@@ -424,7 +434,7 @@
     });
 
     document.querySelectorAll("tbody").forEach(tbody => {
-        tbody.addEventListener("click", function(e) {
+        tbody.addEventListener("click", function (e) {
 
             let btn = e.target.closest(".btnHapus");
 
@@ -446,7 +456,7 @@
 
     document.querySelectorAll("tbody").forEach(tbody => {
 
-        tbody.addEventListener("input", function(e) {
+        tbody.addEventListener("input", function (e) {
 
             let row = e.target.closest("tr");
             if (!row) return;
@@ -489,7 +499,7 @@
         hitungSelisih();
     }
 
-    document.getElementById("btnSimpan").addEventListener("click", function(e) {
+    document.getElementById("btnSimpan").addEventListener("click", function (e) {
 
         e.preventDefault();
 
@@ -593,9 +603,9 @@
                 "<?= base_url('C_monitoring/simpan') ?>";
 
             fetch(url, {
-                    method: "POST",
-                    body: formData
-                })
+                method: "POST",
+                body: formData
+            })
                 .then(res => res.text())
                 .then(res => {
                     if (res == "success") {
@@ -613,10 +623,10 @@
                     }
                 });
 
-        }); 
+        });
     });
 
-    document.getElementById("btnBatal").addEventListener("click", function() {
+    document.getElementById("btnBatal").addEventListener("click", function () {
 
         Swal.fire({
             title: "Batalkan perubahan?",
@@ -726,7 +736,7 @@
         updateNomorRealisasi();
     }
 
-    window.addEventListener("load", function() {
+    window.addEventListener("load", function () {
         let adaRealisasi = document.querySelector(".card-realisasi:not(.hidden)");
 
         if (adaRealisasi) {

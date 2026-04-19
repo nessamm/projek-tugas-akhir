@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class C_Export extends CI_Controller
 {
-    
+
     public function __construct()
     {
         parent::__construct();
@@ -23,7 +23,7 @@ class C_Export extends CI_Controller
         $this->load->model('M_monitoring');
 
         $header = $this->M_monitoring->getHeaderByTicket($noticket);
-        $data   = $this->M_monitoring->getRancanganExcel($noticket);
+        $data = $this->M_monitoring->getRancanganExcel($noticket);
 
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -35,7 +35,7 @@ class C_Export extends CI_Controller
         $center = [
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
             ]
         ];
 
@@ -65,7 +65,7 @@ class C_Export extends CI_Controller
         $sheet->mergeCells('B4:D4');
 
         $sheet->setCellValue('A5', 'ORGANISASI');
-        $sheet->setCellValue('B5', ': ' . ($header->organisasi ?? '-'));
+        $sheet->setCellValue('B5', ': ' . ($header->organisasi_nama ?? '-'));
         $sheet->mergeCells('B5:D5');
 
         $sheet->getStyle('A3:A5')->applyFromArray($bold);
@@ -129,7 +129,8 @@ class C_Export extends CI_Controller
             'rancangan'
         );
 
-        if (ob_get_length()) ob_end_clean();
+        if (ob_get_length())
+            ob_end_clean();
 
         $filename = "Rancangan_{$noticket}.xlsx";
 
@@ -150,7 +151,7 @@ class C_Export extends CI_Controller
         $this->load->model('M_monitoring');
 
         $header = $this->M_monitoring->getHeaderByTicket($noticket);
-        $data   = $this->M_monitoring->getRealisasiExcel($noticket);
+        $data = $this->M_monitoring->getRealisasiExcel($noticket);
 
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -162,7 +163,7 @@ class C_Export extends CI_Controller
         $center = [
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
             ]
         ];
 
@@ -174,7 +175,7 @@ class C_Export extends CI_Controller
             ],
         ];
 
-       $sheet->setCellValue('A1', 'REALISASI ANGGARAN BIAYA');
+        $sheet->setCellValue('A1', 'REALISASI ANGGARAN BIAYA');
         $sheet->mergeCells('A1:D1');
 
         $sheet->getStyle('A1')->applyFromArray($bold);
@@ -192,7 +193,7 @@ class C_Export extends CI_Controller
         $sheet->mergeCells('B4:D4');
 
         $sheet->setCellValue('A5', 'ORGANISASI');
-        $sheet->setCellValue('B5', ': ' . ($header->organisasi ?? '-'));
+        $sheet->setCellValue('B5', ': ' . ($header->organisasi_nama ?? '-'));
         $sheet->mergeCells('B5:D5');
 
         $sheet->getStyle('A3:A5')->applyFromArray($bold);
@@ -255,7 +256,8 @@ class C_Export extends CI_Controller
             'realisasi'
         );
 
-        if (ob_get_length()) ob_end_clean();
+        if (ob_get_length())
+            ob_end_clean();
 
         $filename = "Realisasi_{$noticket}.xlsx";
 
@@ -307,7 +309,8 @@ class C_Export extends CI_Controller
             'full'
         );
 
-        if (ob_get_length()) ob_end_clean();
+        if (ob_get_length())
+            ob_end_clean();
 
         $filename = "RAB_Full_{$noticket}.xlsx";
 
@@ -326,7 +329,7 @@ class C_Export extends CI_Controller
         $center = [
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
             ]
         ];
 
@@ -353,7 +356,7 @@ class C_Export extends CI_Controller
         $sheet->mergeCells('B4:D4');
 
         $sheet->setCellValue('A5', 'ORGANISASI');
-        $sheet->setCellValue('B5', ': ' . $header->organisasi);
+        $sheet->setCellValue('B5', ': ' . $header->organisasi_nama);
         $sheet->mergeCells('B5:D5');
 
         $sheet->getStyle('A3:A5')->applyFromArray($bold);
@@ -403,7 +406,7 @@ class C_Export extends CI_Controller
         $center = [
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
             ]
         ];
 
@@ -430,7 +433,7 @@ class C_Export extends CI_Controller
         $sheet->mergeCells('B4:D4');
 
         $sheet->setCellValue('A5', 'ORGANISASI');
-        $sheet->setCellValue('B5', ': ' . $header->organisasi);
+        $sheet->setCellValue('B5', ': ' . $header->organisasi_nama);
         $sheet->mergeCells('B5:D5');
 
         $sheet->getStyle('A3:A5')->applyFromArray($bold);

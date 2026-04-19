@@ -14,7 +14,7 @@ class M_monitoring extends CI_Model
 
     private function _get_query()
     {
-        $this->db->select('anggaran_header.*, msorganisasi.name as organisasi');
+        $this->db->select('anggaran_header.*, msorganisasi.name as organisasi_nama');
         $this->db->from($this->table);
         $this->db->join('msorganisasi', 'msorganisasi.code = anggaran_header.organisasi', 'left');
 
@@ -86,7 +86,7 @@ class M_monitoring extends CI_Model
 
     public function getById($id)
     {
-        $this->db->select('anggaran_header.*, msorganisasi.name as organisasi');
+        $this->db->select('anggaran_header.*, msorganisasi.name as organisasi_nama');
         $this->db->from($this->table);
         $this->db->join('msorganisasi', 'msorganisasi.code = anggaran_header.organisasi', 'left');
 
@@ -156,7 +156,7 @@ class M_monitoring extends CI_Model
 
     public function getHeaderByTicket($noticket)
     {
-        $this->db->select('anggaran_header.*, msorganisasi.name as organisasi');
+        $this->db->select('anggaran_header.*, msorganisasi.name as organisasi_nama');
         $this->db->from('anggaran_header');
         $this->db->join('msorganisasi', 'msorganisasi.code = anggaran_header.organisasi', 'left');
         $this->db->where('anggaran_header.noticket', $noticket);
@@ -184,7 +184,7 @@ class M_monitoring extends CI_Model
             for ($i = 0; $i < count($data['kategori_r']); $i++) {
 
                 $this->db->insert('anggarand', [
-                    'notiket' => $data['noticket'], 
+                    'notiket' => $data['noticket'],
                     'kategori' => $data['kategori_r'][$i],
                     'nama_barang' => $data['nama_barang_r'][$i],
                     'banyak' => $data['banyak_r'][$i],
@@ -199,7 +199,7 @@ class M_monitoring extends CI_Model
             for ($i = 0; $i < count($data['kategori_re']); $i++) {
 
                 $this->db->insert('realisasid', [
-                    'notiket' => $data['noticket'], 
+                    'notiket' => $data['noticket'],
                     'kategori' => $data['kategori_re'][$i],
                     'nama_barang' => $data['nama_barang_re'][$i],
                     'banyak' => $data['banyak_re'][$i],
@@ -223,13 +223,13 @@ class M_monitoring extends CI_Model
         for ($i = 0; $i < count($data['kategori']); $i++) {
 
             $insert = [
-                'notiket'     => $noticket,
-                'kategori'     => $data['kategori'][$i],
-                'nama_barang'  => $data['nama'][$i],
-                'banyak'       => $data['banyak'][$i],
-                'satuan'       => $data['satuan'][$i],
+                'notiket' => $noticket,
+                'kategori' => $data['kategori'][$i],
+                'nama_barang' => $data['nama'][$i],
+                'banyak' => $data['banyak'][$i],
+                'satuan' => $data['satuan'][$i],
                 'harga_satuan' => $data['harga'][$i],
-                'jumlah'       => preg_replace('/[^0-9]/', '', $data['jumlah'][$i])
+                'jumlah' => preg_replace('/[^0-9]/', '', $data['jumlah'][$i])
             ];
 
             $this->db->insert('realisasid', $insert);
@@ -238,17 +238,17 @@ class M_monitoring extends CI_Model
         $this->db->where('noticket', $noticket);
         $this->db->update('anggaran_header', [
             'totalrealisasi' => $totalRealisasi,
-            'selisih'        => $selisih
+            'selisih' => $selisih
         ]);
     }
 
     public function insertLog($user_id, $noticket, $jenis)
     {
         $data = [
-            'user_id'     => $user_id,
-            'noticket'    => $noticket,
+            'user_id' => $user_id,
+            'noticket' => $noticket,
             'tipe_export' => $jenis,
-            'created_at'  => date('Y-m-d H:i:s')
+            'created_at' => date('Y-m-d H:i:s')
         ];
 
         return $this->db->insert('export_log', $data);
