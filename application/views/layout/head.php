@@ -1,5 +1,5 @@
 <!-- HEADER BAR -->
-<div class="bg-white shadow px-4 py-3 flex items-center gap-3">
+<div class="sticky top-0 left-64 right-0 z-50 bg-white shadow px-4 py-3 flex items-center gap-3">
 
     <button id="btnBack" class="w-9 h-9 flex items-center justify-center rounded-lg 
         text-xl
