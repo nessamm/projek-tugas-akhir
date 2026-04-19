@@ -613,7 +613,7 @@
         Swal.fire({
             title: "Yakin hapus data?",
             text: "Data tidak bisa dikembalikan!",
-            imageUrl: "<?= base_url('assets/icons/trash2.svg') ?>",
+            imageUrl: "<?= base_url('assets/icons/trash.svg') ?>",
             imageWidth: 60,
             imageHeight: 60,
 
