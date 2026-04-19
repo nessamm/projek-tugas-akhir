@@ -248,6 +248,40 @@
         });
 
         $('#btnFilter').click(function () {
+
+            const nama = $('#filterNama').val().trim();
+            const username = $('#filterUsername').val().trim();
+            const kelas = $('#filterKelas').val();
+            const gender = $('#filterGender').val();
+
+
+            if (nama === "" && username === "" && kelas === "" && gender === "") {
+                Swal.fire({
+                    html: `
+                        <div class="flex flex-col items-center text-center">
+                            
+                            <img src="<?= base_url('assets/icons/cross.svg') ?>" 
+                                class="w-8 h-8 mt-8 mb-4">
+
+                            <h2 class="text-xl font-semibold text-gray-800 mb-2">
+                                Data Masih Kosong
+                            </h2>
+
+                            <p class="text-gray-500 text-sm">
+                                Anda belum mengisi kolom filter, silakan isi terlebih dahulu!
+                            </p>
+
+                        </div>
+                    `,
+                    confirmButtonText: 'Tutup',
+                    buttonsStyling: false,
+                    customClass: {
+                        confirmButton: 'mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md'
+                    }
+                });
+                return;
+            }
+
             table.ajax.reload();
         });
 

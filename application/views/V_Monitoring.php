@@ -89,7 +89,8 @@
 
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold">Monitoring - Daftar Anggaran</h2>
-                <button class="btnPilihFilter bg-blue-500 text-white px-3 py-2 rounded-md shadow flex items-center gap-2">
+                <button
+                    class="btnPilihFilter bg-blue-500 text-white px-3 py-2 rounded-md shadow flex items-center gap-2">
                     <?= file_get_contents(FCPATH . 'assets/icons/filter.svg'); ?> Pilih Filter
                 </button>
             </div>
@@ -111,8 +112,8 @@
 
                     <div class="flex flex-col">
                         <label class="text-sm text-gray-600 mb-1">Organisasi</label>
-                        <select
-                            id="filterOrganisasi" class="w-52 px-3 py-2 border rounded-md text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <select id="filterOrganisasi"
+                            class="w-52 px-3 py-2 border rounded-md text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value="">Pilih Organisasi</option>
                             <?php foreach ($organisasi as $org): ?>
                                 <option value="<?= $org->code ?>">
@@ -129,7 +130,8 @@
                     </div>
 
                     <div>
-                        <button id="btnFilter" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md text-sm mb-3">
+                        <button id="btnFilter"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md text-sm mb-3">
                             Terapkan
                         </button>
                     </div>
@@ -167,18 +169,18 @@
     const cardRealisasi = document.querySelector('.card-filter');
 
 
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         cardRealisasi.classList.toggle('hidden');
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         var table = $('#tableMonitoring').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
                 url: "<?= base_url('C_Monitoring/getData') ?>",
                 type: "POST",
-                data: function(data) {
+                data: function (data) {
                     data.tiket = $('#filterTiket').val();
                     data.judul = $('#filterJudul').val();
                     data.organisasi = $('#filterOrganisasi').val();
@@ -186,25 +188,25 @@
                 }
             },
             columns: [{
-                    data: null
-                }, // NO
-                {
-                    data: "noticket"
-                },
-                {
-                    data: "judul"
-                },
-                {
-                    data: "organisasi"
-                },
-                {
-                    data: "timeinput"
-                },
-                {
-                    data: "id",
-                    orderable: false,
-                    render: function(data, type, row) {
-                        return `
+                data: null
+            }, // NO
+            {
+                data: "noticket"
+            },
+            {
+                data: "judul"
+            },
+            {
+                data: "organisasi"
+            },
+            {
+                data: "timeinput"
+            },
+            {
+                data: "id",
+                orderable: false,
+                render: function (data, type, row) {
+                    return `
                             <div class="flex items-center justify-center gap-2">
 
                                 <a href="<?= base_url('C_Monitoring/edit/') ?>${data}" 
@@ -225,8 +227,8 @@
 
                             </div>
                         `;
-                    }
                 }
+            }
             ],
             pageLength: 10,
             lengthChange: false,
@@ -243,17 +245,17 @@
                 [0, 'asc']
             ],
             columnDefs: [{
-                    targets: [0, 1, 3, 4, 5],
-                    className: "text-center",
-                    orderable: true,
-                },
-                {
-                    targets: [2],
-                    className: "judul",
-                    orderable: true,
-                }
+                targets: [0, 1, 3, 4, 5],
+                className: "text-center",
+                orderable: true,
+            },
+            {
+                targets: [2],
+                className: "judul",
+                orderable: true,
+            }
             ],
-            drawCallback: function(settings) {
+            drawCallback: function (settings) {
                 var api = this.api();
                 var order = api.order();
 
@@ -264,11 +266,11 @@
                 var total = settings._iRecordsDisplay;
 
                 api.column(0, {
-                        search: 'applied',
-                        order: 'applied'
-                    })
+                    search: 'applied',
+                    order: 'applied'
+                })
                     .nodes()
-                    .each(function(cell, i) {
+                    .each(function (cell, i) {
 
                         if (isAsc) {
                             // 1,2,3
@@ -282,17 +284,50 @@
             }
         });
 
-        $(document).on('click', '.btn-edit', function() {
+        $(document).on('click', '.btn-edit', function () {
             let id = $(this).data('id');
             window.location.href = "<?= base_url('C_Monitoring/edit/') ?>" + id;
         });
 
-        $('#btnFilter').on('click', function() {
+        $('#btnFilter').click(function () {
+
+            const tiket = $('#filterTiket').val().trim();
+            const judul = $('#filterJudul').val().trim();
+            const organisasi = $('#filterOrganisasi').val();
+            const periode = $('#filterPeriode').val();
+
+            if (tiket === "" && judul === "" && organisasi === "" && periode === "") {
+                Swal.fire({
+                    html: `
+                        <div class="flex flex-col items-center text-center">
+                            
+                            <img src="<?= base_url('assets/icons/cross.svg') ?>" 
+                                class="w-8 h-8 mt-8 mb-4">
+
+                            <h2 class="text-xl font-semibold text-gray-800 mb-2">
+                                Data Masih Kosong
+                            </h2>
+
+                            <p class="text-gray-500 text-sm">
+                                Anda belum mengisi kolom filter, silakan isi terlebih dahulu!
+                            </p>
+
+                        </div>
+                    `,
+                    confirmButtonText: 'Tutup',
+                    buttonsStyling: false,
+                    customClass: {
+                        confirmButton: 'mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md'
+                    }
+                });
+                return;
+            }
+
             table.ajax.reload();
         });
     });
 
-    $(document).on('click', '.btn-delete', function() {
+    $(document).on('click', '.btn-delete', function () {
         let id = $(this).data('id');
 
         Swal.fire({
@@ -311,7 +346,7 @@
                 $.ajax({
                     url: "<?= base_url('C_Monitoring/delete/') ?>" + id,
                     type: "POST",
-                    success: function(res) {
+                    success: function (res) {
 
                         if (res == "success") {
                             Swal.fire({
