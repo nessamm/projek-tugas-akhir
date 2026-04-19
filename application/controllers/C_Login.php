@@ -21,11 +21,11 @@ class C_Login extends CI_Controller
 
             $fullname = $this->input->post('fullname');
             $username = $this->input->post('username');
-            $email    = $this->input->post('email');
-            $kelas    = $this->input->post('kelas');
-            $gender   = $this->input->post('gender');
+            $email = $this->input->post('email');
+            $kelas = $this->input->post('kelas');
+            $gender = $this->input->post('gender');
             $password = $this->input->post('password');
-            $confirm  = $this->input->post('confirm_password');
+            $confirm = $this->input->post('confirm_password');
 
             if (!$fullname || !$username || !$email || !$gender || !$password) {
                 echo "Semua field wajib diisi";
@@ -48,13 +48,13 @@ class C_Login extends CI_Controller
             }
 
             $data = [
-                'fullname'   => $fullname,
-                'username'   => $username,
-                'email'      => $email,
-                'kelas'      => $kelas,
-                'gender'     => $gender,
-                'password'   => password_hash($password, PASSWORD_DEFAULT),
-                'role'       => 2,
+                'fullname' => $fullname,
+                'username' => $username,
+                'email' => $email,
+                'kelas' => $kelas,
+                'gender' => $gender,
+                'password' => password_hash($password, PASSWORD_DEFAULT),
+                'role' => 2,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ];
@@ -73,7 +73,7 @@ class C_Login extends CI_Controller
     {
         if ($this->input->post()) {
 
-            $email    = trim($this->input->post('email'));
+            $email = trim($this->input->post('email'));
             $password = trim($this->input->post('password'));
 
             if (!$email || !$password) {
@@ -94,10 +94,10 @@ class C_Login extends CI_Controller
             }
 
             $this->session->set_userdata([
-                'user_id'   => $user->id,
-                'fullname'  => $user->fullname,
-                'username'  => $user->username,
-                'role'      => $user->role,
+                'user_id' => $user->id,
+                'fullname' => $user->fullname,
+                'username' => $user->username,
+                'role' => $user->role,
                 'logged_in' => true
             ]);
 
@@ -116,10 +116,11 @@ class C_Login extends CI_Controller
 
     public function profile()
     {
-        $id                     = $this->session->userdata('user_id');
-        $data['user']           = $this->M_login->getUserById($id);
-        $data['total_input']    = $this->M_login->getTotalInput($id);
-        $data['total_export']   = $this->M_login->getTotalExport($id);     
+        $id = $this->session->userdata('user_id');
+        $data['kelas'] = $this->M_login->getKelas();
+        $data['user'] = $this->M_login->getUserById($id);
+        $data['total_input'] = $this->M_login->getTotalInput($id);
+        $data['total_export'] = $this->M_login->getTotalExport($id);
 
         $this->load->view('layout/header');
         $this->load->view('auth/profile', $data);
@@ -127,7 +128,7 @@ class C_Login extends CI_Controller
 
     public function admin()
     {
-        $id           = $this->session->userdata('user_id');
+        $id = $this->session->userdata('user_id');
         $data['user'] = $this->M_login->getUserById($id);
 
         $this->load->view('layout/header');
@@ -146,12 +147,12 @@ class C_Login extends CI_Controller
 
         $fullname = $this->input->post('fullname');
         $username = $this->input->post('username');
-        $kelas    = $this->input->post('kelas');
+        $kelas = $this->input->post('kelas');
 
         $data = [
-            'fullname'   => $fullname,
-            'username'   => $username,
-            'kelas'      => $kelas,
+            'fullname' => $fullname,
+            'username' => $username,
+            'kelas' => $kelas,
             'updated_at' => date('Y-m-d H:i:s')
         ];
 

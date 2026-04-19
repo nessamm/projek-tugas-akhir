@@ -75,11 +75,12 @@
                                 </label>
 
                                 <select name="kelas" class="editable w-full border rounded-lg px-3 py-2">
-                                    <option value="">Pilih Kelas</option>
-                                    <option value="X" <?= ($user->kelas == 'X') ? 'selected' : '' ?>>X</option>
-                                    <option value="XI" <?= ($user->kelas == 'XI') ? 'selected' : '' ?>>XI</option>
-                                    <option value="XII" <?= ($user->kelas == 'XII') ? 'selected' : '' ?>>XII</option>
-                                    <option value="XIII" <?= ($user->kelas == 'XIII') ? 'selected' : '' ?>>XIII</option>
+                                    <?php foreach ($kelas as $k) { ?>
+                                        <option value="<?= $k->code ?>" <?= ($user->kelas == $k->code) ? 'selected' : '' ?>>
+                                            <?= $k->name ?>
+                                        </option>
+                                    <?php } ?>
+
                                 </select>
                             </div>
 
@@ -110,7 +111,8 @@
                     <div class="bg-white rounded-xl shadow p-5 flex items-center justify-between flex-1">
                         <div>
                             <p class="text-gray-500 text-sm">Total Input</p>
-                            <h2 class="text-3xl font-bold text-gray-800"><?= isset($total_input) ? $total_input : 0 ?></h2>
+                            <h2 class="text-3xl font-bold text-gray-800"><?= isset($total_input) ? $total_input : 0 ?>
+                            </h2>
                         </div>
 
                         <div class="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center">
@@ -122,7 +124,8 @@
                     <div class="bg-white rounded-xl shadow p-5 flex items-center justify-between flex-1">
                         <div>
                             <p class="text-gray-500 text-sm">Total Dokumen</p>
-                            <h2 class="text-3xl font-bold text-gray-800"><?= isset($total_export) ? $total_export : 0 ?></h2>
+                            <h2 class="text-3xl font-bold text-gray-800"><?= isset($total_export) ? $total_export : 0 ?>
+                            </h2>
                         </div>
 
                         <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center">
@@ -142,7 +145,7 @@
 </form>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
 
         const fields = document.querySelectorAll('.editable');
         const btnSave = document.getElementById('btnSave');
@@ -152,7 +155,7 @@
 
             field.dataset.initial = field.value;
 
-            field.addEventListener('click', function() {
+            field.addEventListener('click', function () {
 
                 if (field.tagName === "SELECT") {
                     field.removeAttribute("disabled");
@@ -197,7 +200,7 @@
 
         }
 
-        btnCancel.addEventListener("click", function() {
+        btnCancel.addEventListener("click", function () {
 
             fields.forEach(field => {
 
@@ -217,7 +220,7 @@
 
     });
 
-    document.getElementById("formProfile").addEventListener("submit", function(e) {
+    document.getElementById("formProfile").addEventListener("submit", function (e) {
 
         e.preventDefault();
 
@@ -238,9 +241,9 @@
             if (result.isConfirmed) {
 
                 fetch("<?= base_url('C_Login/updateProfile') ?>", {
-                        method: "POST",
-                        body: formData
-                    })
+                    method: "POST",
+                    body: formData
+                })
                     .then(res => res.text())
                     .then(res => {
 

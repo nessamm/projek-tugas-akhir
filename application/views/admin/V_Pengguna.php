@@ -116,8 +116,8 @@
                         <label class="text-bold text-sm text-gray-600 mb-1">Kelas</label>
                         <select id="filterKelas" class="border px-3 py-2 rounded">
                             <option value="">Pilih Kelas</option>
-                            <?php foreach ($organisasi as $org): ?>
-                                <option value="<?= $org->name ?>"><?= $org->name ?></option>
+                            <?php foreach ($kelas as $k): ?>
+                                <option value="<?= $k->code ?>"><?= $k->name ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>

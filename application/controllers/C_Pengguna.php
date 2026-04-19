@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class C_Pengguna extends CI_Controller {
+class C_Pengguna extends CI_Controller
+{
 
     public function __construct()
     {
@@ -19,7 +20,7 @@ class C_Pengguna extends CI_Controller {
 
     public function index()
     {
-        $data['organisasi'] = $this->M_login->getKelas();
+        $data['kelas'] = $this->M_login->getKelas();
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar_admin');
         $this->load->view('admin/V_Pengguna', $data);
@@ -29,16 +30,16 @@ class C_Pengguna extends CI_Controller {
     {
         $list = $this->M_login->get_datatables();
         $data = [];
-        $no   = $_POST['start'];
+        $no = $_POST['start'];
 
         foreach ($list as $row) {
             $no++;
 
             $data[] = [
-                "fullname"  => $row->fullname,
-                "username"  => $row->username,
-                "kelas"     => $row->kelas,
-                "gender"    => $row->gender == 'L' ? 'Laki-laki' : 'Perempuan'
+                "fullname" => $row->fullname,
+                "username" => $row->username,
+                "kelas" => $row->nama_kelas,
+                "gender" => $row->gender == 'L' ? 'Laki-laki' : 'Perempuan'
             ];
         }
 

@@ -91,34 +91,33 @@ class M_login extends CI_Model
 
     private function get_datatables_query()
     {
+        $this->db->select('tregister_ta.*, mskelas.name as nama_kelas');
         $this->db->from($this->table);
+        $this->db->join('mskelas', 'mskelas.code = tregister_ta.kelas', 'left');
 
         // FILTER
         if (!empty($_POST['nama'])) {
-            $this->db->like('fullname', $_POST['nama']);
+            $this->db->like('tregister_ta.fullname', $_POST['nama']);
         }
 
         if (!empty($_POST['username'])) {
-            $this->db->like('username', $_POST['username']);
+            $this->db->like('tregister_ta.username', $_POST['username']);
         }
 
+        // 🔥 INI PENTING (pakai code, bukan like)
         if (!empty($_POST['kelas'])) {
-            $this->db->like('kelas', $_POST['kelas']);
+            $this->db->where('tregister_ta.kelas', $_POST['kelas']);
         }
 
         if (!empty($_POST['gender'])) {
-            if ($_POST['gender'] == 'L') {
-                $this->db->like('gender', 'L');
-            } elseif ($_POST['gender'] == 'P') {
-                $this->db->like('gender', 'P');
-            }
+            $this->db->where('tregister_ta.gender', $_POST['gender']);
         }
 
         // search global
         if (!empty($_POST['search']['value'])) {
             $this->db->group_start();
-            $this->db->like('fullname', $_POST['search']['value']);
-            $this->db->or_like('username', $_POST['search']['value']);
+            $this->db->like('tregister_ta.fullname', $_POST['search']['value']);
+            $this->db->or_like('tregister_ta.username', $_POST['search']['value']);
             $this->db->group_end();
         }
 
@@ -129,7 +128,7 @@ class M_login extends CI_Model
                 $_POST['order']['0']['dir']
             );
         } else {
-            $this->db->order_by('id', 'asc');
+            $this->db->order_by('tregister_ta.id', 'asc');
         }
     }
 

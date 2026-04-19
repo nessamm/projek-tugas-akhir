@@ -83,11 +83,9 @@
 							<select name="kelas"
 								class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
 								<option disabled selected>Pilih Kelas</option>
-								<?php foreach ($kelas as $kls): ?>
-									<option value="<?= $kls->code ?>">
-										<?= $kls->name ?>
-									</option>
-								<?php endforeach; ?>
+								<?php foreach ($kelas as $k) { ?>
+									<option value="<?= $k->code ?>"><?= $k->name ?></option>
+								<?php } ?>
 							</select>
 						</div>
 					</div>
@@ -119,7 +117,8 @@
 							<input type="password" id="confirm_password" name="confirm_password"
 								placeholder="Konfirmasi kata sandi anda"
 								class="w-full p-2 pr-10 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
-							<button type="button" id="toggleConfirmPassword" class="absolute right-3 top-1/2 -translate-y-1/2">
+							<button type="button" id="toggleConfirmPassword"
+								class="absolute right-3 top-1/2 -translate-y-1/2">
 
 								<img id="eyeOpenConfirm" src="<?= base_url('assets/icons/eye.svg') ?>" class="w-5 h-5">
 
