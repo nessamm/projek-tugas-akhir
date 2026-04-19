@@ -1,11 +1,11 @@
 <body class="font-sans">
 	<div class="min-h-screen 
-            bg-gradient-to-tr from-white via-pink-50 via-blue-50 to-blue-200 
-            flex items-center justify-center px-6 py-10">
+			bg-gradient-to-tr from-white via-pink-50 via-blue-50 to-blue-200 
+			flex items-center justify-center px-6 py-10">
 
 		<div class="flex w-full max-w-5xl 
-            shadow-2xl rounded-3xl overflow-hidden 
-            bg-white items-stretch">
+			shadow-2xl rounded-3xl overflow-hidden 
+			bg-white items-stretch">
 
 			<div class="w-full lg:w-1/2 flex flex-col">
 
@@ -36,17 +36,14 @@
 					</p>
 				</div>
 
-				<form id="formRegister"
-					action="<?= base_url('index.php/C_Login/register') ?>"
-					method="POST"
+				<form id="formRegister" action="<?= base_url('index.php/C_Login/register') ?>" method="POST"
 					class="space-y-4">
 
 					<div>
 						<label class="block text-gray-700 font-medium mb-2 text-sm">
 							Nama Lengkap
 						</label>
-						<input type="text" name="fullname"
-							placeholder="Masukkan nama lengkap anda"
+						<input type="text" name="fullname" placeholder="Masukkan nama lengkap anda"
 							class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
 					</div>
 
@@ -54,8 +51,7 @@
 						<label class="block text-gray-700 font-medium mb-2 text-sm">
 							Nama Pengguna
 						</label>
-						<input type="text" name="username"
-							placeholder="Masukkan nama pengguna anda"
+						<input type="text" name="username" placeholder="Masukkan nama pengguna anda"
 							class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
 					</div>
 
@@ -63,8 +59,7 @@
 						<label class="block text-gray-700 font-medium mb-2 text-sm">
 							Email
 						</label>
-						<input type="email" name="email"
-							placeholder="Masukkan email anda"
+						<input type="email" name="email" placeholder="Masukkan email anda"
 							class="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
 					</div>
 
@@ -102,17 +97,15 @@
 							Kata Sandi
 						</label>
 						<div class="relative flex items-center">
-							<input type="password" id="password" name="password"
-								placeholder="Masukkan kata sandi anda"
+							<input type="password" id="password" name="password" placeholder="Masukkan kata sandi anda"
 								class="w-full p-2 pr-10 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
-							<button type="button" id="togglePassword" class="absolute right-3 text-gray-400 hover:text-gray-600">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path id="eyeOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-										d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5
-                       c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-									<path id="eyeClosed" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-										d="M3 3l18 18" />
-								</svg>
+							<button type="button" id="togglePassword" class="absolute right-3 top-1/2 -translate-y-1/2">
+
+								<img id="eyeOpen" src="<?= base_url('assets/icons/eye.svg') ?>" class="w-5 h-5">
+
+								<img id="eyeClosed" src="<?= base_url('assets/icons/eye-slash.svg') ?>"
+									class="w-5 h-5 hidden">
+
 							</button>
 						</div>
 						<p id="passwordStrength" class="mt-2 text-sm font-medium"></p>
@@ -126,14 +119,13 @@
 							<input type="password" id="confirm_password" name="confirm_password"
 								placeholder="Konfirmasi kata sandi anda"
 								class="w-full p-2 pr-10 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-200 text-sm">
-							<button type="button" id="toggleConfirmPassword" class="absolute right-3 text-gray-400 hover:text-gray-600">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path id="eyeOpenConfirm" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-										d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5
-                       c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-									<path id="eyeClosedConfirm" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-										d="M3 3l18 18" />
-								</svg>
+							<button type="button" id="toggleConfirmPassword" class="absolute right-3 top-1/2 -translate-y-1/2">
+
+								<img id="eyeOpenConfirm" src="<?= base_url('assets/icons/eye.svg') ?>" class="w-5 h-5">
+
+								<img id="eyeClosedConfirm" src="<?= base_url('assets/icons/eye-slash.svg') ?>"
+									class="w-5 h-5 hidden">
+
 							</button>
 						</div>
 					</div>
@@ -211,7 +203,7 @@
 	});
 
 
-	document.getElementById("formRegister").addEventListener("submit", function(e) {
+	document.getElementById("formRegister").addEventListener("submit", function (e) {
 
 		e.preventDefault();
 
@@ -273,9 +265,9 @@
 		let formData = new FormData(this);
 
 		fetch("<?= base_url('index.php/C_Login/register') ?>", {
-				method: "POST",
-				body: formData
-			})
+			method: "POST",
+			body: formData
+		})
 			.then(res => res.text())
 			.then(res => {
 

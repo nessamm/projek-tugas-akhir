@@ -40,9 +40,7 @@
                     </p>
                 </div>
 
-                <form id="formLogin"
-                    action="<?= base_url('index.php/C_Login/login') ?>"
-                    method="POST"
+                <form id="formLogin" action="<?= base_url('index.php/C_Login/login') ?>" method="POST"
                     class="space-y-4">
 
                     <div>
@@ -59,23 +57,25 @@
                         <div class="relative">
                             <input type="password" id="password" name="password" placeholder="Masukkan kata sandi Anda"
                                 class="w-full p-2 pr-12 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-200 text-sm">
-                            <button type="button" id="togglePassword" aria-label="Tahan untuk melihat password" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path id="eyeOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5 c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                    <path id="eyeClosed" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
-                                </svg>
+                            <button type="button" id="togglePassword" class="absolute right-3 top-1/2 -translate-y-1/2">
+
+                                <img id="eyeOpen" src="<?= base_url('assets/icons/eye.svg') ?>" class="w-5 h-5">
+
+                                <img id="eyeClosed" src="<?= base_url('assets/icons/eye-slash.svg') ?>"
+                                    class="w-5 h-5 hidden">
+
                             </button>
                         </div>
                     </div>
 
-                    <button type="submit"
-                        style="background-color: #377DFF; color: white; border-radius: 8px;"
+                    <button type="submit" style="background-color: #377DFF; color: white; border-radius: 8px;"
                         class="w-full hover:bg-[#2b68cc] font-semibold py-2 rounded-md transition duration-300">
                         Masuk
                     </button>
 
                     <p class="text-center text-gray-600 text-sm mt-4">
-                        Belum punya akun? <a href="<?= base_url('C_Login/register') ?>" class="text-blue-500 hover:underline">Daftar</a>
+                        Belum punya akun? <a href="<?= base_url('C_Login/register') ?>"
+                            class="text-blue-500 hover:underline">Daftar</a>
                     </p>
 
                 </form>
@@ -102,7 +102,7 @@
     });
 
 
-    document.getElementById("formLogin").addEventListener("submit", function(e) {
+    document.getElementById("formLogin").addEventListener("submit", function (e) {
 
         e.preventDefault();
 
@@ -141,9 +141,9 @@
         let formData = new FormData(this);
 
         fetch("<?= base_url('index.php/C_Login/login') ?>", {
-                method: "POST",
-                body: formData
-            })
+            method: "POST",
+            body: formData
+        })
             .then(response => response.text())
             .then(res => {
 
